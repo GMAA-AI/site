@@ -221,6 +221,19 @@
   .lic a{color:var(--ink-soft)}
 
   @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+
+  /* --- phone hardening (<=480px): additive, does not affect >=481px --- */
+  @media(max-width:480px){
+    .wrap{padding:0 16px}
+    .hero{padding:34px 18px 28px}
+    header.block{padding:16px 18px 14px}
+    .rev{text-align:left;line-height:1.5}
+    h1{font-size:clamp(28px,8.5vw,40px)}
+    .doors,.planes{gap:12px}
+    .door{padding:16px}
+    body{overflow-x:hidden}
+    pre,code{white-space:pre-wrap;word-break:break-word}
+  }
 </style>
 </head>
 <body>
@@ -229,8 +242,7 @@
   <header class="block">
     <div class="mark">GMAA · GOVERNED MULTI-AGENT ARCHITECTURE</div>
     <div class="rev">
-      DOC v1.5 &nbsp;·&nbsp; <b>gmaa.ai</b><br>
-      STATUS: <b>pre-release</b> · evaluation in progress
+      DOC v1.5 &nbsp;·&nbsp; <b>gmaa.ai</b>
     </div>
   </header>
 
@@ -252,13 +264,13 @@
     <p class="sec-label">Read it</p>
     <h2>Two documents. Start with whichever you are.</h2>
     <div class="doors">
-      <a class="door thesis" href="/GMAA-THESIS_set-level-authorization.md">
+      <a class="door thesis" href="/thesis.html">
         <div class="k">The argument</div>
         <div class="t">The Coherence Boundary</div>
         <div class="d">Why the unit of authorization is the set, why no shipping system fills that seat, and why the human in it can't be automated away.</div>
         <div class="go">read the thesis →</div>
       </a>
-      <a class="door spec" href="/GMAA-canon_v1_5_public-edition_r2_2026-08-05.md">
+      <a class="door spec" href="/canon.html">
         <div class="k">The specification</div>
         <div class="t">The Architecture · v1.5</div>
         <div class="d">The buildable framework: coherence boundaries, single writers, the governed seat, subagent roles, and the per-project checklist.</div>
@@ -311,7 +323,7 @@
   <section>
     <p class="sec-label">What is claimed</p>
     <h2>The framing is settled. Completeness is open, on purpose.</h2>
-    <p class="body">The framing holds against everything the field has published: the unit is the set, and no shipping system puts an accountable human at that unit before commit. What is not claimed is completeness. Whether a given implementation catches every joint incoherence, including the transitive ones, is an open question with a named way to close it: an adversarial test that hunts for the miss. The framework is proven in one live system and in evaluation with an outside team. It is called complete when the test comes back clean, and not before.</p>
+    <p class="body">The framing holds against everything the field has published: the unit is the set, and no shipping system puts an accountable human at that unit before commit. What is not claimed is completeness. Whether a given implementation catches every joint incoherence, including the transitive ones, is an open question with a named way to close it: an adversarial test that hunts for the miss. The framework is proven in a live system, with completeness earned by adversarial test, not asserted. It is called complete when the test comes back clean, and not before.</p>
     <div class="status-strip">
       <span>FRAMING: <b>distinct</b></span>
       <span>HUMAN: <b>defended</b></span>
