@@ -5,7 +5,7 @@
 
 User-agent: *
 Allow: /
-
+ 
 # Classic search
 User-agent: Googlebot
 Allow: /
