@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GMAA: Governed Multi-Agent Architecture ,  Set-Level Authorization for AI Agents</title>
+<meta name="description" content="GMAA is a governance layer for multi-agent systems. The unit of authorization is the set, not the change: an accountable human ratifies the complete set of pending changes against system invariants before any commit.">
+<meta name="author" content="Israel Heskiel">
+<link rel="canonical" href="https://gmaa.ai/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="GMAA · Governed Multi-Agent Architecture">
+<meta property="og:title" content="GMAA: You are authorizing the wrong unit.">
+<meta property="og:description" content="A governance layer for multi-agent systems. The unit of authorization is the set, not the change. Ratified by an accountable human, before commit.">
+<meta property="og:url" content="https://gmaa.ai/">
+<meta property="og:image" content="https://gmaa.ai/gmaa-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="GMAA: You are authorizing the wrong unit.">
+<meta name="twitter:description" content="A governance layer for multi-agent systems. The unit of authorization is the set, not the change. Ratified by an accountable human, before commit.">
+<meta name="twitter:image" content="https://gmaa.ai/gmaa-card.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23101820'/%3E%3Crect x='7' y='7' width='3.4' height='18' fill='%23C98A2E'/%3E%3Crect x='13' y='7' width='3.4' height='18' fill='%23C98A2E'/%3E%3Crect x='19' y='7' width='3.4' height='18' fill='%23C98A2E'/%3E%3Crect x='7' y='22' width='18' height='3' fill='%230F7A5A'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": ["TechArticle","DefinedTerm"],
+      "@id": "https://gmaa.ai/#framework",
+      "name": "GMAA: Governed Multi-Agent Architecture",
+      "alternateName": "Governed Multi-Agent Architecture",
+      "termCode": "GMAA",
+      "description": "A governance framework for multi-agent systems in which the unit of authorization is the complete set of pending changes, evaluated together against the invariants of the system of record and ratified by an accountable human independent of every initiator, before any member of the set commits.",
+      "url": "https://gmaa.ai/",
+      "author": { "@type": "Person", "name": "Israel Heskiel", "url": "https://gmaa.ai/" },
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "keywords": "multi-agent governance, set-level authorization, coherence boundary, single writer, agentic AI, governance plane"
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://gmaa.ai/#faq",
+      "mainEntity": [
+        { "@type": "Question", "name": "Who authorizes changes when multiple AI agents write to shared state?",
+          "acceptedAnswer": { "@type": "Answer", "text": "One accountable human seat, independent of every agent that proposed work, sits at a governance plane outside the coherence boundaries. That seat ratifies the complete set of pending changes before commit, deciding from a briefing of cross-set conflicts and grounded resolutions rather than reviewing each change alone." } },
+        { "@type": "Question", "name": "Why can't automated evaluation replace the human in agent governance?",
+          "acceptedAnswer": { "@type": "Answer", "text": "The correct resolution of a jointly incoherent set often turns on facts outside the system of record, such as a planned migration or a commitment to a customer, which an automated evaluator has no channel to read. Agents grading agents also share the substrate and blind spots of the work they grade." } },
+        { "@type": "Question", "name": "What is a coherence boundary?",
+          "acceptedAnswer": { "@type": "Answer", "text": "A coherence boundary is a set of state whose invariants must hold together, such as a ledger and the rules that keep it balanced. GMAA places one writer over each boundary: everyone reads and proposes, only the writer commits, and the boundary is governed as a whole." } }
+      ]
+    }
+  ]
+}
+</script>
+<style>
+  :root{
+    --ink:#101820; --ink-2:#4A575F; --ink-3:#7E8A90;
+    --paper:#F3F5F6; --panel:#FFFFFF; --line:#D5DCDF; --line-2:#E4E9EB;
+    --pending:#B0701A; --pending-bg:#F7EFE1; --authorized:#0F7A5A; --authorized-bg:#E4F0EB;
+    --sans:'IBM Plex Sans','Segoe UI',system-ui,sans-serif;
+    --disp:'Space Grotesk','IBM Plex Sans',system-ui,sans-serif;
+    --mono:'IBM Plex Mono','SFMono-Regular',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  a{color:inherit}
+  ::selection{background:var(--authorized);color:#fff}
+  .frame{width:min(1340px,92vw);margin:0 auto;padding:0}
+  .topbar{display:flex;flex-wrap:wrap;gap:14px 20px;justify-content:space-between;align-items:center;padding:22px 2px 20px;border-bottom:1px solid var(--line)}
+  .brand{display:flex;align-items:center;gap:13px;text-decoration:none}
+  .brandmark{width:32px;height:32px;flex:none}
+  .brandtext{display:flex;flex-direction:column;line-height:1.02}
+  .bt-name{font-family:var(--disp);font-weight:700;font-size:clamp(20px,1.9vw,26px);letter-spacing:.005em;color:var(--ink)}
+  .bt-sub{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-3);margin-top:4px}
+  .topmeta{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2)}
+  .topmeta b{color:var(--ink)}
+  .hero{padding:64px 2px 40px}
+  .eyebrow{font-family:var(--mono);font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--authorized);margin:0 0 22px}
+  h1{font-family:var(--disp);font-weight:700;letter-spacing:-.02em;line-height:1.02;font-size:clamp(38px,6.2vw,74px);margin:0 0 26px;max-width:16ch}
+  h1 .hl{color:var(--pending);white-space:nowrap}
+  .lede{font-size:clamp(17px,1.5vw,21px);color:var(--ink-2);max-width:60ch;margin:0;font-weight:400}
+  .boundary{margin:52px 0 0;border:1px solid var(--line);border-radius:6px;background:var(--panel);padding:26px clamp(16px,2.5vw,34px) 20px;overflow:hidden}
+  .boundary .cap{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);margin:0 0 18px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .diagram{width:100%;height:auto;display:block}
+  .claim{font-family:var(--mono);font-size:clamp(12.5px,1.05vw,14px);color:var(--ink);line-height:1.7;margin:20px 0 0;padding-top:18px;border-top:1px solid var(--line-2)}
+  .claim b{color:var(--authorized)}
+  .grid{display:grid;grid-template-columns:248px 1fr;gap:clamp(32px,4vw,72px);padding:64px 2px 0;border-top:1px solid var(--line);margin-top:60px}
+  .rail{position:sticky;top:26px;align-self:start;font-size:13.5px}
+  .rail .legend{border:1px solid var(--line);border-radius:6px;background:var(--panel);padding:16px 16px 14px;margin-bottom:26px}
+  .rail .legend h4{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin:0 0 12px}
+  .swatch{display:flex;align-items:flex-start;gap:10px;margin:0 0 12px;line-height:1.4}
+  .swatch:last-child{margin-bottom:0}
+  .dot{width:11px;height:11px;border-radius:2px;margin-top:4px;flex:none}
+  .swatch .t{color:var(--ink)}
+  .swatch .s{color:var(--ink-3);display:block;font-size:12px}
+  .rail nav a{display:block;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);text-decoration:none;padding:7px 0;border-bottom:1px solid var(--line-2)}
+  .rail nav a:first-child{border-top:1px solid var(--line-2)}
+  .rail nav a:hover{color:var(--authorized)}
+  .content{min-width:0}
+  section.block{padding:0 0 62px}
+  .sec-label{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3);margin:0 0 16px}
+  h2{font-family:var(--disp);font-weight:500;letter-spacing:-.015em;font-size:clamp(23px,2.6vw,33px);line-height:1.12;margin:0 0 18px;max-width:24ch}
+  p.body{font-size:clamp(15.5px,1.15vw,17px);color:var(--ink-2);max-width:74ch;margin:0 0 16px}
+  p.body strong{color:var(--ink)}
+  .doors{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:6px}
+  .door{display:block;text-decoration:none;border:1px solid var(--line);border-radius:6px;background:var(--panel);padding:22px 22px 20px;transition:border-color .15s ease, transform .15s ease}
+  .door:hover{border-color:var(--authorized);transform:translateY(-2px)}
+  .door .k{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--authorized);margin:0 0 12px}
+  .door .t{font-family:var(--disp);font-weight:500;font-size:clamp(19px,1.5vw,22px);margin:0 0 8px;color:var(--ink)}
+  .door .d{font-size:14.5px;color:var(--ink-2);margin:0 0 16px;max-width:38ch}
+  .door .go{font-family:var(--mono);font-size:12.5px;color:var(--ink)}
+  .door:hover .go{color:var(--authorized)}
+  .qa{border-top:1px solid var(--line-2);padding:18px 0}
+  .qa:first-of-type{border-top:0}
+  .qa .q{font-family:var(--disp);font-weight:500;font-size:17px;color:var(--ink);margin:0 0 8px}
+  .qa .a{font-size:15px;color:var(--ink-2);margin:0;max-width:70ch}
+  .claimed{border:1px solid var(--line);border-radius:6px;background:var(--panel);padding:22px 24px}
+  .claimed .row{display:flex;flex-wrap:wrap;gap:10px 26px;font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;color:var(--ink-2);margin-bottom:14px}
+  .claimed .row b{color:var(--ink)}
+  .claimed p{font-size:15px;color:var(--ink-2);margin:0;max-width:72ch}
+  footer{border-top:1px solid var(--line);margin-top:8px;padding:34px 2px 60px}
+  footer .by{font-size:15.5px;color:var(--ink);max-width:64ch;margin:0 0 6px}
+  footer .contact{font-size:15px;color:var(--ink-2);margin:0 0 22px}
+  footer .contact a{color:var(--authorized);text-decoration:none}
+  footer .lic{font-family:var(--mono);font-size:12px;color:var(--ink-3);line-height:1.8}
+  footer .lic b{color:var(--ink-2)}
+  @media(max-width:860px){
+    .grid{grid-template-columns:1fr;gap:0;padding-top:48px;margin-top:48px}
+    .rail{position:static;margin-bottom:40px}
+    .rail nav{display:none}
+    .doors{grid-template-columns:1fr}
+    .hero{padding-top:44px}
+  }
+  @media(max-width:480px){
+    .frame{width:92vw}
+    .boundary{padding:20px 14px 16px}
+    .topbar{font-size:11px}
+  }
+  .chg{opacity:0;animation:rise .5s ease forwards}
+  .chg.c1{animation-delay:.15s}
+  .chg.c2{animation-delay:.30s}
+  .chg.c3{animation-delay:.45s}
+  .setwrap{opacity:0;animation:fade .5s ease .75s forwards}
+  .seatnode{opacity:0;animation:fade .5s ease 1.05s forwards}
+  .commit{opacity:0;animation:fade .5s ease 1.35s forwards}
+  .commit .bar{fill:var(--line);animation:commitgreen .5s ease 1.7s forwards}
+  @keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes fade{to{opacity:1}}
+  @keyframes commitgreen{to{fill:var(--authorized)}}
+  @media(prefers-reduced-motion:reduce){
+    .chg,.setwrap,.seatnode,.commit{opacity:1;animation:none}
+    .commit .bar{fill:var(--authorized);animation:none}
+  }
+  a:focus-visible,.door:focus-visible{outline:2px solid var(--authorized);outline-offset:3px}
+</style>
+</head>
+<body>
+<div class="frame">
+  <header class="topbar">
+    <a class="brand" href="/">
+      <svg class="brandmark" viewBox="0 0 32 32" aria-hidden="true">
+        <rect x="4" y="4" width="4" height="17" fill="#B0701A"/>
+        <rect x="11" y="4" width="4" height="17" fill="#B0701A"/>
+        <rect x="18" y="4" width="4" height="17" fill="#B0701A"/>
+        <rect x="4" y="24" width="18" height="4" fill="#0F7A5A"/>
+      </svg>
+      <span class="brandtext">
+        <span class="bt-name">GMAA</span>
+        <span class="bt-sub">Governed Multi-Agent Architecture</span>
+      </span>
+    </a>
+    <span class="topmeta">Doc v1.5 · <b>gmaa.ai</b></span>
+  </header>
+  <section class="hero">
+    <p class="eyebrow">A governance layer for multi-agent systems</p>
+    <h1>You are authorizing the <span class="hl">wrong unit</span>.</h1>
+    <p class="lede">Agents approve changes one at a time. The failure lives in the set. Until someone reviews the complete set of pending changes together, against the rules of the system they change, before any of them commits, correct changes keep summing to a broken result.</p>
+    <figure class="boundary">
+      <figcaption class="cap"><span>The coherence boundary</span><span>pending set to accountable seat to commit</span></figcaption>
+      <svg class="diagram" viewBox="0 0 1180 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Three individually valid changes form a pending set, an accountable seat ratifies the whole set, and only then does the set commit.">
+        <style>
+          .lbl{font-family:'IBM Plex Mono',monospace;font-size:15px;fill:#4A575F}
+          .lbls{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.12em;fill:#7E8A90}
+          .ok{font-family:'IBM Plex Mono',monospace;font-size:13px;fill:#0F7A5A}
+          .seatlbl{font-family:'Space Grotesk','IBM Plex Sans',sans-serif;font-weight:500;font-size:17px;fill:#101820}
+          .commitlbl{font-family:'IBM Plex Mono',monospace;font-size:15px;fill:#0F7A5A;font-weight:500}
+        </style>
+        <text class="lbls" x="20" y="30">PENDING SET</text>
+        <g class="chg c1">
+          <rect x="20" y="46" width="250" height="42" rx="4" fill="#F7EFE1" stroke="#B0701A" stroke-width="1.3"/>
+          <text class="lbl" x="36" y="72">change A · migration</text>
+          <text class="ok" x="252" y="72" text-anchor="end">ok</text>
+        </g>
+        <g class="chg c2">
+          <rect x="20" y="100" width="250" height="42" rx="4" fill="#F7EFE1" stroke="#B0701A" stroke-width="1.3"/>
+          <text class="lbl" x="36" y="126">change B · query</text>
+          <text class="ok" x="252" y="126" text-anchor="end">ok</text>
+        </g>
+        <g class="chg c3">
+          <rect x="20" y="154" width="250" height="42" rx="4" fill="#F7EFE1" stroke="#B0701A" stroke-width="1.3"/>
+          <text class="lbl" x="36" y="180">change C · config</text>
+          <text class="ok" x="252" y="180" text-anchor="end">ok</text>
+        </g>
+        <g class="setwrap">
+          <path d="M286 40 h14 v162 h-14" fill="none" stroke="#4A575F" stroke-width="1.5"/>
+          <text class="lbls" x="308" y="126" transform="rotate(90 308 126)" text-anchor="middle">THE SET</text>
+        </g>
+        <g class="setwrap">
+          <line x1="336" y1="121" x2="470" y2="121" stroke="#4A575F" stroke-width="1.5"/>
+          <path d="M470 121 l-10 -5 v10 z" fill="#4A575F"/>
+        </g>
+        <g class="seatnode">
+          <rect x="486" y="70" width="196" height="102" rx="5" fill="#fff" stroke="#101820" stroke-width="1.8"/>
+          <text class="lbls" x="584" y="98" text-anchor="middle">THE SEAT</text>
+          <text class="seatlbl" x="584" y="124" text-anchor="middle">accountable human</text>
+          <text class="lbls" x="584" y="150" text-anchor="middle" style="fill:#B0701A;font-size:11px;letter-spacing:.04em">independent, before commit</text>
+        </g>
+        <g class="commit">
+          <line x1="682" y1="121" x2="820" y2="121" stroke="#4A575F" stroke-width="1.5"/>
+          <path d="M820 121 l-10 -5 v10 z" fill="#4A575F"/>
+        </g>
+        <g class="commit">
+          <text class="lbls" x="836" y="30">COMMIT</text>
+          <rect class="bar" x="836" y="70" width="324" height="102" rx="5"/>
+          <text class="commitlbl" x="998" y="116" text-anchor="middle" style="fill:#fff">SET RATIFIED</text>
+          <text class="commitlbl" x="998" y="142" text-anchor="middle" style="fill:#fff">then, and only then, it lands</text>
+        </g>
+      </svg>
+      <p class="claim">The unit of authorization is the set, not the change. <b>Ratified by an accountable human, before commit.</b></p>
+    </figure>
+  </section>
+  <div class="grid">
+    <aside class="rail">
+      <div class="legend">
+        <h4>Authorization states</h4>
+        <div class="swatch"><span class="dot" style="background:#B0701A"></span><span><span class="t">Pending</span><span class="s">valid alone, unauthorized as a set</span></span></div>
+        <div class="swatch"><span class="dot" style="background:#101820"></span><span><span class="t">At the seat</span><span class="s">the whole set, judged together</span></span></div>
+        <div class="swatch"><span class="dot" style="background:#0F7A5A"></span><span><span class="t">Committed</span><span class="s">ratified, then it lands</span></span></div>
+      </div>
+      <nav>
+        <a href="#gap">The gap</a>
+        <a href="#read">Read it</a>
+        <a href="#faq">Questions</a>
+        <a href="#claimed">What is claimed</a>
+      </nav>
+    </aside>
+    <main class="content">
+      <section class="block" id="gap">
+        <p class="sec-label">The gap</p>
+        <h2>Everyone built the pipes. No one built the chain of command.</h2>
+        <p class="body">The field is converging on the same architecture: deterministic orchestration, bounded agents, the repository as the source of truth, checks at every stage. That part is settled, and it is right. But governance in these systems means per-action policy and agents grading agents. That is monitoring, not authorization. Nothing assembles the concurrent pending work and asks whether it coheres before any of it commits. That chair is empty in every system I can find.</p>
+        <p class="body">GMAA is the chair. It sits on top of the architecture everyone is converging toward and adds the one plane the platforms are built not to fill: an accountable seat, independent of every agent, that reviews the whole set before commit and decides from a briefing rather than a pile.</p>
+      </section>
+      <section class="block" id="read">
+        <p class="sec-label">Read it</p>
+        <h2>Two documents. Start with whichever you are.</h2>
+        <div class="doors">
+          <a class="door" href="/thesis.html">
+            <div class="k">The argument</div>
+            <div class="t">The Coherence Boundary</div>
+            <div class="d">Why the unit of authorization is the set, why no shipping system fills that seat, and why the human in it cannot be automated away.</div>
+            <div class="go">read the thesis →</div>
+          </a>
+          <a class="door" href="/canon.html">
+            <div class="k">The specification</div>
+            <div class="t">The Architecture · v1.5</div>
+            <div class="d">The buildable framework: coherence boundaries, single writers, the governed seat, subagent roles, and the per-project checklist.</div>
+            <div class="go">read the spec →</div>
+          </a>
+        </div>
+      </section>
+      <section class="block" id="faq">
+        <p class="sec-label">Questions</p>
+        <div class="qa">
+          <p class="q">Who authorizes changes when multiple AI agents write to shared state?</p>
+          <p class="a">One accountable human seat, independent of every agent that proposed work, at a governance plane outside the coherence boundaries. That seat ratifies the complete set of pending changes before commit, deciding from a briefing of cross-set conflicts and grounded resolutions rather than reviewing each change alone.</p>
+        </div>
+        <div class="qa">
+          <p class="q">Why can't automated evaluation replace the human?</p>
+          <p class="a">The correct resolution of a jointly incoherent set often turns on facts outside the system of record, such as a planned migration or a commitment to a customer, which an automated evaluator has no channel to read. Agents grading agents also share the substrate and blind spots of the work they grade. Authorization is not a probability.</p>
+        </div>
+        <div class="qa">
+          <p class="q">What is a coherence boundary?</p>
+          <p class="a">A set of state whose invariants must hold together, such as a ledger and the rules that keep it balanced. GMAA places one writer over each boundary: everyone reads and proposes, only the writer commits, and the boundary is governed as a whole.</p>
+        </div>
+      </section>
+      <section class="block" id="claimed">
+        <p class="sec-label">What is claimed</p>
+        <h2>The framing is settled. Completeness is open, on purpose.</h2>
+        <div class="claimed">
+          <div class="row"><span>Framing: <b>distinct</b></span><span>Human: <b>defended</b></span><span>Completeness: <b>open, test named</b></span></div>
+          <p>The framing holds against everything the field has published: the unit is the set, and no shipping system puts an accountable human at that unit before commit. What is not claimed is completeness. Whether a given implementation catches every joint incoherence, including the transitive ones, is an open question with a named way to close it: an adversarial test that hunts for the miss. The framework is proven in a live system, with completeness earned by adversarial test, not asserted. It is called complete when the test comes back clean, and not before.</p>
+        </div>
+      </section>
+    </main>
+  </div>
+  <footer>
+    <p class="by">By Israel Heskiel. Built and run in production, not proposed.</p>
+    <p class="contact">Working with agents against something that has to stay coherent? Reach me at <a href="mailto:arch@gmaa.ai">arch@gmaa.ai</a>.</p>
+    <p class="lic">
+      GMAA · Governed Multi-Agent Architecture. <b>Spec licensed CC BY 4.0</b> (attribution required) · <b>Engine source-available under PolyForm Shield 1.0.0</b>.<br>
+      Canonical: gmaa.ai · Repository: github.com/gmaa-ai/gmaa · Cite by version.
+    </p>
+  </footer>
+</div>
+</body>
+</html>
