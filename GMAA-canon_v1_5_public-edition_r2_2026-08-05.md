@@ -2,7 +2,7 @@
 **Version 1.5 · 2026-07-27 · Domain-agnostic — instantiate per project**
 **Licensed CC BY 4.0 — attribution required. Canonical: gmaa.ai · github.com/gmaa-ai/gmaa · Cite by version.**
 
-A reference architecture for running multiple AI agent seats and multiple human operators against a single codebase, such that no change lands without authorization at the correct unit, no claim closes without evidence, and no failure degrades silently.
+A reference architecture for running multiple AI agent seats and multiple human operators against a single codebase, such that no change lands without authorization at the correct unit, no claim closes without evidence, and no failure degrades silently.  
 
 Grounding principle (the thesis this architecture implements): **multi-agent systems fail by authorizing at the wrong unit** — individual changes get approved while the coherence of the complete pending set goes unexamined. The correction: an independent human ratifies the *complete set* against system invariants before any member commits. Everything below is machinery in service of that one correction.
 
