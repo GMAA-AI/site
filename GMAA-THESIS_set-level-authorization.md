@@ -7,7 +7,7 @@
 
 ---
 
-## 1 · The claim, in one sentence
+## 1 · The claim, in one sentence 
 
 At the single point where changes enter a system of record, the unit that must be authorized is **not only each change, but the complete set of pending changes — evaluated together against the invariants of that system, ratified as a set by an accountable human independent of every initiator, before any member of the set commits** — with a receipt trail as the audit evidence.
 
