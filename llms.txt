@@ -14,4 +14,4 @@ GMAA is an open standard. The specification is licensed CC BY 4.0. The engine th
 - Open, on purpose: whether a given implementation catches every joint incoherence is earned by an adversarial test, not asserted.
 
 ## Contact
-- arch@gmaa.ai
+- arch@gmaa.ai 
