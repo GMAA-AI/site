@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Operator's Guide, GMAA</title><meta name="description" content="The human-side manual for running a GMAA program: the ferry, the doorbell, shutdown handshakes, restarts, and what to do when a seat halts."><meta name="author" content="Israel Heskiel">
+<link rel="canonical" href="https://gmaa.ai/operator-guide.html"><meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<meta property="og:type" content="article"><meta property="og:site_name" content="GMAA, Governed Multi-Agent Architecture">
+<meta property="og:title" content="The GMAA Operator's Guide"><meta property="og:description" content="Running a GMAA program from the operator's chair."><meta property="og:url" content="https://gmaa.ai/operator-guide.html"><meta property="og:image" content="https://gmaa.ai/gmaa-card.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="The GMAA Operator's Guide"><meta name="twitter:description" content="Running a GMAA program from the operator's chair."><meta name="twitter:image" content="https://gmaa.ai/gmaa-card.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:wght@400;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"The GMAA Operator's Guide","description":"The human-side manual for running a GMAA program: the ferry, the doorbell, shutdown handshakes, restarts, and what to do when a seat halts.","url":"https://gmaa.ai/operator-guide.html","inLanguage":"en","author":{"@type":"Person","name":"Israel Heskiel"},"publisher":{"@type":"Organization","name":"GMAA","url":"https://gmaa.ai/"},"license":"https://creativecommons.org/licenses/by/4.0/","isPartOf":{"@type":"WebSite","name":"GMAA","url":"https://gmaa.ai/"}}</script>
+<style>
+html,body{margin:0}
+@media print{table,tr,td,th{break-inside:avoid}@page{margin:1.2cm}}
+body{margin:0}
+a{color:inherit}
+::selection{background:#0F7A5A;color:#fff}
+.toc a{display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.02em;color:#7E8A90;text-decoration:none;padding:5px 0 5px 12px;border-left:2px solid transparent;line-height:1.35;transition:color .15s,border-color .15s}
+.toc a:hover{color:#131A1F}
+.toc a.active{color:#0F7A5A;border-left-color:#0F7A5A}
+.art a{color:#C24A32;text-decoration:underline;text-underline-offset:2px}
+.art h2{font-family:'Source Serif 4',serif;font-weight:600;letter-spacing:-.012em;font-size:clamp(22px,2.3vw,29px);line-height:1.18;margin:50px 0 14px;padding-top:24px;border-top:1px solid #DDE3E5;scroll-margin-top:24px}
+.art h3{font-family:'Source Serif 4',serif;font-weight:600;font-size:19px;margin:30px 0 8px;color:#131A1F;scroll-margin-top:24px}
+.art h4{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#7E8A90;margin:22px 0 6px}
+.art p,.art li{font-size:16.5px;line-height:1.72;color:#2C363C;max-width:72ch}
+.art li{margin:6px 0}
+.art strong{color:#131A1F;font-weight:600}
+.art em{font-style:italic}
+.art blockquote{border-left:3px solid #C24A32;margin:22px 0;padding:8px 0 8px 20px;color:#3F4B52;max-width:66ch}
+.art code{font-family:'IBM Plex Mono',monospace;font-size:.85em;background:#E9EDEF;padding:1px 6px;border-radius:4px;color:#131A1F}
+.art pre{background:#EEF1F2;border:1px solid #DDE3E5;border-radius:6px;padding:14px 16px;overflow-x:auto;font-family:'IBM Plex Mono',monospace;font-size:13px;line-height:1.5}
+.art pre code{background:none;padding:0}
+.art table{border-collapse:collapse;width:100%;margin:22px 0;font-size:14px;display:block;overflow-x:auto}
+.art th,.art td{border:1px solid #DDE3E5;padding:10px 13px;text-align:left;vertical-align:top;line-height:1.5}
+.art th{background:#EBEFF1;font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:12px;letter-spacing:.03em;text-transform:uppercase;color:#3F4B52}
+.art hr{border:none;border-top:1px solid #DDE3E5;margin:34px 0}
+.callout{border:1px solid #DDE3E5;border-left:3px solid #B0701A;background:#fff;border-radius:0 8px 8px 0;padding:18px 22px;margin:24px 0}
+.callout p{margin:0;max-width:72ch}
+.footlink{color:#0F7A5A;text-decoration:none}.footlink:hover{text-decoration:underline}
+@media(max-width:960px){.gmaa-grid{grid-template-columns:1fr !important}.gmaa-toc{display:none !important}}
+
+.art h1{font-family:'Source Serif 4',serif;font-weight:700;letter-spacing:-.018em;line-height:1.08;font-size:clamp(30px,4.2vw,44px);margin:0 0 14px}
+.art table{width:100%;border-collapse:collapse;margin:18px 0;font-size:14px}
+.art th,.art td{text-align:left;padding:9px 12px;border-bottom:1px solid #E1E6E8;vertical-align:top}
+.art th{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#7E8A90;font-weight:500}
+.mono{font-family:'IBM Plex Mono',monospace;font-size:12.5px}
+.fill{font-family:'IBM Plex Mono',monospace;font-size:12px;color:#B0701A;background:#F6EAD6;border:1px solid #E7CFA6;border-radius:5px;padding:1px 7px}
+.banner{background:#E2F0EB;border:1px solid #BEDDD2;border-radius:12px;padding:22px 24px;margin:8px 0 26px}
+.banner .cur{font-family:'IBM Plex Mono',monospace;font-size:15px;color:#0F7A5A;font-weight:500}
+.verify{background:#fff;border:1px solid #E1E6E8;border-radius:10px;padding:18px 20px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;line-height:1.9;white-space:pre-wrap;overflow-x:auto}</style></head>
+<body><div style="background: rgb(244, 246, 247); color: rgb(19, 26, 31); font-family: &quot;Source Serif 4&quot;, Georgia, serif; min-height: 100vh;"><div style="width: min(1220px, 92vw); margin: 0px auto;">
+<header style="display: flex; flex-wrap: wrap; gap: 14px 20px; justify-content: space-between; align-items: center; padding: 22px 2px 20px; border-bottom: 1px solid rgb(221, 227, 229);">
+    <a href="/" style="display: flex; align-items: center; gap: 13px; text-decoration: none;">
+      <svg width="30" height="30" viewBox="0 0 32 32" aria-hidden="true"><rect x="4" y="4" width="4" height="17" fill="#B0701A"></rect><rect x="11" y="4" width="4" height="17" fill="#B0701A"></rect><rect x="18" y="4" width="4" height="17" fill="#B0701A"></rect><rect x="4" y="24" width="18" height="4" fill="#0F7A5A"></rect></svg>
+      <span style="display: flex; flex-direction: column; line-height: 1.02;">
+        <span style="font-family: &quot;Space Grotesk&quot;, sans-serif; font-weight: 700; font-size: 22px; color: rgb(19, 26, 31);">GMAA</span>
+        <span style="font-family: &quot;IBM Plex Mono&quot;, monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: rgb(126, 138, 144); margin-top: 3px;">Governed Multi-Agent Architecture</span>
+      </span>
+    </a>
+    <nav style="display:flex;flex-wrap:wrap;gap:7px 17px;font-family:&quot;IBM Plex Mono&quot;,monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;align-items:center"><a href="/thesis.html" style="color:#3F4B52;text-decoration:none">Thesis</a><a href="/canon.html" style="color:#3F4B52;text-decoration:none">Architecture</a><a href="/how-it-works.html" style="color:#3F4B52;text-decoration:none">How it works</a><a href="/applications.html" style="color:#3F4B52;text-decoration:none">Applications</a></nav>
+  </header>
+<div class="gmaa-grid" style="display: grid; grid-template-columns: 236px 1fr; gap: clamp(32px, 4vw, 60px); padding: 44px 2px 0px;">
+<aside class="gmaa-toc" style="align-self: start; position: sticky; top: 26px; max-height: calc(-52px + 100vh); overflow-y: auto;">
+<div style="font-family: &quot;IBM Plex Mono&quot;, monospace; font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(126, 138, 144); margin: 0px 0px 12px;">Contents</div>
+<nav class="toc">
+<a href="#1-what-you-are-and-are-not" class="active">1 · What you are, and are not</a>
+<a href="#2-one-session-one-seat">2 · One session, one seat</a>
+<a href="#3-the-ferry-chat-seat-to-code-seat-and-back">3 · The ferry (chat seat to code seat, and back)</a>
+<a href="#4-reading-the-code-side-without-touching-it">4 · Reading the code side without touching it</a>
+<a href="#5-stopping-a-code-seat-the-shutdown-handshake">5 · Stopping a code seat (the shutdown handshake)</a>
+<a href="#6-restarting-things">6 · Restarting things</a>
+<a href="#7-when-a-seat-halts">7 · When a seat halts</a>
+<a href="#8-claims-and-receipts">8 · Claims and receipts</a>
+<a href="#9-channels-in-one-breath">9 · Channels, in one breath</a>
+<a href="#10-the-habits-that-keep-it-healthy">10 · The habits that keep it healthy</a>
+</nav></aside>
+<article class="art" style="min-width: 0px; padding-bottom: 70px;">
+<h1 id="the-operators-guide-running-a-gmaa-program-from-the-operators-chair">The Operator's Guide, running a GMAA program from the operator's chair</h1>
+<p><em>Companion to the GMAA engine. The engine's documents teach the agent seats; this page teaches the human. Canonical: <a href="https://gmaa.ai">gmaa.ai</a> · Engine: <a href="https://github.com/gmaa-ai/gmaa">github.com/gmaa-ai/gmaa</a> · Licensed CC BY 4.0, cite by version.</em></p>
+<p>Everything here is the day-to-day mechanics of being the operator: what you ferry, what you say, when you restart things, and what to do when a seat stops.</p>
+<h2 id="1-what-you-are-and-are-not">1 · What you are, and are not</h2>
+<p>You are the apex: you make WHAT-class decisions (what to build, what to approve, what ships) and you transport artifacts. You do not commit, do not write code, do not resolve HOW-class questions, your seats do that, and making them do it is what keeps the record honest. If a seat asks you a HOW question, send it back; if a seat makes a WHAT decision for you, overrule it on principle even if you agree with the content.</p>
+<h2 id="2-one-session-one-seat">2 · One session, one seat</h2>
+<p>Every chat session is exactly one seat, and every terminal agent is exactly one seat. Never let one session speak for two seats, and never open the same seat twice at once. If you need another role, open another session. When a chat seat and a code seat exist for the same role (the architect can live on either substrate), only one of them is active at a time, switch with a shutdown handshake (§5), never by running both.</p>
+<h2 id="3-the-ferry-chat-seat-to-code-seat-and-back">3 · The ferry (chat seat to code seat, and back)</h2>
+<p>Chat seats have no filesystem. You are the filesystem between them and the code side.</p>
+<ol>
+<li>The chat seat authors a <strong>file</strong> with a <strong>versioned filename</strong> (never a pasted wall of text, files survive, panes don't).</li>
+<li>Download it and drop it at the code side's single drop point (the inbox your program designates, one drop point, not one per agent).</li>
+<li>Say one sentence to the orchestrator seat: <strong>"there is a new relay."</strong> That is the whole doorbell. The orchestrator routes it hub-and-spoke from there; you never deliver to individual lanes.</li>
+<li>Returns come back the same way: the code side writes a return file, you upload it into the chat seat's session.</li>
+</ol>
+<p>Rules that keep the ferry honest: never edit a relay in place (a correction is a new versioned file); if you ferry the same file twice, the seat answers once; if the seat's copy and disk disagree, disk wins and the seat re-reads.</p>
+<h2 id="4-reading-the-code-side-without-touching-it">4 · Reading the code side without touching it</h2>
+<p>When a chat seat needs facts about a repository, it authors a read-only check (commands that only read), you ferry it, the code seat runs it and returns raw output. Never summarize on the seat's behalf, and never let a code seat "interpret" instead of returning bytes, the chat seat's job is judging evidence, and it can only judge what it can see verbatim.</p>
+<h2 id="5-stopping-a-code-seat-the-shutdown-handshake">5 · Stopping a code seat (the shutdown handshake)</h2>
+<p>Never just close a terminal on a working seat. The sequence:</p>
+<ol>
+<li><strong>Warn the seat</strong> you intend to shut it down.</li>
+<li>The seat <strong>externalizes its state</strong> (writes anything held in context to disk) and confirms.</li>
+<li><code>/exit</code> ends the agent.</li>
+<li><code>exit</code> ends the shell and its tmux pane/session.</li>
+</ol>
+<p>Skipping step 2 is how work held in a context window dies silently. The engine's seats are built restart-preferred (the repo is memory, the context window is only a workspace, see CLAUDE.md §B6), so a clean handshake costs minutes and loses nothing.</p>
+<h2 id="6-restarting-things">6 · Restarting things</h2>
+<ul>
+<li><strong>Code seats:</strong> restart at natural boundaries (work-package close, wave close). If a seat is past roughly half its context at a boundary, restart it rather than rolling on; never open new work above ~70%. Cold boot re-grounds from the repo and takes minutes. Use the handshake (§5), then relaunch: the launcher resolves the seat's lane from its folder (folder equals lane), launch from the right worktree directory and the right seat comes up.</li>
+<li><strong>Chat seats:</strong> a new session boots the same seat fresh. Ferry it the current governing documents (its charter, the program's register, anything changed since the snapshot it holds), let it run its boot assessment, and expect it to name any drift it finds before doing work. A chat seat that starts authoring without a boot report is skipping its own discipline, stop it and ask for the report.</li>
+<li><strong>Resuming mid-task:</strong> prefer restart over long-lived sessions. A restarted seat that re-derives from disk is more trustworthy than a tired one that remembers.</li>
+</ul>
+<h2 id="7-when-a-seat-halts">7 · When a seat halts</h2>
+<p>Halting loud is correct behavior, not failure. A seat that stops and names a mismatch (a hash that doesn't verify, a file that isn't where the record says, an instruction that conflicts with its charter) is doing exactly what the architecture pays for. Your moves, in order: read what it named; if it's a fact question, get the evidence (usually a read-only check, §4); if it's a decision, make the WHAT-class call; then let the seat proceed or re-derive. One expected day-one signal, so you don't chase it: on a brand-new installation the orchestration-freshness probe reads STALE until your first decision binds, it is measuring orchestration life, and yours hasn't started yet. It self-clears; it is a report, not a halt. Never instruct a seat to push through a halt "just this once", every silent exception you grant becomes the precedent that breaks the next gate.</p>
+<h2 id="8-claims-and-receipts">8 · Claims and receipts</h2>
+<p>A seat's statement that work is done is a claim. The bytes are the receipt. When something matters, a seal, a migration, a fix, have the receiving seat verify on its own evidence (hashes from disk, files re-read) before you treat it as done. If a receipt and the bytes ever disagree, the bytes win, the claim is retracted by name, and the record keeps the history rather than being rewritten clean.</p>
+<h2 id="9-channels-in-one-breath">9 · Channels, in one breath</h2>
+<p>Inside a program, relays run on that program's own numbered sequence. Between programs, use a cross-project channel with its own sequence. Either way: files, versioned names, one drop point, one doorbell sentence, orchestrator routes. You carry; you don't route.</p>
+<h2 id="10-the-habits-that-keep-it-healthy">10 · The habits that keep it healthy</h2>
+<p>Batch your rulings (one decision pass beats a dribble of small ones). Keep seats in their lanes even when crossing would be faster today. Let the record grow only on incidents with receipts, resist adding rules because something <em>might</em> go wrong. And when the machinery catches one of your own errors, let it stand in the record; the catches are the proof the system works.</p>
+<p>,  The GMAA Operator's Guide · gmaa.ai · CC BY 4.0, cite by version.</p>
+</article></div>
+<footer style="border-top: 1px solid rgb(221, 227, 229); margin-top: 20px; padding: 24px 2px 48px; font-family: &quot;IBM Plex Mono&quot;, monospace; font-size: 11.5px; letter-spacing: 0.06em; color: rgb(126, 138, 144); text-transform: uppercase;">
+    GMAA · Governed Multi-Agent Architecture · <a class="footlink" href="/">gmaa.ai</a> · <a class="footlink" href="/versions.html">Versions</a> · <a class="footlink" href="/operator-guide.html">Operator’s guide</a> · cite by version · Spec CC BY 4.0 · Engine PolyForm Internal Use 1.0.0
+  </footer>
+</div></div></body></html>
