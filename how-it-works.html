@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How It Works, GMAA</title>
+<meta name="description" content="A plain walkthrough of how GMAA runs: the seats, the genesis commit, how a change moves, and the set-level gate before commit.">
+<meta name="author" content="Israel Heskiel">
+<link rel="canonical" href="https://gmaa.ai/how-it-works.html">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<meta property="og:type" content="article"><meta property="og:site_name" content="GMAA, Governed Multi-Agent Architecture">
+<meta property="og:title" content="How GMAA Works"><meta property="og:description" content="How the seats, the genesis commit, and the set-level gate actually run.">
+<meta property="og:url" content="https://gmaa.ai/how-it-works.html"><meta property="og:image" content="https://gmaa.ai/gmaa-card.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="How GMAA Works"><meta name="twitter:description" content="How the seats, the genesis commit, and the set-level gate actually run."><meta name="twitter:image" content="https://gmaa.ai/gmaa-card.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:wght@400;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"How GMAA Works","description":"A plain walkthrough of the GMAA flow: seats, the genesis commit, how a change moves, and the set-level gate before commit.","url":"https://gmaa.ai/how-it-works.html","inLanguage":"en","author":{"@type":"Person","name":"Israel Heskiel"},"publisher":{"@type":"Organization","name":"GMAA","url":"https://gmaa.ai/"},"license":"https://creativecommons.org/licenses/by/4.0/","isPartOf":{"@type":"WebSite","name":"GMAA","url":"https://gmaa.ai/"}}</script>
+<style>
+html,body{margin:0}
+@media print{table,tr,td,th{break-inside:avoid}@page{margin:1.2cm}}
+body{margin:0}
+a{color:inherit}
+::selection{background:#0F7A5A;color:#fff}
+.toc a{display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.02em;color:#7E8A90;text-decoration:none;padding:5px 0 5px 12px;border-left:2px solid transparent;line-height:1.35;transition:color .15s,border-color .15s}
+.toc a:hover{color:#131A1F}
+.toc a.active{color:#0F7A5A;border-left-color:#0F7A5A}
+.art a{color:#C24A32;text-decoration:underline;text-underline-offset:2px}
+.art h2{font-family:'Source Serif 4',serif;font-weight:600;letter-spacing:-.012em;font-size:clamp(22px,2.3vw,29px);line-height:1.18;margin:50px 0 14px;padding-top:24px;border-top:1px solid #DDE3E5;scroll-margin-top:24px}
+.art h3{font-family:'Source Serif 4',serif;font-weight:600;font-size:19px;margin:30px 0 8px;color:#131A1F;scroll-margin-top:24px}
+.art h4{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#7E8A90;margin:22px 0 6px}
+.art p,.art li{font-size:16.5px;line-height:1.72;color:#2C363C;max-width:72ch}
+.art li{margin:6px 0}
+.art strong{color:#131A1F;font-weight:600}
+.art em{font-style:italic}
+.art blockquote{border-left:3px solid #C24A32;margin:22px 0;padding:8px 0 8px 20px;color:#3F4B52;max-width:66ch}
+.art code{font-family:'IBM Plex Mono',monospace;font-size:.85em;background:#E9EDEF;padding:1px 6px;border-radius:4px;color:#131A1F}
+.art pre{background:#EEF1F2;border:1px solid #DDE3E5;border-radius:6px;padding:14px 16px;overflow-x:auto;font-family:'IBM Plex Mono',monospace;font-size:13px;line-height:1.5}
+.art pre code{background:none;padding:0}
+.art table{border-collapse:collapse;width:100%;margin:22px 0;font-size:14px;display:block;overflow-x:auto}
+.art th,.art td{border:1px solid #DDE3E5;padding:10px 13px;text-align:left;vertical-align:top;line-height:1.5}
+.art th{background:#EBEFF1;font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:12px;letter-spacing:.03em;text-transform:uppercase;color:#3F4B52}
+.art hr{border:none;border-top:1px solid #DDE3E5;margin:34px 0}
+.callout{border:1px solid #DDE3E5;border-left:3px solid #B0701A;background:#fff;border-radius:0 8px 8px 0;padding:18px 22px;margin:24px 0}
+.callout p{margin:0;max-width:72ch}
+.footlink{color:#0F7A5A;text-decoration:none}.footlink:hover{text-decoration:underline}
+@media(max-width:960px){.gmaa-grid{grid-template-columns:1fr !important}.gmaa-toc{display:none !important}}
+
+.art h1{font-family:'Source Serif 4',serif;font-weight:700;letter-spacing:-.018em;line-height:1.08;font-size:clamp(30px,4.2vw,44px);margin:0 0 14px}
+.art h1+p{color:#3F4B52}</style>
+</head>
+<body>
+<div style="background: rgb(244, 246, 247); color: rgb(19, 26, 31); font-family: &quot;Source Serif 4&quot;, Georgia, serif; min-height: 100vh;"><div style="width: min(1220px, 92vw); margin: 0px auto;">
+<header style="display: flex; flex-wrap: wrap; gap: 14px 20px; justify-content: space-between; align-items: center; padding: 22px 2px 20px; border-bottom: 1px solid rgb(221, 227, 229);">
+    <a href="/" style="display: flex; align-items: center; gap: 13px; text-decoration: none;">
+      <svg width="30" height="30" viewBox="0 0 32 32" aria-hidden="true"><rect x="4" y="4" width="4" height="17" fill="#B0701A"></rect><rect x="11" y="4" width="4" height="17" fill="#B0701A"></rect><rect x="18" y="4" width="4" height="17" fill="#B0701A"></rect><rect x="4" y="24" width="18" height="4" fill="#0F7A5A"></rect></svg>
+      <span style="display: flex; flex-direction: column; line-height: 1.02;">
+        <span style="font-family: &quot;Space Grotesk&quot;, sans-serif; font-weight: 700; font-size: 22px; color: rgb(19, 26, 31);">GMAA</span>
+        <span style="font-family: &quot;IBM Plex Mono&quot;, monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: rgb(126, 138, 144); margin-top: 3px;">Governed Multi-Agent Architecture</span>
+      </span>
+    </a>
+    <span style="font-family: &quot;IBM Plex Mono&quot;, monospace; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(63, 75, 82);"><a href="/" style="color: rgb(15, 122, 90); text-decoration: none;">← gmaa.ai</a> · How it works</span>
+  </header>
+<div class="gmaa-grid" style="display: grid; grid-template-columns: 236px 1fr; gap: clamp(32px, 4vw, 60px); padding: 44px 2px 0px;">
+<aside class="gmaa-toc" style="align-self: start; position: sticky; top: 26px; max-height: calc(-52px + 100vh); overflow-y: auto;">
+<div style="font-family: &quot;IBM Plex Mono&quot;, monospace; font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(126, 138, 144); margin: 0px 0px 12px;">Contents</div>
+<nav class="toc">
+<a href="#everyone-built-the-pipes-no-one-built-the-chain-of-command" class="active">Everyone built the pipes. No one built the chain of command.</a>
+<a href="#the-idea-authorize-the-set-not-the-change">The idea: authorize the set, not the change</a>
+<a href="#the-cast">The cast</a>
+<a href="#how-a-project-begins">How a project begins</a>
+<a href="#how-a-change-moves">How a change moves</a>
+<a href="#the-set-and-the-gate">The set, and the gate</a>
+<a href="#what-the-assessment-reasons-against">What the assessment reasons against</a>
+<a href="#why-its-built-this-way">Why it's built this way</a>
+<a href="#free-and-paid">Free, and paid</a>
+</nav>
+</aside>
+<article class="art" style="min-width: 0px; padding-bottom: 70px;">
+<h1 id="how-gmaa-works">How GMAA Works</h1>
+<p><em>Governed Multi-Agent Architecture: the process, for anyone deciding whether to build on it.</em>
+<strong>Canonical:</strong> <a href="https://gmaa.ai">gmaa.ai</a> · Spec licensed CC BY 4.0 · cite by version</p>
+
+<h2 id="everyone-built-the-pipes-no-one-built-the-chain-of-command">Everyone built the pipes. No one built the chain of command.</h2>
+<p>Point several capable AI agents at one codebase and the failure isn't any single agent being wrong. It's <strong>coherence collapse</strong>: two changes, each correct on its own, break something <em>together</em>. A migration and a query that each pass their own tests, but disagree about a column. Work that's individually green and jointly broken. Nobody was accountable for the combination, because everybody reviewed their own piece.</p>
+<p>Most frameworks give you better pipes, faster agents, richer tools, more orchestration. GMAA gives you the thing that was missing: <strong>a chain of command over a shared system of record</strong>, so that many agents can propose, but the <em>set</em> of what they propose is judged as a whole before any of it lands.</p>
+<h2 id="the-idea-authorize-the-set-not-the-change">The idea: authorize the set, not the change</h2>
+<p>GMAA's one claim is that multi-agent systems fail by <strong>authorizing at the wrong unit</strong>. They approve changes one at a time, while the coherence of the complete pending set goes unexamined.</p>
+<p>So GMAA changes the unit. The thing that gets authorized is <strong>the set</strong>, the complete collection of pending changes, evaluated <em>together</em> against the system's rules, and ratified by <strong>one accountable human who is independent of every agent that proposed the work</strong>, before any member commits. Over each boundary of state that must stay coherent, exactly <strong>one</strong> seat commits; everyone else reads and proposes.</p>
+<p>Two consequences follow, and they're the spine of the whole design:</p>
+<ul>
+<li><strong>Authorization is not a probability.</strong> A confidence score is not a decision. The correct resolution of a jointly-incoherent set often turns on a fact that lives <em>outside</em> the system, a planned cutover, a hold, a commitment to a customer, that no automated evaluator has a channel to read. So the final say belongs to a human, at a vantage point outside the boundaries being changed.</li>
+<li><strong>Nobody signs their own work.</strong> The seat that builds a change never verifies it; the seat that assembles a set never ratifies it. Judge and judged are never the same context. That separation is enforced by structure, not by good intentions.</li>
+</ul>
+<h2 id="the-cast">The cast</h2>
+<ul>
+<li><strong>The architect</strong>, where a human's intent enters. Works with the operator to decide <em>what</em> to build, and hands that decision to the coordinator. It can live in a chat window or graduate into the codebase itself.</li>
+<li><strong>The operator</strong>, the accountable human. Authorizes the work up front, and gives the final go on every set.</li>
+<li><strong>Foundation</strong>, the coordinator: the one seat that commits to the shared spine, and the hub every message routes through. Lanes talk to foundation; lanes never talk to each other.</li>
+<li><strong>The lanes</strong>, the working seats, each isolated in its own branch, often in parallel. They propose; they never commit the spine.</li>
+<li><strong>The auditor</strong>, an independent seat that reproduces every claim of "done" rather than trusting it.</li>
+</ul>
+<h2 id="how-a-project-begins">How a project begins</h2>
+<p>Before any work is handed out, the architect and operator author the project's foundation: the specification, the contracts, the roster of seats, and the invariants that boundary has to keep. Foundation commits that foundation to the shared spine first. Only then does it distribute the first tasks to the lanes.</p>
+<p>The order is the point. Every lane boots against a committed record rather than a conversation, so there is one source of truth from the first commit forward, and no seat ever works against intent that was never written down.</p>
+<h2 id="how-a-change-moves">How a change moves</h2>
+<ol>
+<li><strong>A decision is made and handed to foundation.</strong> The architect and operator decide; the decision goes to the coordinator, not to a worker.</li>
+<li><strong>Foundation dispatches it</strong> to the lane that owns the affected area, and signals it to start.</li>
+<li><strong>The lane works in isolation</strong>, on its own branch, never touching the shared spine, never able to disturb another lane.</li>
+<li><strong>It produces a result and a receipt</strong>, a record of what it did and proof its checks ran.</li>
+<li><strong>Its checks run.</strong> Pass, and the change is <em>verified</em>. Fail, and it loops back for rework, a normal, expected part of the flow, not an error state.</li>
+<li><strong>An independent auditor reproduces the check.</strong> This is the close gate: a change is not "done" on the worker's own say-so, only when a <em>different</em> seat reproduces the result. There is, by construction, no shortcut from "in progress" to "closed."</li>
+</ol>
+<p><strong>When a lane hits a conflict it can't resolve,</strong> it doesn't guess. It records the conflict and surfaces it to foundation, which re-checks it, was this a real conflict, or did the lane make a mistake? A mechanism question, foundation resolves itself. A question about the <em>rules</em>, what the contract should say, goes up to the architect and operator. Foundation decides <em>how</em>; the humans decide <em>what</em>.</p>
+<h2 id="the-set-and-the-gate">The set, and the gate</h2>
+<ol start="7">
+<li>
+<p><strong>Foundation assembles the verified changes into a set</strong> and reasons over it, this is the heart of the design, not a rubber stamp:
+   - It runs a <strong>conflict sweep</strong> across the whole set and the checks that are only meaningful on the <em>combination</em> (the kind of conflict that no single change reveals).
+   - It classifies what it finds as <strong>in-band</strong> (settleable from facts already in the record) or <strong>out-of-band</strong> (needs a human fact, a cutover, a hold, a commitment).
+   - Crucially, the rules it reasons against aren't asserted, they're <strong>probed</strong>. Each invariant has a live check that must actually fail on a bad input, not just pass on a good one. An invariant's health is its test streak, not its prose. <em>This is the piece most governance frameworks lack.</em></p>
+</li>
+<li>
+<p><strong>The operator decides.</strong>
+   - If everything checks out, foundation asks a simple question: <em>"all checks pass on the set, commit?"</em> A clean assessment only means <em>nothing in the record objects</em>, so this is a real gate, not a formality. The operator can still say <strong>no</strong> on a fact the system couldn't see. That "wait, what are you doing?" is exactly why the human is here.
+   - If there's a conflict, foundation presents it with grounded alternatives, and the operator makes a real decision, ratify, ratify in a specific order, amend, hold, or reject. An amended set is a <em>new</em> set: it's re-assembled and re-checked as a whole. There is no line-item approval; that would quietly reintroduce the very per-change authorization the whole design rejects.</p>
+</li>
+<li>
+<p><strong>Foundation commits and makes it durable.</strong> On the operator's go, the one writer merges the set and pushes it so "landed" means truly landed, not just local.</p>
+</li>
+</ol>
+<h2 id="what-the-assessment-reasons-against">What the assessment reasons against</h2>
+<p>The rules aren't a single file. A set can be found in conflict with any layer of a real governing body that ships with the engine:</p>
+<ul>
+<li><strong>The law</strong>, the architecture and its universal invariants (live-data-only, one writer per boundary, one role per session, no fake closures).</li>
+<li><strong>The contracts</strong>, how changes are authorized, how writes are mediated, how work is signalled and retired.</li>
+<li><strong>The database itself</strong>, the schema is a governed, contracted surface, and the <em>only</em> way agents write to it is through stored procedures. The identity the agents run under is <strong>read-only by default</strong>, it cannot directly insert, update, or delete; every write goes through an EXECUTE-granted procedure. A direct write fails by design. And this isn't a promise on paper: a standing probe <strong>continuously confirms the workload identity still cannot write around the mediation</strong>. The tables, columns, procedure signatures, and grant model are each a contract an adopter's changes are checked against.</li>
+<li><strong>The schemas</strong>, the lifecycle a change must traverse, and the shape of a valid receipt.</li>
+<li><strong>The disciplines</strong>, how a seat is expected to behave: verify before acting, halt loud rather than guess, prefer prior art.</li>
+<li><strong>The enforcement</strong>, the auditor and the standing probes that check every invariant continuously, in the code <em>and</em> in the database.</li>
+<li><strong>The project's own rules</strong>, the domain invariants each adopter declares when they stand up their fleet.</li>
+</ul>
+<p>The reasoning is done by foundation, over evidence from the probes and the sweep, against all of that, with the human on the set as the final layer.</p>
+<h2 id="why-its-built-this-way">Why it's built this way</h2>
+<ul>
+<li><strong>Prevention over detection.</strong> "The harness would catch it" is only ever <em>in addition to</em> a structural partition, never instead of one. GMAA prevents the confused decision from happening, rather than hoping to catch it after.</li>
+<li><strong>Structure over vigilance.</strong> One writer per boundary, identity that comes from <em>where</em> a seat runs rather than what it's told, an independent auditor by construction, these hold whether or not anyone is watching.</li>
+<li><strong>The human where machines can't reach.</strong> Automated checks settle everything <em>in</em> the record. The human settles what isn't in it. Neither is asked to do the other's job.</li>
+</ul>
+<h2 id="free-and-paid">Free, and paid</h2>
+<p>GMAA is <strong>open-core</strong>. The specification is free and citeable: a standard you can adopt and build on. The engine, the runnable blank template, is source-available and free to run inside your own organization. It is not open in the usual sense: you cannot redistribute or resell it, and shipping it inside a product or using it to deliver services needs a commercial license. What is paid is the genuinely hard part: <strong>turning that template into a coherent, running fleet in your real environment</strong>, the graduation from a template to a governed system that actually holds.</p>
+<p>Read the spec, run the engine, cite it by version at <strong><a href="https://gmaa.ai">gmaa.ai</a></strong>.</p>
+
+<p><em>GMAA · Governed Multi-Agent Architecture · a chain of command for AI agents on a shared system of record.</em></p>
+</article>
+</div>
+<footer style="border-top: 1px solid rgb(221, 227, 229); margin-top: 20px; padding: 24px 2px 48px; font-family: &quot;IBM Plex Mono&quot;, monospace; font-size: 11.5px; letter-spacing: 0.06em; color: rgb(126, 138, 144); text-transform: uppercase;">
+    GMAA · Governed Multi-Agent Architecture · <a class="footlink" href="/">gmaa.ai</a> · cite by version · Spec licensed CC BY 4.0
+  </footer>
+</div></div>
+</body>
+</html>
