@@ -1,19 +1,21 @@
-License — gmaa.ai site content
+License, gmaa.ai site content
 
-The public GMAA documents hosted on this site — the specification
-(Governed Multi-Agent Delivery Architecture) and the thesis — are licensed
+The public GMAA documents hosted on this site, the specification
+(Governed Multi-Agent Delivery Architecture) and the thesis, are licensed
 under the Creative Commons Attribution 4.0 International License (CC BY 4.0).
 
 You are free to share and adapt this material for any purpose, including
-commercially, under one condition: attribution — cite GMAA by version and
+commercially, under one condition: attribution. Cite GMAA by version and
 link to https://gmaa.ai.
 
 Full license text: https://creativecommons.org/licenses/by/4.0/legalcode
 Human-readable summary: https://creativecommons.org/licenses/by/4.0/
 
-Note: the GMAA *engine* (the runnable implementation) is a separate artifact,
-distributed from its own repository under its own license (PolyForm Shield
-1.0.0, source-available). This CC BY 4.0 notice covers only the documents and
-site content in this repository.
+Note: the GMAA engine (the runnable implementation) is a separate artifact,
+distributed from its own repository under its own license, PolyForm Internal
+Use 1.0.0. It is source-available and free to run inside your own organization,
+but it is not for redistribution or resale, and shipping it inside a product or
+using it to deliver services requires a commercial license. This CC BY 4.0
+notice covers only the documents and site content in this repository.
 
-Copyright 2026 Israel Heskiel. Canonical: gmaa.ai  
+Copyright 2026 Israel Heskiel. Canonical: gmaa.ai
