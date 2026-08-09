@@ -1,3 +1,4 @@
+<!-- v2.5.3 SEALED 2026-08-09 (Packaging Relay r7). Fingerprints below are the sealed values: engine zip 438195bd097e1fccdd0ad65e16f010901bb3e3b4f391e0de6ac62cb215312651; machinery MANIFEST self-sha e944cb745ca2073ac840a1e9dea4cea8c60f52d5c20daa7bde61fb8fbf3c1a51 (65 files); canon pin v1.5 sha 1a6a6d48765fb8708c2d7f334c96ced16a56d364fd20120bbcdb17ec511f0136. Deploy this page together with the operator publish of the v2.5.3 release (github.com/gmaa-ai/gmaa and gmaa.ai); publishing live is the operator separate act, do not front-run it. Publicist seat, 2026-08-09. -->
 <!doctype html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
@@ -64,6 +65,7 @@ a{color:inherit}
 <nav class="toc">
 <a href="#current" class="active">Current release</a>
 <a href="#how">How versions work</a>
+<a href="#ships">How it ships</a>
 <a href="#history">Version history</a>
 <a href="#changelog">Changelog</a>
 <a href="#verify">Verify your download</a>
@@ -76,28 +78,42 @@ a{color:inherit}
 
 <div class="banner" id="current">
 <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#0F7A5A;margin-bottom:8px">Current release</div>
-<div class="cur">gmaa-engine v2.5.2 · canon pin v1.5</div>
+<div class="cur">gmaa-engine v2.5.3 · canon pin v1.5</div>
 <div style="margin-top:12px;font-size:15px">Download: <a href="https://github.com/gmaa-ai/gmaa" style="color:#131A1F">github.com/gmaa-ai/gmaa</a></div>
 <div style="margin-top:12px;font-size:13px;line-height:2">
-zip sha256: <span class="fill">from the sealed release</span><br>
-package self-sha: <span class="fill">from the sealed release</span>
+zip sha256: <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;word-break:break-all;color:#131A1F">438195bd097e1fccdd0ad65e16f010901bb3e3b4f391e0de6ac62cb215312651</span><br>
+package self-sha: <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;word-break:break-all;color:#131A1F">e944cb745ca2073ac840a1e9dea4cea8c60f52d5c20daa7bde61fb8fbf3c1a51</span>
 </div>
 </div>
 
 <h2 id="how">How versions work</h2>
 <p>Every version is cited on two axes together: the <b>package version</b> (the engine artifact) and the <b>canon pin</b> (the specification version the artifact ships and conforms to). Every content change is a new version; nothing is ever rebuilt in place under an existing label. Verify every download against its fingerprints before use.</p>
 
+<h2 id="ships">How it ships</h2>
+<p>Two layers, so you can read before you download and verify what you run.</p>
+<p><b>Readable at the repository root, no download.</b> The README, the adoption cover, the getting-started walkthrough, the two operator's guides, the specification (<code>canon/</code>), the license, the changelog, and the citation file all sit at the root of the repository. You can read the argument, work through the adoption flow, and read or cite the specification without downloading anything.</p>
+<p><b>One sealed download, the engine.</b> The machinery you run ships as a single sealed zip: the governance scripts, agent definitions, contracts, schema, and operating docs, with its own <code>MANIFEST.sha256</code>. You download that one artifact, verify it, and unzip it into your project folder.</p>
+<p>The split follows the licensing. The specification is free under CC BY 4.0 and is the cite-by-version target, so it stays readable and citeable at the root without touching the restricted download. The engine is source-available under PolyForm Internal Use 1.0.0, which is not an open-source license; it is the one controlled artifact.</p>
+<p>Loose at the root does not mean absent from your project. During instantiation you place the specification and the reader docs into your project folder alongside the unzipped engine, and genesis reads them there. The engine zip does not contain the documents, and the documents are not sealed inside it.</p>
+
 <h2 id="history">Version history</h2>
 <table>
 <thead><tr><th>Version</th><th>Date</th><th>Canon pin</th><th>Status</th><th>zip sha256</th><th>self-sha</th><th>Summary</th></tr></thead>
 <tbody>
-<tr><td class="mono">v2.5.2</td><td><span class="fill">from the sealed release</span></td><td class="mono">v1.5</td><td><b style="color:#0F7A5A">Current</b></td><td><span class="fill">from the sealed release</span></td><td><span class="fill">from the sealed release</span></td><td>Initial public release: a faithful generic extraction of a live production multi-agent architecture, independently reviewed pre-release.</td></tr>
+<tr><td class="mono">v2.5.3</td><td>2026-08-09</td><td class="mono">v1.5</td><td><b style="color:#0F7A5A">Current</b></td><td class="mono" style="font-size:10px;word-break:break-all">438195bd097e1fccdd0ad65e16f010901bb3e3b4f391e0de6ac62cb215312651</td><td class="mono" style="font-size:10px;word-break:break-all">e944cb745ca2073ac840a1e9dea4cea8c60f52d5c20daa7bde61fb8fbf3c1a51</td><td>Restored the adopter entry documents (ADOPTION-COVER, GETTING-STARTED-LINUX-MAC) dropped at v2.5.0; README points to the cover as read-first; the MANIFEST asserts the adopter-entry set is present.</td></tr>
+<tr><td class="mono">v2.5.2</td><td>2026-08-07</td><td class="mono">v1.5</td><td>Superseded</td><td class="mono" style="font-size:10px;word-break:break-all">a3ba4117cf29c024c0019d20b04aef445c0baedd1681d1012c620d35be91a1c8</td><td class="mono" style="font-size:10px;word-break:break-all">bcecbd286c8d9b4b0992f2af857533cf11563bd24deeeaeec84279844574e483</td><td>Initial public release: a faithful generic extraction of a live production multi-agent architecture, independently reviewed pre-release.</td></tr>
 </tbody>
 </table>
 <p style="font-size:13.5px;color:#7E8A90">The public record begins at the initial release. Pre-release internal iteration does not appear here. The table grows by one row per released version, newest first.</p>
 
 <h2 id="changelog">Changelog</h2>
-<h2>v2.5.2 · canon pin v1.5, Initial release <em>(forthcoming; fingerprints published at release)</em></h2>
+<h2>v2.5.3 · canon pin v1.5, 2026-08-09</h2>
+<p><strong>Fingerprints:</strong> zip sha256 <code>438195bd097e1fccdd0ad65e16f010901bb3e3b4f391e0de6ac62cb215312651</code> · package self-sha <code>e944cb745ca2073ac840a1e9dea4cea8c60f52d5c20daa7bde61fb8fbf3c1a51</code> · 65 files.</p>
+<p>Restored the adopter-facing entry documents that were dropped when the package was reframed from evaluation package to engine at v2.5.0 and shipped missing through v2.5.1 and v2.5.2. <code>ADOPTION-COVER.md</code> is back (the read-first four-phase adoption flow: fit assessment, then your adoption gate, then instantiation fills, then implementation) and <code>GETTING-STARTED-LINUX-MAC.md</code> is back (the zero-to-running walkthrough). Both are modernized to the engine: canon v1.5, <code>launch-orc.sh</code>, folder-equals-lane (the <code>foundation</code> folder, with <code>main</code> as a branch), and Phase-3 output of <code>docs/FOUNDATION.md</code> plus <code>seats.yaml</code>. The README now points at the cover as read-first and states that the instantiation runbook is the canon's own section 12 checklist, not a shipped file.</p>
+<p><strong>Prevention:</strong> the MANIFEST and seal check now asserts the adopter-entry set is present, so a genericization reframe cannot silently drop it again. This is the completeness firewall (canon section 13) applied to the package itself.</p>
+<p><strong>Deferred:</strong> the Windows and WSL getting-started guide.</p>
+<h2>v2.5.2 · canon pin v1.5, 2026-08-07, Initial release</h2>
+<p><strong>Fingerprints:</strong> zip sha256 <code>a3ba4117cf29c024c0019d20b04aef445c0baedd1681d1012c620d35be91a1c8</code> · package self-sha <code>bcecbd286c8d9b4b0992f2af857533cf11563bd24deeeaeec84279844574e483</code> · 70 files plus manifest.</p>
 <p>The first public release of the GMAA engine: a faithful generic extraction of a live production multi-agent architecture, independently reviewed pre-release by the production program it derives from.</p>
 <p><strong>In the box:</strong>
 - The complete governance machinery: lane resolution, launch, doorbell and inbox transport, sync, validation, audit hooks, standing probes, and the reaper, with per-file integrity (<code>MANIFEST.sha256</code>).
@@ -112,14 +128,18 @@ package self-sha: <span class="fill">from the sealed release</span>
 - <strong>The Operator's Guide</strong>, the human-side manual: the ferry, the doorbell, shutdown handshakes, restarts, and what to do when a seat halts.</p>
 
 <h2 id="verify">Verify your download</h2>
-<p>Before you run it, confirm the bytes are the bytes. Same discipline the engine itself teaches.</p>
-<div class="verify">sha256sum gmaa-engine_v2.5.2.zip        <span style="color:#7E8A90"># compare to the table above</span>
-unzip gmaa-engine_v2.5.2.zip -d gmaa-engine
+<p>Confirm the bytes are the bytes, the same discipline the engine itself teaches. The repository root publishes a <code>SHA256SUMS</code> file listing the sha256 of the sealed engine zip and of the specification.</p>
+<p style="margin-bottom:6px">Verify the engine you run:</p>
+<div class="verify">sha256sum gmaa-engine_v2.5.3.zip        <span style="color:#7E8A90"># compare to SHA256SUMS</span>
+unzip gmaa-engine_v2.5.3.zip -d gmaa-engine
 cd gmaa-engine
 sha256sum -c MANIFEST.sha256           <span style="color:#7E8A90"># every line OK, or stop and report</span></div>
+<p style="margin:16px 0 6px">Confirm which specification version you have:</p>
+<div class="verify">sha256sum canon/GOVERNED_MULTI_AGENT_ARCHITECTURE_v1_5.md   <span style="color:#7E8A90"># compare to SHA256SUMS</span></div>
+<p>The canon sha in <code>SHA256SUMS</code> is the value the engine pins, so a match proves the loose specification at the root is the exact version this engine conforms to.</p>
 
 <h2 id="spec">The specification</h2>
-<p>The specification is versioned separately from the engine. Current: <b>v1.5</b> (2026-07-27), published at <a href="/canon.html" style="color:#131A1F">canon.html</a> under CC BY 4.0. Each engine version states which spec it pins.</p>
+<p>The specification is versioned separately from the engine. Current: <b>v1.5</b> (2026-07-27), published at <a href="/canon.html" style="color:#131A1F">canon.html</a> and shipped at the repository root under <code>canon/</code>, both under CC BY 4.0. Each engine version states which spec it pins, and the canon sha is published in <code>SHA256SUMS</code> so you can confirm the version you hold.</p>
 <p style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.04em;color:#7E8A90;margin-top:24px;text-transform:uppercase">Spec licensed CC BY 4.0 · Engine source-available under PolyForm Internal Use 1.0.0 · Cite by version</p>
 </article></div>
 <footer style="border-top: 1px solid rgb(221, 227, 229); margin-top: 20px; padding: 24px 2px 48px; font-family: &quot;IBM Plex Mono&quot;, monospace; font-size: 11.5px; letter-spacing: 0.06em; color: rgb(126, 138, 144); text-transform: uppercase;">
