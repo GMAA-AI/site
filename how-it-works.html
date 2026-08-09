@@ -57,7 +57,7 @@ a{color:inherit}
         <span style="font-family: &quot;IBM Plex Mono&quot;, monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: rgb(126, 138, 144); margin-top: 3px;">Governed Multi-Agent Architecture</span>
       </span>
     </a>
-    <nav style="display:flex;flex-wrap:wrap;gap:7px 17px;font-family:&quot;IBM Plex Mono&quot;,monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;align-items:center"><a href="/thesis.html" style="color:#3F4B52;text-decoration:none">Thesis</a><a href="/canon.html" style="color:#3F4B52;text-decoration:none">Architecture</a><span style="color:#131A1F;font-weight:700">How it works</span><a href="/applications.html" style="color:#3F4B52;text-decoration:none">Applications</a></nav>
+    <nav style="display:flex;flex-wrap:wrap;gap:7px 17px;font-family:&quot;IBM Plex Mono&quot;,monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;align-items:center"><a href="/thesis.html" style="color:#3F4B52;text-decoration:none">Thesis</a><a href="/canon.html" style="color:#3F4B52;text-decoration:none">Architecture</a><span style="color:#131A1F;font-weight:700">How it works</span><a href="/applications.html" style="color:#3F4B52;text-decoration:none">Use cases</a></nav>
   </header>
 <div class="gmaa-grid" style="display: grid; grid-template-columns: 236px 1fr; gap: clamp(32px, 4vw, 60px); padding: 44px 2px 0px;">
 <aside class="gmaa-toc" style="align-self: start; position: sticky; top: 26px; max-height: calc(-52px + 100vh); overflow-y: auto;">
@@ -68,10 +68,10 @@ a{color:inherit}
 <a href="#the-cast">The cast</a>
 <a href="#how-a-project-begins">How a project begins</a>
 <a href="#how-a-change-moves">How a change moves</a>
-<a href="#the-set-and-the-gate">The set, and the gate</a>
+<a href="#the-set-and-the-gate">The set and the gate</a>
 <a href="#what-the-assessment-reasons-against">What the assessment reasons against</a>
 <a href="#why-its-built-this-way">Why it's built this way</a>
-<a href="#free-and-paid">Free, and paid</a>
+<a href="#free-and-paid">Free and paid</a>
 </nav>
 </aside>
 <article class="art" style="min-width: 0px; padding-bottom: 70px;">
@@ -80,49 +80,50 @@ a{color:inherit}
 <strong>Canonical:</strong> <a href="https://gmaa.ai">gmaa.ai</a> · Spec licensed CC BY 4.0 · cite by version</p>
 
 <h2 id="everyone-built-the-pipes-no-one-built-the-chain-of-command">Everyone built the pipes. No one built the chain of command.</h2>
-<p>Point several capable AI agents at one codebase and the failure isn't any single agent being wrong. It's <strong>coherence collapse</strong>: two changes, each correct on its own, break something <em>together</em>. A migration and a query that each pass their own tests, but disagree about a column. Work that's individually green and jointly broken. Nobody was accountable for the combination, because everybody reviewed their own piece.</p>
+<p>Point several capable AI agents at one codebase and the failure isn't necessarily any single agent being wrong. It's <strong>coherence collapse</strong>: two changes, each correct on its own, break something <em>together</em>. A migration and a query that each pass their own tests but disagree about a column. Work that's individually green and jointly broken. Nobody was accountable for the combination, because everybody reviewed their own piece.</p>
 <p>Most frameworks give you better pipes, faster agents, richer tools, more orchestration. GMAA gives you the thing that was missing: <strong>a chain of command over a shared system of record</strong>, so that many agents can propose, but the <em>set</em> of what they propose is judged as a whole before any of it lands.</p>
 <h2 id="the-idea-authorize-the-set-not-the-change">The idea: authorize the set, not only the individual change</h2>
 <p>GMAA's one claim is that multi-agent systems fail by <strong>authorizing at the wrong unit</strong>. They approve changes one at a time, while the coherence of the complete pending set goes unexamined.</p>
 <p>So GMAA changes the unit. The thing that gets authorized is <strong>the set</strong>, the complete collection of pending changes, evaluated <em>together</em> against the system's rules, and ratified by <strong>one accountable human who is independent of every agent that proposed the work</strong>, before any member commits. Over each boundary of state that must stay coherent, exactly <strong>one</strong> seat commits; everyone else reads and proposes.</p>
 <p>Two consequences follow, and they're the spine of the whole design:</p>
 <ul>
-<li><strong>Authorization is not a probability.</strong> A confidence score is not a decision. The correct resolution of a jointly-incoherent set often turns on a fact that lives <em>outside</em> the system, a planned cutover, a hold, a commitment to a customer, that no automated evaluator has a channel to read. So the final say belongs to a human, at a vantage point outside the boundaries being changed.</li>
+<li><strong>Authorization is not a probability.</strong> A confidence score is not a decision. The correct resolution of a jointly-incoherent set often turns on a fact that lives <em>outside</em> the system (a planned cutover, a hold, a commitment to a customer) that no automated evaluator has a channel to read. So the final say belongs to a human, at a vantage point outside the boundaries being changed.</li>
 <li><strong>Nobody signs their own work.</strong> The seat that builds a change never verifies it; the seat that assembles a set never ratifies it. Judge and judged are never the same context. That separation is enforced by structure, not by good intentions.</li>
 </ul>
 <h2 id="the-cast">The cast</h2>
 <ul>
-<li><strong>The architect</strong>, where a human's intent enters. Works with the operator to decide <em>what</em> to build, and hands that decision to the coordinator. It can live in a chat window or graduate into the codebase itself.</li>
-<li><strong>The operator</strong>, the accountable human. Authorizes the work up front, and gives the final go on every set.</li>
-<li><strong>Foundation</strong>, the coordinator: the one seat that commits to the shared spine, and the hub every message routes through. Lanes talk to foundation; lanes never talk to each other.</li>
-<li><strong>The lanes</strong>, the working seats, each isolated in its own branch, often in parallel. They propose; they never commit the spine.</li>
+<li><strong>The architect</strong>, where a human's intent enters. Works with the operator to decide <em>what</em> to build and hands that decision to the coordinator. It can live in a chat window or graduate into the codebase itself.</li>
+<li><strong>The operator</strong>, the accountable human. Authorizes the work up front and gives the final go on every set.</li>
+<li><strong>Foundation</strong>, the coordinator: the one seat that commits to the shared spine, and the hub every message routes through. Every other seat talks to foundation, never to another seat.</li>
+<li><strong>The executor</strong>, the working seat that runs the side-effecting operations a change needs: migrations, live probes, calls out to databases and APIs, each inside a pre-authorized allow-list. Foundation authors what runs; the executor runs it, emits a receipt for every change to real state, and surfaces the result. It works on its own branch and never commits the spine, and it never widens its own credentials.</li>
+<li><strong>The lanes</strong>, the working seats the architect and operator define at instantiation, one per territory of work that needs its own writer, plus any independent tracks they choose to run in parallel. Each is isolated in its own branch, proposes, and never commits the spine. They follow boundaries, not workload: a project gets exactly the lanes its territories call for, and more work alone is absorbed inside a seat, not by adding one.</li>
 <li><strong>The auditor</strong>, an independent seat that reproduces every claim of "done" rather than trusting it.</li>
 </ul>
 <h2 id="how-a-project-begins">How a project begins</h2>
-<p>Before any work is handed out, the architect and operator author the project's foundation: the specification, the contracts, the roster of seats, and the invariants that boundary has to keep. Foundation commits that foundation to the shared spine first. Only then does it distribute the first tasks to the lanes.</p>
-<p>The order is the point. Every lane boots against a committed record rather than a conversation, so there is one source of truth from the first commit forward, and no seat ever works against intent that was never written down.</p>
+<p>Before any work is handed out, the architect and operator author the project's foundation: the specification, the contracts, the roster of seats, and the invariants that boundary has to keep. Foundation commits that foundation to the shared spine first. Only then does it distribute the first tasks to the working seats.</p>
+<p>The order is the point. Every seat boots against a committed record rather than a conversation, so there is one source of truth from the first commit forward, and no seat ever works against intent that was never written down.</p>
 <h2 id="how-a-change-moves">How a change moves</h2>
 <ol>
 <li><strong>A decision is made and handed to foundation.</strong> The architect and operator decide; the decision goes to the coordinator, not to a worker.</li>
-<li><strong>Foundation dispatches it</strong> to the lane that owns the affected area, and signals it to start.</li>
-<li><strong>The lane works in isolation</strong>, on its own branch, never touching the shared spine, never able to disturb another lane.</li>
+<li><strong>Foundation records the dispatch,</strong> routes it to the seat that owns the affected area, and signals it to start. That owner is a lane where the project separates work into territories, or the executor where the change touches real state. The dispatch lives in the owning seat's inbox on the record, not in a conversation.</li>
+<li><strong>The owning seat works in isolation</strong>, on its own branch, never touching the shared spine, never able to disturb another seat.</li>
 <li><strong>It produces a result and a receipt</strong>, a record of what it did and proof its checks ran.</li>
 <li><strong>Its checks run.</strong> Pass, and the change is <em>verified</em>. Fail, and it loops back for rework, a normal, expected part of the flow, not an error state.</li>
-<li><strong>An independent auditor reproduces the check.</strong> This is the close gate: a change is not "done" on the worker's own say-so, only when a <em>different</em> seat reproduces the result. There is, by construction, no shortcut from "in progress" to "closed."</li>
+<li><strong>An independent auditor reproduces the check.</strong> Nobody signs their own work: a change is not "done" on the worker's own say-so, only when a <em>different</em> seat re-runs the check and gets the same result. The auditor reports that verdict; it never merges or closes the change itself. There is, by construction, no shortcut from "in progress" to "closed." And clearing this gate is not the same as landing: an audited change still waits for its whole set to be ratified before it commits.</li>
 </ol>
-<p><strong>When a lane hits a conflict it can't resolve,</strong> it doesn't guess. It records the conflict and surfaces it to foundation, which re-checks it, was this a real conflict, or did the lane make a mistake? A mechanism question, foundation resolves itself. A question about the <em>rules</em>, what the contract should say, goes up to the architect and operator. Foundation decides <em>how</em>; the humans decide <em>what</em>.</p>
-<h2 id="the-set-and-the-gate">The set, and the gate</h2>
+<p><strong>When a seat hits a conflict it can't resolve,</strong> it doesn't guess. It records the conflict and surfaces it to foundation, which re-checks it: was this a real conflict, or did the seat make a mistake? A mechanism question, foundation resolves on its own. A question about the <em>rules</em>, what the contract should say, goes up to the architect and operator. Foundation decides <em>how</em>; the humans decide <em>what</em>.</p>
+<h2 id="the-set-and-the-gate">The set and the gate</h2>
 <ol start="7">
 <li>
-<p><strong>Foundation assembles the verified changes into a set</strong> and reasons over it, this is the heart of the design, not a rubber stamp:
+<p><strong>Foundation assembles the verified changes into a set</strong> and reasons over it. This is the heart of the design, not a rubber stamp:
    - It runs a <strong>conflict sweep</strong> across the whole set and the checks that are only meaningful on the <em>combination</em> (the kind of conflict that no single change reveals).
    - It classifies what it finds as <strong>in-band</strong> (settleable from facts already in the record) or <strong>out-of-band</strong> (needs a human fact, a cutover, a hold, a commitment).
-   - Crucially, the rules it reasons against aren't asserted, they're <strong>probed</strong>. Each invariant has a live check that must actually fail on a bad input, not just pass on a good one. An invariant's health is its test streak, not its prose. <em>This is the piece most governance frameworks lack.</em></p>
+   - Crucially, the rules it reasons against aren't asserted; they're <strong>probed</strong>. Each invariant has a live check that must actually fail on a bad input, not just pass on a good one. An invariant's health is its test streak, not its prose. <em>This is the piece most governance frameworks lack.</em></p>
 </li>
 <li>
 <p><strong>The operator decides.</strong>
    - If everything checks out, foundation asks a simple question: <em>"all checks pass on the set, commit?"</em> A clean assessment only means <em>nothing in the record objects</em>, so this is a real gate, not a formality. The operator can still say <strong>no</strong> on a fact the system couldn't see. That "wait, what are you doing?" is exactly why the human is here.
-   - If there's a conflict, foundation presents it with grounded alternatives, and the operator makes a real decision, ratify, ratify in a specific order, amend, hold, or reject. An amended set is a <em>new</em> set: it's re-assembled and re-checked as a whole. There is no line-item approval; that would quietly reintroduce the very per-change authorization the whole design rejects.</p>
+   - If there's a conflict, foundation presents it with grounded alternatives, and the operator makes a real decision: ratify, ratify in a specific order, amend, hold, or reject. An amended set is a <em>new</em> set: it's re-assembled and re-checked as a whole. There is no line-item approval; that would quietly reintroduce the very per-change authorization the whole design rejects.</p>
 </li>
 <li>
 <p><strong>Foundation commits and makes it durable.</strong> On the operator's go, the one writer merges the set and pushes it so "landed" means truly landed, not just local.</p>
@@ -133,7 +134,7 @@ a{color:inherit}
 <ul>
 <li><strong>The law</strong>, the architecture and its universal invariants (live-data-only, one writer per boundary, one role per session, no fake closures).</li>
 <li><strong>The contracts</strong>, how changes are authorized, how writes are mediated, how work is signalled and retired.</li>
-<li><strong>The database itself</strong>, the schema is a governed, contracted surface, and the <em>only</em> way agents write to it is through stored procedures. The identity the agents run under is <strong>read-only by default</strong>, it cannot directly insert, update, or delete; every write goes through an EXECUTE-granted procedure. A direct write fails by design. And this isn't a promise on paper: a standing probe <strong>continuously confirms the workload identity still cannot write around the mediation</strong>. The tables, columns, procedure signatures, and grant model are each a contract an adopter's changes are checked against.</li>
+<li><strong>The database itself</strong>, the schema is a governed, contracted surface, and the <em>only</em> way agents write to it is through stored procedures. The identity the agents run under is <strong>read-only by default</strong>, so it cannot directly insert, update, or delete; every write goes through an EXECUTE-granted procedure. A direct write fails by design. And this isn't a promise on paper: a standing probe <strong>continuously confirms the workload identity still cannot write around the mediation</strong>. The tables, columns, procedure signatures, and grant model are each a contract an adopter's changes are checked against.</li>
 <li><strong>The schemas</strong>, the lifecycle a change must traverse, and the shape of a valid receipt.</li>
 <li><strong>The disciplines</strong>, how a seat is expected to behave: verify before acting, halt loud rather than guess, prefer prior art.</li>
 <li><strong>The enforcement</strong>, the auditor and the standing probes that check every invariant continuously, in the code <em>and</em> in the database.</li>
@@ -143,18 +144,18 @@ a{color:inherit}
 <h2 id="why-its-built-this-way">Why it's built this way</h2>
 <ul>
 <li><strong>Prevention over detection.</strong> "The harness would catch it" is only ever <em>in addition to</em> a structural partition, never instead of one. GMAA prevents the confused decision from happening, rather than hoping to catch it after.</li>
-<li><strong>Structure over vigilance.</strong> One writer per boundary, identity that comes from <em>where</em> a seat runs rather than what it's told, an independent auditor by construction, these hold whether or not anyone is watching.</li>
+<li><strong>Structure over vigilance.</strong> One writer per boundary, identity that comes from <em>where</em> a seat runs rather than what it's told, an independent auditor by construction: these hold whether or not anyone is watching.</li>
 <li><strong>The human where machines can't reach.</strong> Automated checks settle everything <em>in</em> the record. The human settles what isn't in it. Neither is asked to do the other's job.</li>
 </ul>
-<h2 id="free-and-paid">Free, and paid</h2>
-<p>GMAA is <strong>open-core</strong>. The specification is free and citeable: a standard you can adopt and build on. The engine, the runnable blank template, is source-available and free to run inside your own organization. It is not open in the usual sense: you cannot redistribute or resell it, and shipping it inside a product or using it to deliver services needs a commercial license. What is paid is the genuinely hard part: <strong>turning that template into a coherent, running fleet in your real environment</strong>, the graduation from a template to a governed system that actually holds.</p>
+<h2 id="free-and-paid">Free and paid</h2>
+<p>GMAA is <strong>open-core</strong>. The specification is free and citeable: a standard you can adopt and build on. The engine, the runnable blank template, is free to run inside your own organization. It is not open in the usual sense: you cannot redistribute or resell it, and shipping it inside a product or using it to deliver services needs a commercial license. What is paid is the genuinely hard part: <strong>turning that template into a coherent, running fleet in your real environment</strong>, the graduation from a template to a governed system that actually holds.</p>
 <p>Read the spec, run the engine, cite it by version at <strong><a href="https://gmaa.ai">gmaa.ai</a></strong>.</p>
 
 <p><em>GMAA · Governed Multi-Agent Architecture · a chain of command for AI agents on a shared system of record.</em></p>
 </article>
 </div>
 <footer style="border-top: 1px solid rgb(221, 227, 229); margin-top: 20px; padding: 24px 2px 48px; font-family: &quot;IBM Plex Mono&quot;, monospace; font-size: 11.5px; letter-spacing: 0.06em; color: rgb(126, 138, 144); text-transform: uppercase;">
-    GMAA · Governed Multi-Agent Architecture · <a class="footlink" href="/">gmaa.ai</a> · <a class="footlink" href="/versions.html">Versions</a> · <a class="footlink" href="/operator-guide.html">Operator’s guide</a> · cite by version · Spec CC BY 4.0 · Engine PolyForm Internal Use 1.0.0
+    GMAA · Governed Multi-Agent Architecture · <a class="footlink" href="/">gmaa.ai</a> · <a class="footlink" href="/versions.html">Versions</a> · <a class="footlink" href="/changelog.html">Changelog</a> · <a class="footlink" href="/operator-guide.html">Operator’s guide</a> · cite by version · Spec CC BY 4.0 · Engine licensed for internal use only
   </footer>
 </div></div>
 </body>
