@@ -56,42 +56,43 @@ a{color:inherit}
         <span style="font-family: &quot;IBM Plex Mono&quot;, monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: rgb(126, 138, 144); margin-top: 3px;">Governed Multi-Agent Architecture</span>
       </span>
     </a>
-    <nav style="display:flex;flex-wrap:wrap;gap:7px 17px;font-family:&quot;IBM Plex Mono&quot;,monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;align-items:center"><a href="/thesis.html" style="color:#3F4B52;text-decoration:none">Thesis</a><a href="/canon.html" style="color:#3F4B52;text-decoration:none">Architecture</a><a href="/how-it-works.html" style="color:#3F4B52;text-decoration:none">How it works</a><a href="/applications.html" style="color:#3F4B52;text-decoration:none">Applications</a></nav>
+    <nav style="display:flex;flex-wrap:wrap;gap:7px 17px;font-family:&quot;IBM Plex Mono&quot;,monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;align-items:center"><a href="/thesis.html" style="color:#3F4B52;text-decoration:none">Thesis</a><a href="/canon.html" style="color:#3F4B52;text-decoration:none">Architecture</a><a href="/how-it-works.html" style="color:#3F4B52;text-decoration:none">How it works</a><a href="/applications.html" style="color:#3F4B52;text-decoration:none">Use cases</a></nav>
   </header>
 <div class="gmaa-grid" style="display: grid; grid-template-columns: 236px 1fr; gap: clamp(32px, 4vw, 60px); padding: 44px 2px 0px;">
 <aside class="gmaa-toc" style="align-self: start; position: sticky; top: 26px; max-height: calc(-52px + 100vh); overflow-y: auto;">
 <div style="font-family: &quot;IBM Plex Mono&quot;, monospace; font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(126, 138, 144); margin: 0px 0px 12px;">Contents</div>
 <nav class="toc">
-<a href="#1-what-you-are-and-are-not" class="active">1 · What you are, and are not</a>
+<a href="#1-what-you-are-and-are-not" class="active">1 · What you are and are not</a>
 <a href="#2-one-session-one-seat">2 · One session, one seat</a>
-<a href="#3-the-ferry-chat-seat-to-code-seat-and-back">3 · The ferry (chat seat to code seat, and back)</a>
+<a href="#3-the-ferry-chat-seat-to-code-seat-and-back">3 · The ferry (chat seat to code seat and back)</a>
 <a href="#4-reading-the-code-side-without-touching-it">4 · Reading the code side without touching it</a>
 <a href="#5-stopping-a-code-seat-the-shutdown-handshake">5 · Stopping a code seat (the shutdown handshake)</a>
 <a href="#6-restarting-things">6 · Restarting things</a>
 <a href="#7-when-a-seat-halts">7 · When a seat halts</a>
 <a href="#8-claims-and-receipts">8 · Claims and receipts</a>
-<a href="#9-channels-in-one-breath">9 · Channels, in one breath</a>
+<a href="#9-channels-in-one-breath">9 · Channels in one breath</a>
 <a href="#10-the-habits-that-keep-it-healthy">10 · The habits that keep it healthy</a>
 </nav></aside>
 <article class="art" style="min-width: 0px; padding-bottom: 70px;">
-<h1 id="the-operators-guide-running-a-gmaa-program-from-the-operators-chair">The Operator's Guide, running a GMAA program from the operator's chair</h1>
+<h1 id="the-operators-guide-running-a-gmaa-program-from-the-operators-chair">The Operator's Guide</h1>
+<p style="font-family:'Source Serif 4',serif;font-size:clamp(17px,1.9vw,20px);color:#3F4B52;font-weight:400;margin:2px 0 18px;max-width:66ch;line-height:1.45">Running a GMAA program from the operator's chair</p>
 <p><em>Companion to the GMAA engine. The engine's documents teach the agent seats; this page teaches the human. Canonical: <a href="https://gmaa.ai">gmaa.ai</a> · Engine: <a href="https://github.com/gmaa-ai/gmaa">github.com/gmaa-ai/gmaa</a> · Licensed CC BY 4.0, cite by version.</em></p>
-<p>Everything here is the day-to-day mechanics of being the operator: what you ferry, what you say, when you restart things, and what to do when a seat stops.</p>
-<h2 id="1-what-you-are-and-are-not">1 · What you are, and are not</h2>
-<p>You are the apex: you make WHAT-class decisions (what to build, what to approve, what ships) and you transport artifacts. You do not commit, do not write code, do not resolve HOW-class questions, your seats do that, and making them do it is what keeps the record honest. If a seat asks you a HOW question, send it back; if a seat makes a WHAT decision for you, overrule it on principle even if you agree with the content.</p>
+<p>Everything here is the day-to-day mechanics of being the operator: what to ferry, what to say, how to restart an agent, and what to do when a seat stops.</p>
+<h2 id="1-what-you-are-and-are-not">1 · What you are and are not</h2>
+<p>You are the apex: you make WHAT-class decisions (what to build, what to approve, what ships) and you transport artifacts. You do not commit, do not write code, do not resolve HOW-class questions; your seats do that, and making them do it is what keeps the record honest. If a seat asks you a HOW question, send it back; if a seat makes a WHAT decision for you, overrule it on principle even if you agree with the content.</p>
 <h2 id="2-one-session-one-seat">2 · One session, one seat</h2>
-<p>Every chat session is exactly one seat, and every terminal agent is exactly one seat. Never let one session speak for two seats, and never open the same seat twice at once. If you need another seat, you do not create one by hand, and you do not just open a session for it. You ask the architect. The architect assesses whether there is a coherence boundary for the new seat to govern. If there is, the architect hands the foundation the details, the foundation creates it, and you launch it from within the new worktree. Seats are granted through that path or not at all. When a chat seat and a code seat exist for the same role (the architect can live on either substrate), only one of them is active at a time, switch with a shutdown handshake (§5), never by running both.</p>
-<h2 id="3-the-ferry-chat-seat-to-code-seat-and-back">3 · The ferry (chat seat to code seat, and back)</h2>
+<p>Every chat session is exactly one seat, and every terminal agent is exactly one seat. Never let one session speak for two seats, and never open the same seat twice at once. If you need another seat, you do not create one by hand, and you do not just open a session for it. You ask the architect. The architect assesses whether there is a coherence boundary for the new seat to govern. If there is, the architect hands the foundation the details, the foundation creates it, and you launch it from within the new worktree. Seats are granted through that path or not at all. When a chat seat and a code seat exist for the same role (the architect can live on either substrate), only one of them is active at a time; switch with a shutdown handshake (§5), never by running both.</p>
+<h2 id="3-the-ferry-chat-seat-to-code-seat-and-back">3 · The ferry (chat seat to code seat and back)</h2>
 <p>Chat seats have no filesystem. You are the filesystem between them and the code side.</p>
 <ol>
-<li>The chat seat authors a <strong>file</strong> with a <strong>versioned filename</strong> (never a pasted wall of text, files survive, panes don't).</li>
+<li>The chat seat authors a <strong>file</strong> with a <strong>versioned filename</strong> (never a pasted wall of text; files survive, panes don't).</li>
 <li>Download it and drop it at the code side's single drop point (the inbox your program designates, one drop point, not one per agent).</li>
 <li>Say one sentence to the orchestrator seat: <strong>"there is a new relay."</strong> That is the whole doorbell. The orchestrator routes it hub-and-spoke from there; you never deliver to individual lanes.</li>
 <li>Returns come back the same way: the code side writes a return file, you upload it into the chat seat's session.</li>
 </ol>
 <p>Rules that keep the ferry honest: never edit a relay in place (a correction is a new versioned file); if you ferry the same file twice, the seat answers once; if the seat's copy and disk disagree, disk wins and the seat re-reads.</p>
 <h2 id="4-reading-the-code-side-without-touching-it">4 · Reading the code side without touching it</h2>
-<p>When a chat seat needs facts about a repository, it authors a read-only check (commands that only read), you ferry it, the code seat runs it and returns raw output. Never summarize on the seat's behalf, and never let a code seat "interpret" instead of returning bytes, the chat seat's job is judging evidence, and it can only judge what it can see verbatim.</p>
+<p>When a chat seat needs facts about a repository, it authors a read-only check (commands that only read); you ferry it; the code seat runs it and returns raw output. Never summarize on the seat's behalf, and never let a code seat "interpret" instead of returning bytes; the chat seat's job is judging evidence, and it can only judge what it can see verbatim.</p>
 <h2 id="5-stopping-a-code-seat-the-shutdown-handshake">5 · Stopping a code seat (the shutdown handshake)</h2>
 <p>Never just close a terminal on a working seat. The sequence:</p>
 <ol>
@@ -103,21 +104,21 @@ a{color:inherit}
 <p>Skipping step 2 is how work held in a context window dies silently. The engine's seats are built restart-preferred (the repo is memory, the context window is only a workspace, see CLAUDE.md §B6), so a clean handshake costs minutes and loses nothing.</p>
 <h2 id="6-restarting-things">6 · Restarting things</h2>
 <ul>
-<li><strong>Code seats:</strong> restart at natural boundaries (work-package close, wave close). If a seat is past roughly half its context at a boundary, restart it rather than rolling on; never open new work above ~70%. Cold boot re-grounds from the repo and takes minutes. Use the handshake (§5), then relaunch: the launcher resolves the seat's lane from its folder (folder equals lane), launch from the right worktree directory and the right seat comes up.</li>
+<li><strong>Code seats:</strong> restart at natural boundaries (work-package close, wave close). If a seat is past roughly half its context at a boundary, restart it rather than rolling on; never open new work above ~70%. Cold boot re-grounds from the repo and takes minutes. Use the handshake (§5), then relaunch: the launcher resolves the seat's lane from its folder (folder equals lane); launch from the right worktree directory and the right seat comes up.</li>
 <li><strong>Chat seats:</strong> a new session boots the same seat fresh. Ferry it the current governing documents (its charter, the program's register, anything changed since the snapshot it holds), let it run its boot assessment, and expect it to name any drift it finds before doing work. A chat seat that starts authoring without a boot report is skipping its own discipline, stop it and ask for the report.</li>
 <li><strong>Resuming mid-task:</strong> prefer restart over long-lived sessions. A restarted seat that re-derives from disk is more trustworthy than a tired one that remembers.</li>
 </ul>
 <h2 id="7-when-a-seat-halts">7 · When a seat halts</h2>
-<p>Halting loud is correct behavior, not failure. A seat that stops and names a mismatch (a hash that doesn't verify, a file that isn't where the record says, an instruction that conflicts with its charter) is doing exactly what the architecture pays for. Your moves, in order: read what it named; if it's a fact question, get the evidence (usually a read-only check, §4); if it's a decision, make the WHAT-class call; then let the seat proceed or re-derive. One expected day-one signal, so you don't chase it: on a brand-new installation the orchestration-freshness probe reads STALE until your first decision binds, it is measuring orchestration life, and yours hasn't started yet. It self-clears; it is a report, not a halt. Never instruct a seat to push through a halt "just this once", every silent exception you grant becomes the precedent that breaks the next gate.</p>
+<p>Halting loud is correct behavior, not failure. A seat that stops and names a mismatch (a hash that doesn't verify, a file that isn't where the record says, an instruction that conflicts with its charter) is doing exactly what the architecture pays for. Your moves, in order: read what it named; if it's a fact question, get the evidence (usually a read-only check, §4); if it's a decision, make the WHAT-class call; then let the seat proceed or re-derive. One expected day-one signal, so you don't chase it: on a brand-new installation the orchestration-freshness probe reads STALE until your first decision binds; it is measuring orchestration life, and yours hasn't started yet. It self-clears; it is a report, not a halt. Never instruct a seat to push through a halt "just this once"; every silent exception you grant becomes the precedent that breaks the next gate.</p>
 <h2 id="8-claims-and-receipts">8 · Claims and receipts</h2>
-<p>A seat's statement that work is done is a claim. The bytes are the receipt. When something matters, a seal, a migration, a fix, have the receiving seat verify on its own evidence (hashes from disk, files re-read) before you treat it as done. If a receipt and the bytes ever disagree, the bytes win, the claim is retracted by name, and the record keeps the history rather than being rewritten clean.</p>
-<h2 id="9-channels-in-one-breath">9 · Channels, in one breath</h2>
+<p>A seat's statement that work is done is a claim. The bytes are the receipt. When something matters (a seal, a migration, a fix), have the receiving seat verify on its own evidence (hashes from disk, files re-read) before you treat it as done. If a receipt and the bytes ever disagree, the bytes win, the claim is retracted by name, and the record keeps the history rather than being rewritten clean.</p>
+<h2 id="9-channels-in-one-breath">9 · Channels in one breath</h2>
 <p>Inside a program, relays run on that program's own numbered sequence. Between programs, use a cross-project channel with its own sequence. Either way: files, versioned names, one drop point, one doorbell sentence, orchestrator routes. You carry; you don't route.</p>
 <h2 id="10-the-habits-that-keep-it-healthy">10 · The habits that keep it healthy</h2>
-<p>Batch your rulings (one decision pass beats a dribble of small ones). Keep seats in their lanes even when crossing would be faster today. Let the record grow only on incidents with receipts, resist adding rules because something <em>might</em> go wrong. And when the machinery catches one of your own errors, let it stand in the record; the catches are the proof the system works.</p>
-<p>,  The GMAA Operator's Guide · gmaa.ai · CC BY 4.0, cite by version.</p>
+<p>Batch your rulings (one decision pass beats a dribble of small ones). Keep seats in their lanes even when crossing would be faster today. Let the record grow only on incidents with receipts; resist adding rules because something <em>might</em> go wrong. And when the machinery catches one of your own errors, let it stand in the record; the catches are the proof the system works.</p>
+<p>The GMAA Operator's Guide · gmaa.ai · CC BY 4.0, cite by version.</p>
 </article></div>
 <footer style="border-top: 1px solid rgb(221, 227, 229); margin-top: 20px; padding: 24px 2px 48px; font-family: &quot;IBM Plex Mono&quot;, monospace; font-size: 11.5px; letter-spacing: 0.06em; color: rgb(126, 138, 144); text-transform: uppercase;">
-    GMAA · Governed Multi-Agent Architecture · <a class="footlink" href="/">gmaa.ai</a> · <a class="footlink" href="/versions.html">Versions</a> · <a class="footlink" href="/operator-guide.html">Operator’s guide</a> · cite by version · Spec CC BY 4.0 · Engine PolyForm Internal Use 1.0.0
+    GMAA · Governed Multi-Agent Architecture · <a class="footlink" href="/">gmaa.ai</a> · <a class="footlink" href="/versions.html">Versions</a> · <a class="footlink" href="/changelog.html">Changelog</a> · <a class="footlink" href="/operator-guide.html">Operator’s guide</a> · cite by version · Spec CC BY 4.0 · Engine licensed for internal use only
   </footer>
 </div></div></body></html>
