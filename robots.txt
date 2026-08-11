@@ -1,43 +1,28 @@
-# GMAA, gmaa.ai
-# The GMAA specification is an open, citeable standard (CC BY 4.0).
-# Posture: allow classic search, AI search, and user-initiated assistant fetches,
-# so the standard stays discoverable and eligible for citation.
-
 User-agent: *
 Allow: /
- 
-# Classic search
-User-agent: Googlebot
-Allow: /
-User-agent: Bingbot
+
+User-agent: GPTBot
 Allow: /
 
-# AI search and retrieval (eligibility for AI-answer citations)
 User-agent: OAI-SearchBot
 Allow: /
-User-agent: Claude-SearchBot
+
+User-agent: ChatGPT-User
 Allow: /
+
 User-agent: PerplexityBot
 Allow: /
 
-# User-initiated assistant fetches
-User-agent: ChatGPT-User
-Allow: /
-User-agent: Claude-User
-Allow: /
-User-agent: Perplexity-User
-Allow: /
-
-# Model-training crawlers (operator policy decision; see the SEO note).
-# Default here is allow, because the spec is CC BY 4.0 and meant to spread.
-# To opt out of training while keeping AI-search visibility, change these to Disallow: /
-User-agent: GPTBot
-Allow: /
 User-agent: ClaudeBot
 Allow: /
+
+User-agent: Claude-User
+Allow: /
+
 User-agent: Google-Extended
 Allow: /
-User-agent: CCBot
+
+User-agent: Bingbot
 Allow: /
 
 Sitemap: https://gmaa.ai/sitemap.xml

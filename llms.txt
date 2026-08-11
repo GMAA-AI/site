@@ -1,17 +1,25 @@
-# GMAA
+# GMAA, Governed Multi-Agent Architecture
 
-> GMAA (Governed Multi-Agent Architecture) is a governance layer for multi-agent systems. The unit of authorization is the set, not the change: an accountable human ratifies the complete set of pending changes against a system's invariants, before any of them commits.
+> GMAA is an architectural framework for Claude Code multi-agent systems that authorizes the complete set of pending changes, not only each change alone. Per-change approval stays in place; GMAA adds one accountable human, in a governed seat independent of every agent, who ratifies the whole set against the rules the system must keep before anything commits. The unit of authorization is the set.
 
-GMAA is an open standard. The specification is licensed CC BY 4.0. The engine that implements it is source-available under PolyForm Shield 1.0.0. Author: Israel Heskiel. Canonical: gmaa.ai. Cite by version.
+Key facts:
+- Author and operator: Israel Heskiel
+- Specification: Governed Multi-Agent Architecture, current version v1.6 (2026-08-11), licensed CC BY 4.0, cite by version
+- Engine: reference implementation on Claude Code, source-available under Apache 2.0 with the Commons Clause (free to use, modify, and redistribute; may not be sold or offered as a paid or hosted service)
+- Repository: https://github.com/gmaa-ai/gmaa
+- The claim: multi-agent systems fail by authorizing at the wrong unit; individually approved changes can be jointly incoherent, and the complete pending set must be ratified before commit
+- Not claimed: completeness by assertion; whether an implementation catches every joint incoherence is answered by adversarial testing, not asserted
 
-## Core documents
-- [The specification, v1.5](https://gmaa.ai/canon.html): The buildable architecture. Coherence boundaries, single writers, the governed seat, subagent roles, the ratification flow, and the per-project instantiation checklist.
-- [The thesis, The Coherence Boundary](https://gmaa.ai/thesis.html): Why the unit of authorization is the set and not only the change, why no shipping system fills that seat, and why the human in it cannot be automated away.
-- [Overview](https://gmaa.ai/): What GMAA is, the gap it fills, and the line between what is claimed and what is left open.
+## Pages
 
-## What is claimed, and what is not
-- Established: the unit is the set, and no shipping system places an accountable human at that unit before commit.
-- Open, on purpose: whether a given implementation catches every joint incoherence is earned by an adversarial test, not asserted.
+- [Home](https://gmaa.ai/): what GMAA is, how it works, key capabilities, FAQ
+- [Thesis](https://gmaa.ai/thesis.html): The Coherence Boundary, the argument for the set as the unit of authorization and why the governed seat cannot be filled by an agent
+- [Architecture](https://gmaa.ai/canon.html): the full v1.6 specification, coherence boundaries, single-writer discipline, the governed seat, ratification flow, instantiation checklist
+- [How it works](https://gmaa.ai/how-it-works.html): the operating loop in practice
+- [Use cases](https://gmaa.ai/applications.html): where set-level authorization applies
+- [Versions](https://gmaa.ai/versions.html): release history, current artifacts, download verification
+- [Operator's guide](https://gmaa.ai/operator-guide.html): running the framework as the accountable operator
 
-## Contact
-- arch@gmaa.ai 
+## Optional
+
+- [Specification PDF](https://github.com/gmaa-ai/gmaa/blob/main/canon/GOVERNED_MULTI_AGENT_ARCHITECTURE_v1_6.pdf): the citeable v1.6 document, CC BY 4.0

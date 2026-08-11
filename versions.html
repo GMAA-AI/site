@@ -8,7 +8,7 @@
 <meta property="og:title" content="GMAA Versions"><meta property="og:description" content="Current version, what changed, and how to verify what you downloaded."><meta property="og:url" content="https://gmaa.ai/versions.html"><meta property="og:image" content="https://gmaa.ai/gmaa-card.png">
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="GMAA Versions"><meta name="twitter:description" content="Current version, what changed, and how to verify what you downloaded."><meta name="twitter:image" content="https://gmaa.ai/gmaa-card.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:wght@400;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"GMAA Versions","description":"Current GMAA engine version, the version history, and how to verify a download. The citation target for cite-by-version.","url":"https://gmaa.ai/versions.html","inLanguage":"en","author":{"@type":"Person","name":"Israel Heskiel"},"publisher":{"@type":"Organization","name":"GMAA","url":"https://gmaa.ai/"},"isPartOf":{"@type":"WebSite","name":"GMAA","url":"https://gmaa.ai/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "GMAA Versions", "description": "Current GMAA engine version, the version history, and how to verify a download. The citation target for cite-by-version.", "url": "https://gmaa.ai/versions.html", "inLanguage": "en", "author": {"@type": "Person", "name": "Israel Heskiel", "@id": "https://gmaa.ai/#founder"}, "publisher": {"@type": "Organization", "name": "GMAA", "url": "https://gmaa.ai/", "@id": "https://gmaa.ai/#org"}, "isPartOf": {"@type": "WebSite", "name": "GMAA", "url": "https://gmaa.ai/"}, "dateModified": "2026-08-11"}</script>
 <style>
 html,body{margin:0}
 @media print{table,tr,td,th{break-inside:avoid}@page{margin:1.2cm}}
@@ -57,7 +57,7 @@ a{color:inherit}
         <span style="font-family: &quot;IBM Plex Mono&quot;, monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: rgb(126, 138, 144); margin-top: 3px;">Governed Multi-Agent Architecture</span>
       </span>
     </a>
-    <nav style="display:flex;flex-wrap:wrap;gap:7px 17px;font-family:&quot;IBM Plex Mono&quot;,monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;align-items:center"><a href="/thesis.html" style="color:#3F4B52;text-decoration:none">Thesis</a><a href="/canon.html" style="color:#3F4B52;text-decoration:none">Architecture</a><a href="/how-it-works.html" style="color:#3F4B52;text-decoration:none">How it works</a><a href="/applications.html" style="color:#3F4B52;text-decoration:none">Applications</a></nav>
+    <nav style="display:flex;flex-wrap:wrap;gap:7px 17px;font-family:&quot;IBM Plex Mono&quot;,monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;align-items:center"><a href="/thesis.html" style="color:#3F4B52;text-decoration:none">Thesis</a><a href="/canon.html" style="color:#3F4B52;text-decoration:none">Architecture</a><a href="/how-it-works.html" style="color:#3F4B52;text-decoration:none">How it works</a><a href="/applications.html" style="color:#3F4B52;text-decoration:none">Use cases</a> <a href="https://github.com/gmaa-ai/gmaa" style="color:#0F7A5A;text-decoration:none;border:1px solid #0F7A5A;border-radius:6px;padding:6px 12px;font-weight:500">Get the code</a></nav>
   </header>
 <div class="gmaa-grid" style="display: grid; grid-template-columns: 236px 1fr; gap: clamp(32px, 4vw, 60px); padding: 44px 2px 0px;">
 <aside class="gmaa-toc" style="align-self: start; position: sticky; top: 26px; max-height: calc(-52px + 100vh); overflow-y: auto;">
@@ -135,11 +135,11 @@ unzip gmaa-engine_v2.5.3.zip -d gmaa-engine
 cd gmaa-engine
 sha256sum -c MANIFEST.sha256           <span style="color:#7E8A90"># every line OK, or stop and report</span></div>
 <p style="margin:16px 0 6px">Confirm which specification version you have:</p>
-<div class="verify">sha256sum canon/GOVERNED_MULTI_AGENT_ARCHITECTURE_v1_5.md   <span style="color:#7E8A90"># compare to SHA256SUMS</span></div>
+<div class="verify">sha256sum canon/GOVERNED_MULTI_AGENT_ARCHITECTURE_v1_6.pdf   <span style="color:#7E8A90"># compare to SHA256SUMS</span></div>
 <p>The canon sha in <code>SHA256SUMS</code> is the value the engine pins, so a match proves the loose specification at the root is the exact version this engine conforms to.</p>
 
 <h2 id="spec">The specification</h2>
-<p>The specification is versioned separately from the engine. Current: <b>v1.5</b> (2026-07-27), published at <a href="/canon.html" style="color:#131A1F">canon.html</a> and shipped at the repository root under <code>canon/</code>, both under CC BY 4.0. Each engine version states which spec it pins, and the canon sha is published in <code>SHA256SUMS</code> so you can confirm the version you hold.</p>
+<p>The specification is versioned separately from the engine. Current: <b>v1.6</b> (2026-08-11), published at <a href="/canon.html" style="color:#131A1F">canon.html</a> and available as a PDF at <a href="https://github.com/gmaa-ai/gmaa/blob/main/canon/GOVERNED_MULTI_AGENT_ARCHITECTURE_v1_6.pdf" style="color:#131A1F">canon/GOVERNED_MULTI_AGENT_ARCHITECTURE_v1_6.pdf</a>, both under CC BY 4.0. The sealed engine v2.5.3 pins canon v1.5; the next engine seal re-pins to v1.6. Each engine version states which spec it pins, and the canon sha is published in <code>SHA256SUMS</code> so you can confirm the version you hold.</p>
 <p style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.04em;color:#7E8A90;margin-top:24px;text-transform:uppercase">Spec licensed CC BY 4.0 · Engine Apache 2.0 with Commons Clause · Cite by version</p>
 </article></div>
 <footer style="border-top: 1px solid rgb(221, 227, 229); margin-top: 20px; padding: 24px 2px 48px; font-family: &quot;IBM Plex Mono&quot;, monospace; font-size: 11.5px; letter-spacing: 0.06em; color: rgb(126, 138, 144); text-transform: uppercase;">
