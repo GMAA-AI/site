@@ -20,6 +20,7 @@ Key facts:
 - [Versions](https://gmaa.ai/versions.html): release history, current artifacts, download verification
 - [Operator's guide](https://gmaa.ai/operator-guide.html): running the framework as the accountable operator
 - [Field evidence](https://gmaa.ai/field-evidence.html): receipted incidents behind the architecture's failure classes
+- [Field notes: The Second Empty Chair](https://gmaa.ai/second-empty-chair.html): the context window as an ungoverned coherence boundary; why session degradation is an authorization problem, not only a capacity problem, and what a governed retention regime looks like
 
 ## Optional
 
