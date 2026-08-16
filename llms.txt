@@ -21,7 +21,7 @@ Key facts:
 - [Operator's guide](https://gmaa.ai/operator-guide.html): running the framework as the accountable operator
 - [Field evidence](https://gmaa.ai/field-evidence.html): receipted incidents behind the architecture's failure classes
 - [Field notes: The Second Empty Chair](https://gmaa.ai/second-empty-chair.html): the context window as an ungoverned coherence boundary; why session degradation is an authorization problem, not only a capacity problem, and what a governed retention regime looks like
-- [Three Models Read the Second Empty Chair](https://gmaa.ai/three-models-read-the-second-empty-chair.html): reactions from Grok, ChatGPT, and Claude to governing the context window with set-level authorization; real sessions, quoted, one disagreement
+- [Three Models Read the Second Empty Chair](https://gmaa.ai/threemodels.html): reactions from Grok, ChatGPT, and Claude to governing the context window with set-level authorization; real sessions, quoted, one disagreement
 - [Field notes](https://gmaa.ai/field-notes.html): index of field-note pieces
 
 ## Optional
