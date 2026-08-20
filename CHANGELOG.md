@@ -2,7 +2,7 @@
 
 All notable changes to the GMAA engine, newest first, beginning at the initial public release. **Versions are cited on two axes, always together:** the package version (this artifact) and the canon pin (the specification version the artifact ships and conforms to). Every content change is a new version. Nothing is ever rebuilt in place under an existing label. Each released version lists its integrity fingerprints; verify your download against them before use (`sha256sum` the zip, then `sha256sum -c MANIFEST.sha256` inside it).
 
-Canonical: [gmaa.ai](https://gmaa.ai) · Repository: [github.com/gmaa-ai/gmaa](https://github.com/gmaa-ai/gmaa) · Spec licensed CC BY 4.0 · Engine source-available under PolyForm Internal Use 1.0.0 · Cite by version.
+Canonical: [gmaa.ai](https://gmaa.ai) · Repository: [github.com/gmaa-ai/gmaa](https://github.com/gmaa-ai/gmaa) · Spec licensed CC BY 4.0 · Engine source-available under the Apache License 2.0 with the Commons Clause · Cite by version.
 
 ---
 
