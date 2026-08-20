@@ -22,6 +22,7 @@ Key facts:
 - [Field evidence](https://gmaa.ai/field-evidence.html): receipted incidents behind the architecture's failure classes
 - [Field notes: The Second Empty Chair](https://gmaa.ai/second-empty-chair.html): the context window as an ungoverned coherence boundary; why session degradation is an authorization problem, not only a capacity problem, and what a governed retention regime looks like
 - [Seven Models Read the Second Empty Chair](https://gmaa.ai/sevenmodels.html): reactions from seven frontier models to governing the context window with set-level authorization; real sessions, quoted; six of seven misread the seat as a person
+- [Governed Context](https://gmaa.ai/governed-context.html): the end-to-end design for governing the context window as a coherence boundary; ratified sets at entry, residency computed from declared roots, a provenance archive at exit; design draft r7 under adversarial review, open problems named
 - [Field notes](https://gmaa.ai/field-notes.html): index of field-note pieces
 
 ## Optional
