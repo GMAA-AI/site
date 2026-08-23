@@ -1,0 +1,697 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The GMAA Engine Map, v2.5.6</title>
+<meta name="description" content="Every file in the GMAA engine release, grouped into ten functional areas, each anchored to its canon section, with the execution wiring that shows what invokes what and when.">
+<meta name="author" content="Israel Heskiel">
+<link rel="canonical" href="https://gmaa.ai/engine-map.html">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<meta property="og:type" content="article"><meta property="og:site_name" content="GMAA, Governed Multi-Agent Architecture">
+<meta property="og:title" content="The GMAA Engine Map, v2.5.6"><meta property="og:description" content="How the engine implements the specification: every file in the release, ten functional areas, each anchored to its canon section, with the execution wiring.">
+<meta property="og:url" content="https://gmaa.ai/engine-map.html"><meta property="og:image" content="https://gmaa.ai/gmaa-card.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="The GMAA Engine Map, v2.5.6"><meta name="twitter:description" content="How the engine implements the specification: every file, ten areas, the execution wiring."><meta name="twitter:image" content="https://gmaa.ai/gmaa-card.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:wght@400;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "@id": "https://gmaa.ai/engine-map.html#map", "name": "The GMAA Engine Map", "headline": "The GMAA Engine Map", "description": "How the GMAA engine implements the specification: every file in the release, grouped into ten functional areas, each anchored to its canon section, with the execution wiring.", "url": "https://gmaa.ai/engine-map.html", "inLanguage": "en", "version": "2.5.6", "datePublished": "2026-08-20", "dateModified": "2026-08-20", "author": {"@type": "Person", "name": "Israel Heskiel", "@id": "https://gmaa.ai/#founder"}, "publisher": {"@type": "Organization", "name": "GMAA", "url": "https://gmaa.ai/", "@id": "https://gmaa.ai/#org"}, "isPartOf": {"@type": "WebSite", "name": "GMAA", "url": "https://gmaa.ai/"}, "about": {"@type": "DefinedTerm", "name": "Governed Multi-Agent Architecture", "termCode": "GMAA"}, "keywords": "GMAA engine, engine map, set-level authorization, coherence boundary, single writer, standing probes, instantiation"}</script>
+<style>
+html,body{margin:0}
+@media print{table,tr,td,th{break-inside:avoid}@page{margin:1.2cm}}
+a{color:inherit}
+::selection{background:#0F7A5A;color:#fff}
+.toc a{display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.02em;color:#7E8A90;text-decoration:none;padding:5px 0 5px 12px;border-left:2px solid transparent;line-height:1.35;transition:color .15s,border-color .15s}
+.toc a:hover{color:#131A1F}
+.toc a.active{color:#0F7A5A;border-left-color:#0F7A5A}
+.art a{color:#C24A32;text-decoration:underline;text-underline-offset:2px}
+.art h2{font-family:'Source Serif 4',serif;font-weight:600;letter-spacing:-.012em;font-size:clamp(22px,2.3vw,29px);line-height:1.18;margin:50px 0 14px;padding-top:24px;border-top:1px solid #DDE3E5;scroll-margin-top:24px}
+.art h3{font-family:'Source Serif 4',serif;font-weight:600;font-size:19px;margin:30px 0 8px;color:#131A1F;scroll-margin-top:24px}
+.art p,.art li{font-size:16.5px;line-height:1.72;color:#2C363C;max-width:72ch}
+.art li{margin:6px 0}
+.art strong{color:#131A1F;font-weight:600}
+.art em{font-style:italic}
+.art code{font-family:'IBM Plex Mono',monospace;font-size:.85em;background:#E9EDEF;padding:1px 6px;border-radius:4px;color:#131A1F}
+.art table{border-collapse:collapse;width:100%;margin:22px 0;font-size:14px;display:block;overflow-x:auto}
+.art th,.art td{border:1px solid #DDE3E5;padding:10px 13px;text-align:left;vertical-align:top;line-height:1.5}
+.art th{background:#EBEFF1;font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:12px;letter-spacing:.03em;text-transform:uppercase;color:#3F4B52}
+.art hr{border:none;border-top:1px solid #DDE3E5;margin:34px 0}
+.footlink{color:#0F7A5A;text-decoration:none}.footlink:hover{text-decoration:underline}
+@media(max-width:960px){.gmaa-grid{grid-template-columns:1fr !important}.gmaa-toc{display:none !important}}
+</style>
+</head>
+<body>
+<div style="background: rgb(244, 246, 247); color: rgb(19, 26, 31); font-family: &quot;Source Serif 4&quot;, Georgia, serif; min-height: 100vh;"><div style="width: min(1220px, 92vw); margin: 0px auto;">
+
+  <header style="display: flex; flex-wrap: wrap; gap: 14px 20px; justify-content: space-between; align-items: center; padding: 22px 2px 20px; border-bottom: 1px solid rgb(221, 227, 229);">
+    <a href="/" style="display: flex; align-items: center; gap: 13px; text-decoration: none;">
+      <svg width="30" height="30" viewBox="0 0 32 32" aria-hidden="true"><rect x="4" y="4" width="4" height="17" fill="#B0701A"></rect><rect x="11" y="4" width="4" height="17" fill="#B0701A"></rect><rect x="18" y="4" width="4" height="17" fill="#B0701A"></rect><rect x="4" y="24" width="18" height="4" fill="#0F7A5A"></rect></svg>
+      <span style="display: flex; flex-direction: column; line-height: 1.02;">
+        <span style="font-family: &quot;Space Grotesk&quot;, sans-serif; font-weight: 700; font-size: 22px; color: rgb(19, 26, 31);">GMAA</span>
+        <span style="font-family: &quot;IBM Plex Mono&quot;, monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: rgb(126, 138, 144); margin-top: 3px;">Governed Multi-Agent Architecture</span>
+      </span>
+    </a>
+    <nav style="display:flex;flex-wrap:wrap;gap:7px 17px;font-family:&quot;IBM Plex Mono&quot;,monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;align-items:center"><a href="/thesis.html" style="color:#3F4B52;text-decoration:none">Thesis</a><a href="/canon.html" style="color:#3F4B52;text-decoration:none">Architecture</a><a href="/how-it-works.html" style="color:#3F4B52;text-decoration:none">How it works</a><a href="/applications.html" style="color:#3F4B52;text-decoration:none">Use cases</a><a href="/field-notes.html" style="color:#3F4B52;text-decoration:none">Field notes</a> <a href="https://github.com/gmaa-ai/gmaa" style="color:#0F7A5A;text-decoration:none;border:1px solid #0F7A5A;border-radius:6px;padding:6px 12px;font-weight:500">Get the code</a></nav>
+  </header>
+
+  <div class="gmaa-grid" style="display: grid; grid-template-columns: 260px 1fr; gap: clamp(32px, 4vw, 60px); padding: 44px 2px 0px;">
+    <aside class="gmaa-toc" style="align-self: start; position: sticky; top: 26px; max-height: calc(-52px + 100vh); overflow-y: auto;">
+      <div style="font-family: &quot;IBM Plex Mono&quot;, monospace; font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(126, 138, 144); margin: 0px 0px 12px;">Contents</div>
+      <nav class="toc">
+        <a href="#s1" data-t="s1" class="active">1 The specification layer, the law everything below implements</a>
+        <a href="#s2" data-t="s2">2 Identity and the seat lifecycle</a>
+        <a href="#s3" data-t="s3">3 Single-writer enforcement and spine protection</a>
+        <a href="#s4" data-t="s4">4 Set-level authorization, the thesis in executable form</a>
+        <a href="#s5" data-t="s5">5 The work lifecycle, dispatch to audited closure</a>
+        <a href="#s6" data-t="s6">6 Merge, reap, and lane currency</a>
+        <a href="#s7" data-t="s7">7 Communication, relay, and escalation</a>
+        <a href="#s8" data-t="s8">8 Standing audit and enforcement</a>
+        <a href="#s9" data-t="s9">9 Instantiation, adoption, and upgrade</a>
+        <a href="#s10" data-t="s10">10 Release integrity and the release envelope</a>
+        <a href="#s11" data-t="s11">Execution wiring, the whole engine as a timeline</a>
+        <a href="#s12" data-t="s12">Coverage account</a>
+      </nav>
+    </aside>
+
+    <article class="art" style="min-width:0;padding-bottom:30px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#7E8A90;margin:0 0 10px">Engine package v2.5.6 · canon pin v1.6.1</div>
+      <h1 style="font-family:'Source Serif 4',serif;font-weight:700;letter-spacing:-.015em;font-size:clamp(30px,4vw,44px);line-height:1.08;margin:0 0 14px">The GMAA Engine Map</h1>
+<p><strong>How the engine implements the specification.</strong> Engine package v2.5.6 · canon pin v1.6.1 · cite by version. Canonical home: gmaa.ai. Verification fingerprints for the release are on gmaa.ai/versions.html.</p>
+<p><strong>Who this is for.</strong> Anyone evaluating GMAA for a project, and anyone who has downloaded the engine and wants the map before the tree. The specification states the law; the engine is the machinery that enforces it. Reading the law alone answers "what must hold" but not "what runs, what fires it, and what it costs to operate," and an evaluation made on the law alone tends to overprice the discipline and misread designed absences as gaps. This document is the missing middle: every file in the release, grouped into ten functional areas, each anchored to its canon section, with the execution wiring that shows what invokes what and when.</p>
+<p><strong>Three facts an evaluation can miss reading the specification alone.</strong> First, the engine creates its own repository at instantiation: no prior version control is required, and an ungoverned workspace is the starting condition adoption is designed for, not a blocker to it. Second, empty substrate slots are a designed posture, not gaps: a project with no database, no API, and no side-effectful backend leaves the C-DB and C-GATE slots unfilled, and SLOTS.md is the inventory of exactly those decisions. Third, the discipline is wired, not manual: hooks fire at every commit, a guard fires on every shell call, probes run on schedule, and seat files are generated rather than maintained, so the recurring human act is one ratification decision per set, and that decision is the product rather than the overhead.</p>
+<p><strong>Method.</strong> The canon (v1.6.1, all sections) was read whole, then every one of the 102 files in the package plus the 4 loose release files beside the zip was inventoried and its header, purpose block, or full body read. Every file is assigned to exactly one functional area below; a coverage account at the foot proves nothing was orphaned. Where a file is machinery, the map states what invokes it and when it fires, because a gate is defined as much by its trigger as by its logic.</p>
+<p><strong>The shape of the whole thing in one paragraph.</strong> The canon states one correction: authorize the set, not only the change, with an integrator agent assessing and an independent human ratifying. The engine implements that correction as ten cooperating layers: an identity layer that makes a seat something you derive rather than assert; a single-writer enforcement layer that makes the spine physically uncommittable by anyone but foundation; the set-authorization machinery itself, which is the thesis in executable form; a work lifecycle that moves a change from dispatch to independently audited closure; a merge and reap layer that keeps worktrees honest; a relay layer that keeps transport off the participants; a standing audit layer that probes invariants instead of asserting them; an instantiation and upgrade layer that turns the blank template into a project and keeps it upgradeable; the harness wiring that makes the runtime itself enforce the above; and the release integrity envelope around all of it.</p>
+<hr />
+<h2 id="s1">1 The specification layer, the law everything below implements</h2>
+<p><strong>Canon anchor: the whole document.</strong></p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>canon/GOVERNED_MULTI_AGENT_ARCHITECTURE_v1_6_1_PUBLIC.md</code></td>
+<td>The specification, carried in-zip so every adopter holds the exact law their engine version conforms to. CC BY 4.0, licensed separately from the engine. Nothing executes it; everything below is checked against it, and the set assessment (§4, §10) can find a set in conflict with any part of it.</td>
+</tr>
+</tbody>
+</table>
+<p>The canon's own instantiation checklist (§12) is the adopter's entry point into it; section 9 below carries the files that walk it.</p>
+<h2 id="s2">2 Identity and the seat lifecycle</h2>
+<p><strong>Canon anchors: §1.0 definitions, §1.1 seats and surfaces, §2 ONE-SESSION-ONE-SEAT, §7.1 Boot-0, §7.2 provisioning, §7.3 project-qualified identity.</strong></p>
+<p>The design law of this area: identity comes from location, is derived on both sides of the spawn boundary, and the two derivations must agree or the seat halts. A hand-made folder cannot mint a seat because it has no committed stamp.</p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>What it is and what runs it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>_boot/BOOTSTRAP.md</code></td>
+<td>The stamp: project, lane, session name, branch, fixed at provisioning. Read at boot by the launcher and the resolver; never asserted at runtime.</td>
+</tr>
+<tr>
+<td><code>_boot/CHARTER-foundation.md</code>, <code>_boot/CHARTER-executor.md</code></td>
+<td>The two shipped seat charters, read at Boot-0 step 7, authored before the seat exists per charter-precedes-boot.</td>
+</tr>
+<tr>
+<td><code>scripts/resolve-lane.sh</code></td>
+<td>The shared identity resolver: lane = worktree folder name, cross-checked against the stamp, halt on mismatch. Consumed by cold-boot, the pre-commit hook, and the post-commit hook, so commit-time enforcement keys on the same identity boot does.</td>
+</tr>
+<tr>
+<td><code>scripts/resolve-project.sh</code></td>
+<td>The §7.3 project-token resolver: reads the stamped <code>project:</code> field, composes <code>{project}-{lane}</code> for the tmux namespace, never guesses.</td>
+</tr>
+<tr>
+<td><code>launch-orc.sh</code></td>
+<td>The one launcher, identical bytes in every worktree. Resolves lane from the stamp, refuses double-launch on the exact qualified session name, creates the named tmux session, sends the launch line, prints an observed-facts receipt.</td>
+</tr>
+<tr>
+<td><code>scripts/orc-up.sh</code></td>
+<td>The two-word operator wrapper over the launch path: fail-closed bootstrap check, named session at the lane worktree, <code>claude --agent orc</code>.</td>
+</tr>
+<tr>
+<td><code>scripts/orc-restart.sh</code></td>
+<td>The §7.4 remedy made cheap: checkpoint first, kill, orc-up. Restart over degraded continuation.</td>
+</tr>
+<tr>
+<td><code>scripts/boot-check.sh</code></td>
+<td>The boot-discipline presence and currency gate, one script for all lanes. Fired two ways: called from each lane's bootstrap, and wired into the harness <code>SessionStart</code> hook so presence is harness-enforced rather than agent willpower.</td>
+</tr>
+<tr>
+<td><code>scripts/preflight.sh</code></td>
+<td>The substrate floor made testable: checks Claude Code CLI, git with auth, tmux, and that every shipped agent definition leads with loadable frontmatter. Reports and halts; provisions nothing, per the floor ruling.</td>
+</tr>
+<tr>
+<td><code>CLAUDE.md</code></td>
+<td>The condensed hot operating surface every session loads: cold-boot identity, the B6 context lifecycle, the binding invariant shapes, seat topology, slot pointers.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The agent-definition roster (<code>.claude/agents/</code>), canon §1.0 "agent definition" and §1.3 subagent classes.</strong> These are the qualifications a session loads to become a fit occupant:</p>
+<table>
+<thead>
+<tr>
+<th>Definition</th>
+<th>Class and boundary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>orc.md</code></td>
+<td>The role-neutral orchestrator seat definition; the folder it launches in resolves whether it is foundation (spine write ALLOW) or a module lane (DENY). The one definition that is a seat, not a subagent.</td>
+</tr>
+<tr>
+<td><code>architect.md</code></td>
+<td>The optional code-resident architect seat: reads everything at HEAD read-only, ratifies HOW-class, writes exactly one territory (its drop-zone), never commits, never executes mechanisms.</td>
+</tr>
+<tr>
+<td><code>build-worker.md</code></td>
+<td>Builder class: one work package per spawn, own branch, emits artifact plus probe plus receipt, closure deferred to the independent audit.</td>
+</tr>
+<tr>
+<td><code>dispatch-executor.md</code></td>
+<td>Advancing-executor class: runs dispatch files pass by pass, surfaces ratification checkpoints, never strategizes.</td>
+</tr>
+<tr>
+<td><code>docs-resolver.md</code></td>
+<td>Read-only prober for live external documentation; returns verbatim content with source citations, per discipline rule 3.</td>
+</tr>
+<tr>
+<td><code>general-purpose.md</code></td>
+<td>Bounded fan-out worker for foundation: authoring-only by default, never commits, halts loud on ambiguity.</td>
+</tr>
+<tr>
+<td><code>canvas-monitor.md</code></td>
+<td>Read-only drift monitor over canvas-surface outputs, spawned on a logged event, never modifies what it watches.</td>
+</tr>
+</tbody>
+</table>
+<p>One file in this area is deliberately absent: <strong><code>seats.yaml</code> is not shipped.</strong> It is the adopter's roster and spine-path declaration, created at instantiation (SLOTS.md row 49), spine-owned and set-gated once it exists, and read at HEAD by the enforcement layer below.</p>
+<h2 id="s3">3 Single-writer enforcement and spine protection</h2>
+<p><strong>Canon anchors: §1.1 single-writer invariant, §8 permission architecture, Appendix A wrong-authorization-unit and FIX-SURFACE-DIVERGENCE.</strong></p>
+<p>This area answers one question mechanically: can anyone but foundation land bytes on the spine? The answer is layered so that no single bypass defeats it.</p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>What it is and what runs it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>scripts/spine-census.sh</code></td>
+<td>The single authoritative emitter of what counts as a protected spine path, one path per line. The v2.5.6 fix: every enforcement consumer reads its census from here, ending the hand-copied-census drift that let a merge-time gate miss the set-authorization machinery's own files. Consumers: the pre-commit hook, <code>reap_at_merge.sh</code>, <code>ratify.sh</code>, <code>probe_state_propagation.sh</code>, <code>probe_set_gate.sh</code>.</td>
+</tr>
+<tr>
+<td><code>scripts/declared-spine-paths.sh</code></td>
+<td>The adopter's extension of the census: reads <code>spine_paths:</code> from <code>seats.yaml</code> <strong>at HEAD</strong> (<code>git show HEAD:seats.yaml</code>), never the working tree, so a lane cannot forge its own roster to widen its own exemptions.</td>
+</tr>
+<tr>
+<td><code>agents/pre-commit-hook.sh</code></td>
+<td>The D3 hard gate, canonical source for <code>.git/hooks/pre-commit</code>: resolves the committing lane, reads the census plus declared paths, blocks a module or executor commit touching any of them, and carries the set-coverage check on foundation's own authored-spine commits.</td>
+</tr>
+<tr>
+<td><code>scripts/install_pre_commit_hook.sh</code></td>
+<td>Installs the above into <code>.git/hooks/</code>; the install is a checklist step, and its presence is what the boot and audit layers verify.</td>
+</tr>
+<tr>
+<td><code>scripts/guard-command-shape.sh</code></td>
+<td>The PreToolUse guard on every Bash call: tokenizes past git global flags and denies <code>--no-verify</code>, <code>-n</code>, <code>--force</code> and forced refspecs <strong>wherever they sit in the command</strong>, closing the flag-after-subcommand hole a prefix-matched deny cannot cover. Fail-closed, exit 2 blocks.</td>
+</tr>
+<tr>
+<td><code>.claude/settings.json</code></td>
+<td>The harness plane itself, §8 in file form: the shared safe allow-list, the deny list where deny beats allow, and the two hook wirings that make the runtime enforce the engine (<code>PreToolUse</code> to the shape guard, <code>SessionStart</code> to boot-check). Spine-protected, foundation-only edit.</td>
+</tr>
+<tr>
+<td><code>probes/foundation/probe_census_parity.sh</code></td>
+<td>The v2.5.6 Blocker 2 guard: behaviorally drives every registered enforcer's own membership test against the shared census, both assignment and case-table forms, fail-closed on an undriveable enforcer, so the census copies can never silently diverge again.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="s4">4 Set-level authorization, the thesis in executable form</h2>
+<p><strong>Canon anchors: §4 pending-set ledger and apply-boundary set-evaluation, §10 ratification flow. Contracts: <code>C-SET-AUTHORIZATION.md</code>, <code>C-RATIFICATION-PACKET.md</code>, <code>COST-CAPS.md</code>.</strong></p>
+<p>This is the machinery the whole architecture exists to carry: the set, not only the change, is what gets authorized, with foundation assembling and assessing and the independent human ratifying.</p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>What it is and what runs it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PENDING-SET.md</code></td>
+<td>The visible ledger, one row per change ratified but not yet committed, shipped as the empty schema with the maintenance law and the set-evaluation receipt line verbatim from origin.</td>
+</tr>
+<tr>
+<td><code>contracts/C-SET-AUTHORIZATION.md</code></td>
+<td>The governing model: the round-trip flow, the four enforced mechanisms (U4B conformance, footprint coverage §2.2, three-layer joint-edge coherence §2.3, cost brake §2.4), the member-as-manifest rule, the check-reference, the definition of done. Subordinate to the standing law by its own section L.</td>
+</tr>
+<tr>
+<td><code>contracts/C-RATIFICATION-PACKET.md</code></td>
+<td>The packet schema <code>ratify.sh assemble</code> writes and the operator's decision taxonomy reads.</td>
+</tr>
+<tr>
+<td><code>contracts/COST-CAPS.md</code></td>
+<td>The declared cost envelope the cost brake prices against, canon §1.3's ruled-not-assumed cost invariant.</td>
+</tr>
+<tr>
+<td><code>scripts/pending-set.sh</code></td>
+<td>The ledger instrument, five verbs: list, mint (foundation-only set identity), registry, member (module writes its entry to its own outbox), and the read paths every seat uses. M1 and M2 of the mechanism.</td>
+</tr>
+<tr>
+<td><code>scripts/ratify.sh</code></td>
+<td>The largest script in the engine (772 lines) and its heart: <code>assemble</code> reads the full ledger and every member entry, computes mechanical joint edges, writes the packet; <code>assess</code> records foundation's reasoning; <code>ratify</code> records the operator's single decision line. Foundation-only, resolver-gated. M3 through M5.</td>
+</tr>
+<tr>
+<td><code>scripts/cost-guard.sh</code></td>
+<td>The cost brake: reads the usage ledger, prices rows against the caps, closed exit-code set, unreadable ledger halts.</td>
+</tr>
+<tr>
+<td><code>_ratification/SET-NNNN.md</code>, <code>_ratification/criteria/MEMBER.md</code></td>
+<td>The packet template and the per-member criteria schema the assembler fills.</td>
+</tr>
+<tr>
+<td><code>export/EXPORT-set-authorization.md</code></td>
+<td>The methodology export: the thesis, enforcement, and first-execution method as a portable narrative, the one place the mechanism is written for reading rather than running.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Its dedicated enforcement, probed rather than asserted:</strong></p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Claim it proves</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>probes/foundation/probe_set_gate.sh</code></td>
+<td>Every foundation commit touching an authored-spine path since the last ratified packet is covered by a ratified set member or an enumerated exemption; the post-hoc mirror of the pre-commit coverage gate.</td>
+</tr>
+<tr>
+<td><code>probes/set-gate/probe_footprint_coverage_flip.sh</code></td>
+<td><code>assemble</code> refuses a set that does not cover its requirement's declared footprint; flip-proven, meaning it is seen to fail before its pass counts.</td>
+</tr>
+<tr>
+<td><code>probes/set-gate/probe_semantic_hunt_flip.sh</code></td>
+<td>The semantic-hunt slot is unskippable: a merge decision refuses on a missing or incomplete hunt; the three-layer joint-edge gate's own guard.</td>
+</tr>
+<tr>
+<td><code>scripts/test/test_set_gate_seeded_fault.sh</code></td>
+<td>The 57-pole seeded-fault battery over the whole area: census drift in both forms, undriveable enforcers, ledger corruption in both verbs, guard bypass shapes with benign controls, the SLOTS bypass, positive controls. The engine's own acceptance evidence, run at every seal.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="s5">5 The work lifecycle, dispatch to audited closure</h2>
+<p><strong>Canon anchors: §3 discipline rules, §4 receipts ledger. Schemas: the <code>schema/</code> directory whole.</strong></p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>schema/state-machine.md</code></td>
+<td>The work-package lifecycle with the no-fake-closures property as graph structure: there is no IN_PROGRESS to CLOSED edge; only an auditor-reproduced receipt closes.</td>
+</tr>
+<tr>
+<td><code>schema/work-package.md</code>, <code>schema/receipt.md</code></td>
+<td>The typed shapes of the unit of work and the proof it ran.</td>
+</tr>
+<tr>
+<td><code>schema/verification.md</code></td>
+<td>Verification and audit rules: Ring 0, WAIVED, spot-audit, bounded rework.</td>
+</tr>
+<tr>
+<td><code>schema/concurrency.md</code></td>
+<td>The concurrency rules under which lanes and workers overlap.</td>
+</tr>
+<tr>
+<td><code>dispatch/LATEST.md</code></td>
+<td>The live orchestrator pointer, spine-protected, so status is read from a file rather than a screenshot; ships as the skeleton.</td>
+</tr>
+<tr>
+<td><code>scripts/spawn_build_worker.sh</code></td>
+<td>The build-worker spawner: a backgrounded worker via <code>claude -p</code>, one bounded work package per spawn.</td>
+</tr>
+<tr>
+<td><code>scripts/receipt-ledger.py</code></td>
+<td>The receipt single-allocator and uniqueness verifier: fixes the same-second collision class in receipt ids; applied by foundation at reap, by workers at emit, and by the auditor at verify.</td>
+</tr>
+<tr>
+<td><code>scripts/validate_sprint_doc.py</code></td>
+<td>The sprint-doc section validator the dispatch track closes against.</td>
+</tr>
+<tr>
+<td><code>contracts/ref-impl/emit_receipt_ref.sh</code>, <code>apply_ref.sh</code>, <code>fire_ref.sh</code>, <code>refusal_test.sh</code></td>
+<td>The runnable neutral reference implementations: how a receipt is emitted, how an apply wraps, how a gate fires, and the refusal test proving mediation actually refuses. The adopter's copy-from surface for their own C-DB and C-GATE fills.</td>
+</tr>
+<tr>
+<td><code>contracts/C-DB.md</code>, <code>contracts/C-GATE.md</code></td>
+<td>The mediated side-effect slots: the database as a governed contract surface with the mediated-write-zero invariant, and the metered-execution gate slot. Shipped as slots; the adopter's substrate fills them.</td>
+</tr>
+<tr>
+<td><code>contracts/OPERATING-DISCIPLINE.md</code></td>
+<td>How work proceeds day to day, the contract form of canon §3.</td>
+</tr>
+<tr>
+<td><code>disciplines.md</code></td>
+<td>The standing disciplines and pattern library: PASS-0 premise verification, prior-art-first, halt-loud, cited by the boot creed's trigger-to-cite convention.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="s6">6 Merge, reap, and lane currency</h2>
+<p><strong>Canon anchor: §7.2 retirement as the mirror event. Contract: <code>SPEC-REAPER.md</code>.</strong></p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>What it is and what runs it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>scripts/reap_at_merge.sh</code></td>
+<td>Audit-at-merge, the merge-time backstop: substrate guard reading the shared census, the forced-merge-path sentinel, receipt canonicalization via <code>receipt-ledger.py</code>, the five-state prefix-match. Run by foundation at every module or executor merge.</td>
+</tr>
+<tr>
+<td><code>scripts/reaper.sh</code></td>
+<td>The worktree-lifecycle garbage collector implementing SPEC-REAPER: reap-at-merge cleanup, stale-lock reaping, the force-remove guard. Fully lane-agnostic.</td>
+</tr>
+<tr>
+<td><code>scripts/lane_currency_gate.sh</code></td>
+<td>The spine-to-module mirror of reap: brings a module lane content-fresh with the trunk without letting it touch the spine.</td>
+</tr>
+<tr>
+<td><code>contracts/SPEC-REAPER.md</code></td>
+<td>The lifecycle contract the two scripts implement.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="s7">7 Communication, relay, and escalation</h2>
+<p><strong>Canon anchor: §5 communication architecture: transport lives outside every participant. Contract: <code>SPEC-DOORBELL.md</code>. Protocol: <code>_knowledge/COORDINATION.md</code>.</strong></p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>What it is and what runs it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>scripts/inbox.sh</code></td>
+<td>The lane-resolved spine-inbox reader, the hub-and-spoke relay engine over <code>_orchestration/relay-inbox/&lt;seat&gt;/</code>. Every lane's first action each turn.</td>
+</tr>
+<tr>
+<td><code>scripts/doorbell.sh</code></td>
+<td>The SPEC-DOORBELL wrapper: tmux is the bell, the git inbox is the transport, payload never rides the bell, a dropped bell delays and never loses. Rung by foundation at dispatch.</td>
+</tr>
+<tr>
+<td><code>scripts/signal.sh</code></td>
+<td>The durable operator-to-integrator signal, born from a dropped GO typed into a mid-turn pane: directives become files.</td>
+</tr>
+<tr>
+<td><code>scripts/status.sh</code></td>
+<td>Observable state without attaching to a pane, the §7 observability property as a command.</td>
+</tr>
+<tr>
+<td><code>contracts/SPEC-DOORBELL.md</code></td>
+<td>The contract: an actionable payload committed but unrung is an incomplete output; the ring completes it.</td>
+</tr>
+<tr>
+<td><code>_knowledge/COORDINATION.md</code></td>
+<td>The full coordination protocol: hub-and-spoke, inbox and outbox, the integrator clauses, the module-to-foundation asymmetry invariant.</td>
+</tr>
+<tr>
+<td><code>_escalations/escalation-003.md</code></td>
+<td>The shipped worked example of a STOP-AND-SURFACE riding the escalation path, so an adopter's first conflict has a filed precedent to imitate.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="s8">8 Standing audit and enforcement</h2>
+<p><strong>Canon anchor: §4 enforcement mechanisms: invariants are probed, not asserted, the component most governance frameworks lack.</strong></p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>What it is and what runs it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>agents/post-commit-hook.sh</code></td>
+<td>The D1 lane-aware reap-then-audit hook, canonical source for <code>.git/hooks/post-commit</code>: module marker and push, foundation reap plus push plus doorbell auto-fire, then the backgrounded auditor. Fires after every spine commit.</td>
+</tr>
+<tr>
+<td><code>scripts/install_post_commit_hook.sh</code></td>
+<td>Its installer.</td>
+</tr>
+<tr>
+<td><code>agents/auditor-contract.md</code>, <code>agents/audit-system-prompt.md</code></td>
+<td>The independent auditor: its contract (files, never fixes) and the system prompt the hook launches it with.</td>
+</tr>
+<tr>
+<td><code>agents/standing-probes.yaml</code></td>
+<td>The declared registry of nine standing probes with run_by and schedule: mediated-write-zero, orchestration-freshness, auditor-liveness, set-gate, state-propagation, the two set-gate flip probes, census-parity, discrimination-proof-neutral. An invariant's health is its streak here, not its prose.</td>
+</tr>
+<tr>
+<td><code>probes/discrimination_proof_neutral.sh</code></td>
+<td>Proves the probe harness itself distinguishes pass from fail with zero adopter infrastructure, so a green board is never vacuous.</td>
+</tr>
+<tr>
+<td><code>probes/foundation/probe_auditor_liveness.py</code></td>
+<td>Fail-never-warn liveness of the post-commit trigger itself: detection machinery checked from outside the participant.</td>
+</tr>
+<tr>
+<td><code>probes/foundation/probe_state_propagation.sh</code></td>
+<td>A foundation commit touching authored-spine paths must refresh the anti-stale HEAD pin, or a cold boot re-grounds stale.</td>
+</tr>
+<tr>
+<td><code>issues_register.md</code></td>
+<td>The single append-aware defect and named-wait record, first-class per canon §4, seeded empty.</td>
+</tr>
+<tr>
+<td><code>scripts/audit_issue_register.py</code></td>
+<td>The register's discipline tool: push-drift flagging for the best-effort push-at-close, plus register-shape enforcement.</td>
+</tr>
+<tr>
+<td><code>scripts/governance.sh</code></td>
+<td>Cite-before-raise: no settled decision is re-raised without citing the record, the §10 no-re-gating rule as a command.</td>
+</tr>
+<tr>
+<td><code>scripts/check_orchestration_freshness.sh</code></td>
+<td>The orchestration-freshness probe body over the local session-state surface and the decision log.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="s9">9 Instantiation, adoption, and upgrade</h2>
+<p><strong>Canon anchors: §11 packaging and adoption, §12 instantiation checklist.</strong></p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ADOPTION-COVER.md</code></td>
+<td>The read-first cover: what this is, what order to read in, both version axes on line 2.</td>
+</tr>
+<tr>
+<td><code>GETTING-STARTED-LINUX-MAC.md</code></td>
+<td>The adopter's walk from unzip to first launched seat on the supported floor.</td>
+</tr>
+<tr>
+<td><code>CHECKLIST.md</code></td>
+<td>The instantiation checklist in executable order, the §12 list as a working document.</td>
+</tr>
+<tr>
+<td><code>OPERATOR-GUIDE.md</code></td>
+<td>The operator-side companion: what the human at the apex does and answers.</td>
+</tr>
+<tr>
+<td><code>OPERATOR-CHAT-SETUP.md</code></td>
+<td>The chat-side setup page: project, bootstrap, and why a session wakes up lost without them.</td>
+</tr>
+<tr>
+<td><code>SLOTS.md</code></td>
+<td>The single inventory of every adopter slot, one row each, and the authority the upgrade classifier reads to tell a slot fill from an engine delta.</td>
+</tr>
+<tr>
+<td><code>docs/FOUNDATION.md</code></td>
+<td>The project rationale and invariants skeleton, shipped with authoring instructions for the adopting project's chat architect to fill.</td>
+</tr>
+<tr>
+<td><code>docs/CHAT-SEAT-PROJECT-INSTRUCTIONS_skeleton.md</code></td>
+<td>The chat-seat charter skeleton, the §1.1 chat-seat law instantiated per project.</td>
+</tr>
+<tr>
+<td><code>docs/FIELD-EVIDENCE_skeleton.md</code></td>
+<td>The conformed field-evidence log schema, canon §4, seeded per project.</td>
+</tr>
+<tr>
+<td><code>docs/BOOT-CHECK-PROPAGATION.md</code></td>
+<td>How the one boot-check script propagates to every lane's bootstrap by call, never by copy.</td>
+</tr>
+<tr>
+<td><code>docs/ENGINE-UPDATE.md</code></td>
+<td>The upgrade procedure: how an adopter takes a new engine version over their filled slots.</td>
+</tr>
+<tr>
+<td><code>scripts/engine-update-classify.sh</code></td>
+<td>The mechanical half of that upgrade: classifies every changed path as slot fill to preserve or engine delta to apply, with no model inside the classifier; judgment goes only to per-conflict rulings.</td>
+</tr>
+<tr>
+<td><code>scripts/test/test_engine_update_classify.sh</code></td>
+<td>Its seeded-fault battery.</td>
+</tr>
+<tr>
+<td><code>scripts/test/test_resolve_lane_seeded_fault.sh</code></td>
+<td>The identity resolver's seeded-fault battery, proving the halt paths halt.</td>
+</tr>
+<tr>
+<td><code>scripts/sync_knowledge.sh</code></td>
+<td>The tiered publish of decision-load-bearing surfaces for chat-seat project ingestion, the code end of the ferry.</td>
+</tr>
+<tr>
+<td><code>scripts/install_skills.sh</code></td>
+<td>Installs the in-repo skill home to the runtime's skill directory; ships the single generic code-build skill, adopters extend.</td>
+</tr>
+<tr>
+<td><code>scripts/rules_manifest.sh</code></td>
+<td>The scoped rules-manifest hash over the guard, resolver, and coordination clauses, so rule drift is detectable as a fingerprint change.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="s10">10 Release integrity and the release envelope</h2>
+<p>The release is bigger than the package: four loose files ride beside the zip, and the README is the front door to all of it. The two layers verify each other in sequence, loose first, package second, which is why they are one area.</p>
+<p><strong>In-zip integrity and hygiene:</strong></p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MANIFEST.sha256</code></td>
+<td>The per-file fingerprint manifest, 101 rows; <code>sha256sum -c</code> inside the unzipped package is the adopter's second verify surface.</td>
+</tr>
+<tr>
+<td><code>CHANGELOG.md</code></td>
+<td>The versioned public account, additive framing in its own header, the in-place-rebuild promise on line 3.</td>
+</tr>
+<tr>
+<td><code>CITATION.cff</code></td>
+<td>The citation metadata, validated by its own schema validator, both axes carried.</td>
+</tr>
+<tr>
+<td><code>.gitattributes</code>, <code>.gitignore</code></td>
+<td>Line-ending and exclusion hygiene, including the local-only surfaces (<code>settings.local.json</code>, session state) the freshness probe expects gitignored.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The loose release layer, beside the zip:</strong></p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>README.md</code></td>
+<td>The front door and the map of the whole release. Every section of it is backed by something executable or fingerprinted, which is what separates it from marketing: the thesis restated in the additive form; the two-artifact two-license split; the release contents list; the substrate floor; the quick start; the two-axis verify rule; the license summary. Its section-by-section wiring is below.</td>
+</tr>
+<tr>
+<td><code>LICENSE.md</code></td>
+<td>The licensing envelope: the engine under Apache 2.0 with the Commons Clause, the <code>canon/</code> directory carved out under CC BY 4.0, the required notice. The carve-out line ("everything in this package except the canon/ directory") is a claim about the zip's own layout, and the layout honors it.</td>
+</tr>
+<tr>
+<td><code>GOVERNED_MULTI_AGENT_ARCHITECTURE_v1_6_1.pdf</code></td>
+<td>The canon in reading form, the same version the zip carries as <code>canon/..._PUBLIC.md</code>. Two renderings, one version; the in-zip markdown is the fingerprint-pinned copy the manifest and the citation law bind to.</td>
+</tr>
+<tr>
+<td><code>SHA256SUMS</code></td>
+<td>The first verify surface: four rows, the zip and the three documents above, checked before anything is unzipped. The zip's filename in row 1 is load-bearing, since <code>sha256sum -c</code> matches by name.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The README's sections, each mapped to what makes it true:</strong></p>
+<table>
+<thead>
+<tr>
+<th>README section</th>
+<th>Backed by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The correction</td>
+<td>The additive-framing law verbatim: set-level authorization on top of per-change review, never instead of it. The same sentence the CHANGELOG header and every public surface carry; area 4 is its implementation.</td>
+</tr>
+<tr>
+<td>Two artifacts, two licenses</td>
+<td><code>LICENSE.md</code> beside it and the canon's own CC BY line; the carve-out matches the zip layout.</td>
+</tr>
+<tr>
+<td>What is in this release</td>
+<td>The four loose files plus the zip, enumerated. The license text travels beside the zip and on the release page; verify the full set together.</td>
+</tr>
+<tr>
+<td>Prerequisites, the substrate floor</td>
+<td><code>scripts/preflight.sh</code> is this section as a command: it checks exactly the floor stated here, reports, halts, and provisions nothing, per the floor ruling.</td>
+</tr>
+<tr>
+<td>Quick start</td>
+<td>Step 1 is <code>SHA256SUMS</code>; step 2 is <code>MANIFEST.sha256</code>; step 3 sets execute bits; step 4 is <code>launch-orc.sh</code>, area 2.</td>
+</tr>
+<tr>
+<td>Verify</td>
+<td>The two-axis citation law as procedure: package version and canon pin, both surfaces in order, fingerprints published at versions.html.</td>
+</tr>
+<tr>
+<td>License summary</td>
+<td>The one-paragraph restatement of <code>LICENSE.md</code>; the file governs, the summary points.</td>
+</tr>
+</tbody>
+</table>
+<p>The README carries no engine version label by design: it points at versions.html for the current version and fingerprints, so the file stays stable across releases while the fingerprints move where they are published.</p>
+<hr />
+<h2 id="s11">Execution wiring, the whole engine as a timeline</h2>
+<p><strong>At adoption:</strong> <code>preflight.sh</code> clears the floor → <code>CHECKLIST.md</code> walks §12 → hooks installed (<code>install_pre_commit_hook.sh</code>, <code>install_post_commit_hook.sh</code>) → slots filled per <code>SLOTS.md</code> (including creating <code>seats.yaml</code>) → <code>docs/FOUNDATION.md</code> authored.</p>
+<p><strong>At seat launch:</strong> operator runs <code>orc-up.sh &lt;lane&gt;</code> → <code>launch-orc.sh</code> resolves the stamp, refuses double-launch, creates <code>{project}-{lane}</code> → <code>claude --agent orc</code> loads <code>orc.md</code> → <code>SessionStart</code> hook fires <code>boot-check.sh</code> → the session derives identity via <code>resolve-lane.sh</code>, reads its charter, reads <code>dispatch/LATEST.md</code>, checks its inbox.</p>
+<p><strong>Per tool call:</strong> the <code>PreToolUse</code> hook runs <code>guard-command-shape.sh</code> on every Bash invocation.</p>
+<p><strong>Per change:</strong> foundation dispatches into an inbox and rings <code>doorbell.sh</code> → the lane works on its branch → worker emits artifact plus receipt (<code>receipt-ledger.py</code> allocates) → probe runs → the post-commit hook's auditor reproduces → only then does the state machine allow CLOSED.</p>
+<p><strong>Per commit:</strong> <code>.git/hooks/pre-commit</code> (from <code>agents/pre-commit-hook.sh</code>) reads <code>spine-census.sh</code> plus <code>declared-spine-paths.sh</code> at HEAD and blocks non-writer spine writes and uncovered foundation writes; <code>.git/hooks/post-commit</code> reaps, pushes, and launches the auditor.</p>
+<p><strong>Per set:</strong> members enter <code>PENDING-SET.md</code> via <code>pending-set.sh</code> → <code>ratify.sh assemble</code> computes joint edges and writes the packet → <code>assess</code> records foundation's reasoning, <code>cost-guard.sh</code> prices it → the operator writes one decision line → <code>ratify.sh ratify</code> records it → foundation merges, <code>reap_at_merge.sh</code> backstops, pushes at close.</p>
+<p><strong>Continuously:</strong> the nine probes in <code>standing-probes.yaml</code> run on their schedules, ledgered; <code>audit_issue_register.py</code> flags push drift; the seeded-fault batteries re-prove the gates can fail at every release.</p>
+<h2 id="s12">Coverage account</h2>
+<p><strong>The release is 106 files: 102 in the sealed package plus 4 loose beside the zip.</strong> In-package assignment: area 1 carries 1; area 2 carries 17 (10 identity files plus the 7 agent definitions); area 3 carries 7; area 4 carries 12; area 5 carries 14; area 6 carries 4; area 7 carries 7; area 8 carries 12; area 9 carries 17; area 10's in-zip table carries 4. Total 95, plus the 7 remaining: <code>PENDING-SET.md</code> counted in area 4, <code>CLAUDE.md</code> and <code>disciplines.md</code> counted in areas 2 and 5, <code>dispatch/LATEST.md</code> in area 5, <code>issues_register.md</code> in area 8, <code>_escalations/escalation-003.md</code> in area 7, <code>export/EXPORT-set-authorization.md</code> in area 4. The 4 loose files (<code>README.md</code>, <code>LICENSE.md</code>, the canon PDF, <code>SHA256SUMS</code>) carry their own rows in area 10's loose-layer table. <strong>Every file in the release appears exactly once above; none is unassigned.</strong></p>
+<p>One absence is load-bearing and named: <code>seats.yaml</code> does not ship. It is created at instantiation, and the engine's enforcement reads it at HEAD from the moment it exists.</p>
+<p>This map is re-derived from the tree at every engine version; nothing in it is maintained by hand against drift. GMAA · gmaa.ai · cite by version.</p>
+    </article>
+  </div>
+
+  <footer style="border-top: 1px solid rgb(221, 227, 229); margin-top: 26px; padding: 20px 2px 34px; font-family: &quot;IBM Plex Mono&quot;, monospace; font-size: 11px; color: rgb(126, 138, 144); line-height: 1.8;">
+    GMAA · Governed Multi-Agent Architecture · <a class="footlink" href="/">gmaa.ai</a> · <a class="footlink" href="/versions.html">Versions</a> · <a class="footlink" href="/operator-guide.html">Operator&rsquo;s guide</a> · cite by version · Spec CC BY 4.0 · Engine Apache 2.0 with Commons Clause
+  </footer>
+
+</div></div>
+<script>
+const links=[...document.querySelectorAll('.toc a')];const map=new Map(links.map(a=>[a.dataset.t,a]));
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){links.forEach(a=>a.classList.remove('active'));const a=map.get(e.target.id);if(a)a.classList.add('active');}})},{rootMargin:'0px 0px -75% 0px'});
+document.querySelectorAll('.art h2[id]').forEach(h=>obs.observe(h));
+</script>
+</body>
+</html>

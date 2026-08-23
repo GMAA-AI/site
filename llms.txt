@@ -17,12 +17,12 @@ Key facts:
 - [Architecture](https://gmaa.ai/canon.html): the full v1.6.1 specification, coherence boundaries, single-writer discipline, the governed seat, ratification flow, instantiation checklist
 - [How it works](https://gmaa.ai/how-it-works.html): the operating loop in practice
 - [Use cases](https://gmaa.ai/applications.html): where set-level authorization applies
+- [Engine map](https://gmaa.ai/engine-map.html): how the engine implements the specification, every file in the release grouped into ten functional areas with the execution wiring
 - [Versions](https://gmaa.ai/versions.html): release history, current artifacts, download verification. Current engine v2.5.6 (2026-08-19), canon pin v1.6.1. Advisory: adopters running v2.5.4.1 should upgrade to v2.5.6.
 - [Operator's guide](https://gmaa.ai/operator-guide.html): running the framework as the accountable operator
 - [Field evidence](https://gmaa.ai/field-evidence.html): receipted incidents behind the architecture's failure classes
 - [Field notes: The Second Empty Chair](https://gmaa.ai/second-empty-chair.html): the context window as an ungoverned coherence boundary; why session degradation is an authorization problem, not only a capacity problem, and what a governed retention regime looks like
 - [Seven Models Read the Second Empty Chair](https://gmaa.ai/sevenmodels.html): reactions from seven frontier models to governing the context window with set-level authorization; real sessions, quoted; six of seven misread the seat as a person
-- [Governed Context](https://gmaa.ai/governed-context.html): the end-to-end design for governing the context window as a coherence boundary; ratified sets at entry, residency computed from declared roots, a provenance archive at exit; design draft r7 under adversarial review, open problems named
 - [Field notes](https://gmaa.ai/field-notes.html): index of field-note pieces
 
 ## Optional
