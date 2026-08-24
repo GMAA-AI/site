@@ -91,12 +91,26 @@ a{color:inherit}
     </figure>
 
     <div style="margin: 46px 0px 0px; border: 1px solid rgb(221, 227, 229); border-radius: 8px; background: rgb(255, 255, 255); padding: 26px clamp(16px, 2.5vw, 30px);">
-      <p style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(15, 122, 90); margin: 0px 0px 14px;">Two runtimes</p>
-      <p style="font-family: 'Source Serif 4', serif; font-weight: 600; font-size: clamp(21px, 2.2vw, 27px); line-height: 1.25; margin: 0px 0px 6px; color: rgb(19, 26, 31);">Runs on Claude Code. Now runs on Grok.</p>
-      <p style="font-size: 17px; color: rgb(63, 75, 82); margin: 0px 0px 18px;">One architecture, one spec, two runtimes.</p>
-      <p style="font-size: 15.5px; line-height: 1.65; color: rgb(63, 75, 82); max-width: 64ch; margin: 0px 0px 18px;">GMAA is a reference architecture, not a plugin. The specification is the standard and the engine is a runnable implementation of it. There are now two: the Claude Code engine and the Grok companion, both pinned to canon v1.6.1, both carrying the same set-level authorization, the same single-writer spine, and the same probed invariants. Pick the runtime your team already uses. The governance does not change.</p>
-      <p style="font-size: 15.5px; line-height: 1.65; color: rgb(63, 75, 82); max-width: 64ch; margin: 0px 0px 18px;"><b>Two ways in on Grok.</b> The plugin route installs into Grok Build and follows the numbered walk. Or hand <code style="font-family:'IBM Plex Mono',monospace;font-size:13.5px">GROK-BOT.md</code> to a Grok Bot and let it serve as your chat architect through assessment and the instantiation fills, then stop where it is supposed to stop. Both routes land in the same governed repository.</p>
-      <p style="font-size: 15px; margin: 0px;"><a href="https://github.com/gmaa-ai/gmaa" style="color: rgb(19, 26, 31);">gmaa-engine v2.5.6, for Claude Code</a> &nbsp;·&nbsp; <a href="https://github.com/gmaa-ai/gmaa/tree/main/grok" style="color: rgb(19, 26, 31);">gmaa-engine-grok v2.5.7, for Grok Build</a></p>
+      <p style="font-family: &quot;IBM Plex Mono&quot;, monospace; font-size: 11.5px; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(15, 122, 90); margin: 0px 0px 14px;">Two runtimes</p>
+      <p style="font-family: &quot;Source Serif 4&quot;, serif; font-weight: 600; font-size: clamp(21px, 2.2vw, 27px); line-height: 1.25; margin: 0px 0px 6px; color: rgb(19, 26, 31);">Runs on Claude Code. Now runs on Grok.</p>
+      <p style="font-size: 17px; color: rgb(63, 75, 82); margin: 0px 0px 16px;">One architecture, one spec, two runtimes.</p>
+      <p style="font-size: 15.5px; line-height: 1.65; color: rgb(63, 75, 82); max-width: 72ch; margin: 0px 0px 22px;">GMAA is a reference architecture, not a plugin. The specification is the standard and the engine is a runnable implementation of it. There are now two: the Claude Code engine and the Grok companion, both pinned to canon v1.6.1, both carrying the same set-level authorization, the same single-writer spine, and the same probed invariants. Pick the runtime your team already uses. The governance does not change.</p>
+      <div class="gmaa-doors" style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px;">
+        <div style="display: block; border: 1px solid rgb(221, 227, 229); border-radius: 8px; background: rgb(252, 252, 251); padding: 22px 22px 20px;">
+          <div style="font-family: &quot;IBM Plex Mono&quot;, monospace; font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(15, 122, 90); margin: 0px 0px 10px;">Claude line</div>
+          <div style="font-family: &quot;Source Serif 4&quot;, serif; font-weight: 600; font-size: clamp(19px, 1.5vw, 22px); margin: 0px 0px 10px; color: rgb(19, 26, 31);">Claude Code</div>
+          <p style="font-size: 14.5px; line-height: 1.6; color: rgb(63, 75, 82); margin: 0px 0px 14px;"><b>One way in.</b> Install the engine into Claude Code and follow the numbered walk in the README. Your chat session assesses fit first, you decide, and only then does anything get built.</p>
+          <p style="font-family: &quot;IBM Plex Mono&quot;, monospace; font-size: 12.5px; color: rgb(126, 138, 144); margin: 0px 0px 10px;">gmaa-engine v2.5.6 · canon v1.6.1</p>
+          <a href="https://github.com/gmaa-ai/gmaa" style="font-size: 14.5px; color: rgb(19, 26, 31);">Download the Claude engine</a>
+        </div>
+        <div style="display: block; border: 1px solid rgb(221, 227, 229); border-radius: 8px; background: rgb(252, 252, 251); padding: 22px 22px 20px;">
+          <div style="font-family: &quot;IBM Plex Mono&quot;, monospace; font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(15, 122, 90); margin: 0px 0px 10px;">Grok line</div>
+          <div style="font-family: &quot;Source Serif 4&quot;, serif; font-weight: 600; font-size: clamp(19px, 1.5vw, 22px); margin: 0px 0px 10px; color: rgb(19, 26, 31);">Grok Build</div>
+          <p style="font-size: 14.5px; line-height: 1.6; color: rgb(63, 75, 82); margin: 0px 0px 14px;"><b>Two ways in.</b> The terminal route installs the engine into Grok Build and follows the same numbered walk. Or hand <code style="font-family: &quot;IBM Plex Mono&quot;, monospace; font-size: 13px;">GROK-BOT.md</code> to a Grok Bot and let it serve as your chat architect through assessment and the instantiation fills, then stop where it is supposed to stop. Both land in the same governed repository.</p>
+          <p style="font-family: &quot;IBM Plex Mono&quot;, monospace; font-size: 12.5px; color: rgb(126, 138, 144); margin: 0px 0px 10px;">gmaa-engine-grok v2.5.7 · canon v1.6.1</p>
+          <a href="https://github.com/gmaa-ai/gmaa/tree/main/grok" style="font-size: 14.5px; color: rgb(19, 26, 31);">Download the Grok engine</a>
+        </div>
+      </div>
     </div>
   </section>
 
