@@ -80,7 +80,7 @@ a{color:inherit}
 
 <div class="banner" id="current">
 <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#0F7A5A;margin-bottom:8px">Current release</div>
-<div class="cur">gmaa-engine v2.5.6 · canon pin v1.6.1</div>
+<div class="cur">gmaa-engine v2.5.6 · canon pin v1.6.1 · Claude Code</div>
 <div style="margin-top:12px;font-size:15px">Download: <a href="https://github.com/gmaa-ai/gmaa" style="color:#131A1F">github.com/gmaa-ai/gmaa</a></div>
 <div style="margin-top:12px;font-size:13px;line-height:2">
 zip sha256: <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;word-break:break-all;color:#131A1F">ae2d946c9602b9888d3a6c7b265e800fb3d8eb0e1b9e33f472aa00c3233b612f</span><br>
@@ -90,7 +90,7 @@ package self-sha: <span style="font-family:'IBM Plex Mono',monospace;font-size:1
 
 <div class="banner">
 <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#0F7A5A;margin-bottom:8px">Grok companion line</div>
-<div class="cur">gmaa-engine-grok v2.5.7 · canon pin v1.6.1</div>
+<div class="cur">gmaa-engine-grok v2.5.7 · canon pin v1.6.1 · Grok Build</div>
 <div style="margin-top:12px;font-size:15px">Download: <a href="https://github.com/gmaa-ai/gmaa/tree/main/grok" style="color:#131A1F">github.com/gmaa-ai/gmaa/tree/main/grok</a></div>
 <div style="margin-top:12px;font-size:13px;line-height:2">
 engine zip sha256: <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;word-break:break-all;color:#131A1F">23955abebdbf3950c7d8a422406548758a6d4053e0bae23fce934c78be264291</span><br>
@@ -99,7 +99,7 @@ plugin zip sha256: <span style="font-family:'IBM Plex Mono',monospace;font-size:
 <p style="margin:14px 0 0;font-size:13.5px;color:#3F4B52;max-width:62ch">The same architecture on xAI's Grok Build. One specification, two engine lines. The download carries the engine zip, the Grok Build plugin (<code>/gmaa-adopt</code>, <code>/restart</code>, agent definitions, hooks), the spec PDF, and <code>GROK-BOT.md</code>, a second route that seats a Grok Bot as the chat architect through assessment and instantiation, after which the operator launches the seats. Version numbers run per line: the Claude engine is current at v2.5.6, the Grok companion at v2.5.7, and both pin canon v1.6.1.</p>
 </div>
 
-<p style="font-size:13px;color:#B0701A;max-width:62ch"><b>Advisory, 2026-08-19:</b> adopters running engine v2.5.4.1 should upgrade to v2.5.6; the changelog below carries the full account.</p>
+<p style="font-size:13px;color:#B0701A;max-width:62ch"><b>Advisory, 2026-08-19 (Claude line):</b> adopters running gmaa-engine v2.5.4.1 should upgrade to v2.5.6; the changelog below carries the full account.</p>
 
 <p style="font-size:13.5px;color:#3F4B52;max-width:62ch">How the engine implements the specification, every file with its trigger, is on <a href="/engine-map.html" style="color:#0F7A5A">the engine map</a>.</p>
 <p style="font-size:13.5px;color:#3F4B52;max-width:62ch">v2.5.6 supersedes v2.5.4.1 (released 2026-08-13). One release between them was sealed and held before publication: a review of its own gates found a merge-time gap in the spine census, and it was superseded rather than patched, because sealed bytes are never edited in place.</p>
@@ -128,10 +128,10 @@ plugin zip sha256: <span style="font-family:'IBM Plex Mono',monospace;font-size:
 <p style="font-size:13.5px;color:#7E8A90">The public record begins at the initial release. Pre-release internal iteration does not appear here. The table grows by one row per released version, newest first.</p>
 
 <h2 id="changelog">Changelog</h2>
-<h2>gmaa-engine-grok v2.5.7 · canon pin v1.6.1, 2026-08-24</h2>
+<h2>gmaa-engine-grok v2.5.7 · canon pin v1.6.1, 2026-08-24 · Grok line</h2>
 <p><strong>Fingerprints:</strong> engine zip sha256 <code>23955abebdbf3950c7d8a422406548758a6d4053e0bae23fce934c78be264291</code> · plugin zip sha256 <code>600fff2e26979011cabcb6ba89a388d530eb896043c9ad5ca5101b3677cb0052</code> · the full seven-file set is fingerprinted in <code>grok/SHA256SUMS</code>.</p>
 <p>First release of the Grok companion engine line: the GMAA engine for xAI's Grok Build, published under <code>grok/</code> in the same repository. The set ships two adoption routes. The plugin route follows the numbered README walk with the Grok Build plugin installed from the folder. The Bot route hands <code>GROK-BOT.md</code> to a Grok Bot, which serves as the chat architect only: it assesses fit, authors the instantiation fills on an explicit adopt, runs vanilla instantiate, and stops, and the operator launches every seat. Same specification, same gates: set-level authorization on top of per-change review, never instead of it. Engine version numbers run per line; the Grok companion line begins at v2.5.7.</p>
-<h2>v2.5.6 · canon pin v1.6.1, 2026-08-19</h2>
+<h2>gmaa-engine v2.5.6 · canon pin v1.6.1, 2026-08-19</h2>
 <p><strong>Fingerprints:</strong> zip sha256 <code>ae2d946c9602b9888d3a6c7b265e800fb3d8eb0e1b9e33f472aa00c3233b612f</code> · package self-sha <code>65a3cfa6a194677e47cdec030105a5e1c61f30998a741d4ab4215a78d89e2b2f</code> · canon pin sha256 <code>1b04522ac1870957c98720f3f67eefdc4987138a0584e3a431be221a52cd3c19</code> (unchanged) · 102 files, 101 manifest rows.</p>
 <p>A correction release from a rules-first end-to-end trace of the published package: the governing rules were loaded first, then the launch and per-turn flow was traced against them. No new feature surface beyond the one mechanism the prior line had promised and not shipped. GMAA adds set-level authorization on top of per-change review, never instead of it; this release ships the machinery that enforces that model.</p>
 <p><strong>Set-level authorization ships whole.</strong> The mechanism the thesis names is now in the box, hardened in a live field program before being sourced back: a pending-set ledger and a set-identity registry; an assemble, assess, and ratify flow with a closed five-state decision taxonomy, a coverage gate, three-layer joint-edge detection, a required semantic-hunt step, and non-overridable per-member conformance; the foundation set-check wired into the pre-commit hook by path, not by an advisory message tag; a no-cherry-pick reap; the model contract; the set and member templates whose criteria are themselves the check; standing probes that pair every claim with its negative; and a seeded-fault battery. A new binding invariant states it in one line: set authorization is on top of per-change review, never instead of it.</p>
@@ -139,12 +139,12 @@ plugin zip sha256: <span style="font-family:'IBM Plex Mono',monospace;font-size:
 <p><strong>A cost brake ships.</strong> It reads the usage ledger and halts loud, at or over a cap and again when the ledger is unreadable or a cap is unfilled; it never assumes zero. The caps are an empty slot the adopting operator fills; an unfilled cap on a metered path fails closed.</p>
 <p><strong>Honest labels, no false green.</strong> The source program's forced-merge hook is declared not shipped in this revision; a sentinel ships so a wiring tree composes, and the contract row states the gap. The context-lifecycle rule stays a stated discipline with no mechanism, by design, and says so. An engine-update runbook and its mechanical classifier ship so an adopter can take a new engine cut without a hand-merge; a short "Upgrading" note appears in the reader documents.</p>
 <p><strong>Upgrading:</strong> holders of any prior blank package replace it in full and re-verify against <code>SHA256SUMS</code>; instantiated projects use <code>docs/ENGINE-UPDATE.md</code>, which stops on any slot whose contract moved; there is no patch path, deliberately.</p>
-<h2>v2.5.4.1 · canon pin v1.6.1, 2026-08-13, Errata</h2>
+<h2>gmaa-engine v2.5.4.1 · canon pin v1.6.1, 2026-08-13, Errata</h2>
 <p><strong>Fingerprints:</strong> zip sha256 <code>473a20678ec6ef0ea4a7cb1d99edccbe52a6232e171bcf4f4acbccda7b64fc56</code> · package self-sha <code>1aff85f03a2d903ef466823ca76a958f59310a7f159a7240affe7153007ba8ce</code> · 75 files · canon pin sha256 <code>1b04522ac1870957c98720f3f67eefdc4987138a0584e3a431be221a52cd3c19</code>.</p>
 <p>Same-day errata to v2.5.4. Two shipped files, the hub seat definition and the coordination contract, misdescribed the communications model: they told the hub seat it had no inbox and implied the doorbell rings in one direction only. That contradicts the shipped substrate and would leave an adopter believing the seats cannot wake the hub, with the human filling the gap by hand. The corrected files state the reality: the hub has an inbox and runs the inbox check like every seat, the doorbell is bidirectional, and the hub additionally reaps module outboxes as a second inbound channel. GMAA adds set-level authorization on top of per-change review, never instead of it; nothing in this errata changes that model.</p>
 <p><strong>Scope:</strong> exactly two content files changed; every other file is byte-identical to v2.5.4. The version, fingerprints, checksum surfaces, and citation file move with the new identity, as they must: nothing is ever rebuilt in place under an existing label.</p>
 <p><strong>Upgrading:</strong> holders of the original v2.5.4, or of v2.5.2 or v2.5.3, replace in full and re-verify against <code>SHA256SUMS</code>; instantiated projects use the non-destructive adopter-update instrument; there is no patch path, deliberately.</p>
-<h2>v2.5.4 · canon pin v1.6.1, 2026-08-13, Superseded by v2.5.4.1</h2>
+<h2>gmaa-engine v2.5.4 · canon pin v1.6.1, 2026-08-13, Superseded by v2.5.4.1</h2>
 <p><strong>Fingerprints:</strong> zip sha256 <code>764b1c3d3118edca8684da3bbd87e61336c167e59971e435407c14be84e6247b</code> · package self-sha <code>aeb2c4570c362080bce9eadc83712249be6443418fafe6a8182d2990a3e3cc72</code> · 75 files · canon pin sha256 <code>1b04522ac1870957c98720f3f67eefdc4987138a0584e3a431be221a52cd3c19</code>.</p>
 <p>Errata and enforcement hardening, plus the canon re-pin. GMAA adds set-level authorization on top of per-change review, never instead of it; nothing in this release changes that model, it hardens the machinery that enforces it.</p>
 <p><strong>Canon re-pinned v1.5 to v1.6.1, now carried in the engine zip</strong> under <code>canon/</code>: the specification travels with the engine and is covered by the same <code>MANIFEST.sha256</code>. v1.6.1 is errata over v1.6, which is superseded, do not cite. The coherence-session law is folded into the canon body as the fifth universal invariant, so the canon ships as a single document.</p>
@@ -153,12 +153,12 @@ plugin zip sha256: <span style="font-family:'IBM Plex Mono',monospace;font-size:
 <p><strong>Every shipped seat file carries the coherence line.</strong> The canon section 7.5 line lands verbatim, copied from the in-zip canon, in both charters, the operating contract, and all seven agent definitions, so the one-session-one-seat boundary is a substrate fact in every seat an adopter instantiates.</p>
 <p><strong>The citation file validates.</strong> <code>CITATION.cff</code> now passes CFF schema validation: the license is carried as a license URL pointing at LICENSE.md rather than a false bare SPDX claim, and schema validation is a standing seal check from this release forward.</p>
 <p><strong>Upgrading:</strong> blank-package holders replace in full and re-verify against <code>SHA256SUMS</code>; instantiated projects use the non-destructive adopter-update instrument; there is no patch path, deliberately.</p>
-<h2>v2.5.3 · canon pin v1.5, 2026-08-09</h2>
+<h2>gmaa-engine v2.5.3 · canon pin v1.5, 2026-08-09</h2>
 <p><strong>Fingerprints:</strong> zip sha256 <code>438195bd097e1fccdd0ad65e16f010901bb3e3b4f391e0de6ac62cb215312651</code> · package self-sha <code>e944cb745ca2073ac840a1e9dea4cea8c60f52d5c20daa7bde61fb8fbf3c1a51</code> · 65 files.</p>
 <p>Restored the adopter-facing entry documents that were dropped when the package was reframed from evaluation package to engine at v2.5.0 and shipped missing through v2.5.1 and v2.5.2. <code>ADOPTION-COVER.md</code> is back (the read-first four-phase adoption flow: fit assessment, then your adoption gate, then instantiation fills, then implementation) and <code>GETTING-STARTED-LINUX-MAC.md</code> is back (the zero-to-running walkthrough). Both are modernized to the engine: canon v1.5, <code>launch-orc.sh</code>, folder-equals-lane (the <code>foundation</code> folder, with <code>main</code> as a branch), and Phase-3 output of <code>docs/FOUNDATION.md</code> plus <code>seats.yaml</code>. The README now points at the cover as read-first and states that the instantiation runbook is the canon's own section 12 checklist, not a shipped file.</p>
 <p><strong>Prevention:</strong> the MANIFEST and seal check now asserts the adopter-entry set is present, so a genericization reframe cannot silently drop it again. This is the completeness firewall (canon section 13) applied to the package itself.</p>
 <p><strong>Deferred:</strong> the Windows and WSL getting-started guide.</p>
-<h2>v2.5.2 · canon pin v1.5, 2026-08-07, Initial release</h2>
+<h2>gmaa-engine v2.5.2 · canon pin v1.5, 2026-08-07, Initial release</h2>
 <p><strong>Fingerprints:</strong> zip sha256 <code>a3ba4117cf29c024c0019d20b04aef445c0baedd1681d1012c620d35be91a1c8</code> · package self-sha <code>bcecbd286c8d9b4b0992f2af857533cf11563bd24deeeaeec84279844574e483</code> · 70 files plus manifest.</p>
 <p>The first public release of the GMAA engine: a faithful generic extraction of a live production multi-agent architecture, independently reviewed pre-release by the production program it derives from.</p>
 <p><strong>In the box:</strong>
