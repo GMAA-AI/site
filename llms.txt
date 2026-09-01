@@ -1,6 +1,6 @@
 # GMAA, Governed Multi-Agent Architecture
 
-> GMAA is an architectural framework for Claude Code multi-agent systems that authorizes the complete set of pending changes, not only each change alone. Per-change approval stays in place; GMAA adds one accountable human, in a governed seat independent of every agent, who ratifies the whole set against the rules the system must keep before anything commits. The unit of authorization is the set.
+> GMAA is an architectural framework for multi-agent coding systems, running on Claude Code and Grok Build, that authorizes the complete set of pending changes, not only each change alone. Per-change approval stays in place; GMAA adds one accountable human, in a governed seat independent of every agent, who ratifies the whole set against the rules the system must keep before anything commits. The unit of authorization is the set.
 
 Key facts:
 - Author and operator: Israel Heskiel
