@@ -5,7 +5,7 @@
 Key facts:
 - Author and operator: Israel Heskiel
 - Specification: Governed Multi-Agent Architecture, current version v1.6.1 (2026-08-11), licensed CC BY 4.0, cite by version
-- Engine: reference implementation, source-available under Apache 2.0 with the Commons Clause (free to use, modify, and redistribute; may not be sold or offered as a paid or hosted service)
+- Engine: reference implementation on Claude Code, source-available under Apache 2.0 with the Commons Clause (free to use, modify, and redistribute; may not be sold or offered as a paid or hosted service)
 - Repository: https://github.com/gmaa-ai/gmaa
 - The claim: multi-agent systems fail by authorizing at the wrong unit; individually approved changes can be jointly incoherent, and the complete pending set must be ratified before commit
 - Not claimed: completeness by assertion; whether an implementation catches every joint incoherence is answered by adversarial testing, not asserted
@@ -18,11 +18,13 @@ Key facts:
 - [How it works](https://gmaa.ai/how-it-works.html): the operating loop in practice
 - [Use cases](https://gmaa.ai/applications.html): where set-level authorization applies
 - [Engine map](https://gmaa.ai/engine-map.html): how the engine implements the specification, every file in the release grouped into ten functional areas with the execution wiring
-- [Versions](https://gmaa.ai/versions.html): release history, current artifacts, download verification. Two engine lines, one specification. Claude line: gmaa-engine v2.5.6 (2026-08-19), canon pin v1.6.1. Grok line: gmaa-engine-grok v2.5.7 (2026-08-24), canon pin v1.6.1, at github.com/gmaa-ai/gmaa/tree/main/grok, with a plugin route for Grok Build and a Grok Bot route for the chat architect. Advisory (Claude line): adopters running gmaa-engine v2.5.4.1 should upgrade to v2.5.6.
+- [Versions](https://gmaa.ai/versions.html): release history, current artifacts, download verification. Two engine lines, one specification. Claude line: gmaa-engine v2.5.7 (2026-08-24), canon pin v1.6.1, an errata release curing the genesis mint failure. Grok line: gmaa-engine-grok v2.5.7 (2026-08-24), canon pin v1.6.1, at github.com/gmaa-ai/gmaa/tree/main/grok, with a plugin route for Grok Build and a Grok Bot route for the chat architect. Advisory (Claude line): adopters on any earlier package should upgrade to v2.5.7; anyone staying on v2.5.6 can apply the one-line workaround in the changelog.
 - [Operator's guide](https://gmaa.ai/operator-guide.html): running the framework as the accountable operator
 - [Field evidence](https://gmaa.ai/field-evidence.html): receipted incidents behind the architecture's failure classes
 - [Field notes: The Second Empty Chair](https://gmaa.ai/second-empty-chair.html): the context window as an ungoverned coherence boundary; why session degradation is an authorization problem, not only a capacity problem, and what a governed retention regime looks like
 - [Seven Models Read the Second Empty Chair](https://gmaa.ai/sevenmodels.html): reactions from seven frontier models to governing the context window with set-level authorization; real sessions, quoted; six of seven misread the seat as a person
+- [Governed Context](https://gmaa.ai/governed-context.html): the full design for governing the AI context window, ratified sets at entry, residency computed from declared roots, and a record layer at exit; two coherence boundaries, the window and the record, each with one writer and the commit gate between them; design draft r9, not benchmarked
+- [Governed Context, the short version](https://gmaa.ai/gc-short.html): the same design in about 1,600 words, the claim, the three edges, what it does not promise, and the open problems; the entry point for readers new to the argument, including where the accountable seat sits when the window belongs to the serving stack
 - [Field notes](https://gmaa.ai/field-notes.html): index of field-note pieces
 
 ## Optional

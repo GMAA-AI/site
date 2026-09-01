@@ -1,4 +1,4 @@
-<!-- Field note: Field notes, r4 content, 2026-08-15. Publicist seat, author-then-ferry. Body is the r4 paper verbatim (markdown-rendered); PDF linked at repo root. Companion to second-empty-chair.html. -->
+<!-- Field notes index, updated 2026-08-24, Publicist seat, author-then-ferry: gc-short.html added as the first card, Governed Context relabeled design draft r9 with the record-layer description, both added to CollectionPage hasPart, TOC updated. Rebuilt from repo bytes; deploy is the operator act. -->
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="utf-8">
@@ -21,7 +21,7 @@
 <meta name="twitter:image" content="https://gmaa.ai/second-empty-chair-card.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "CollectionPage", "name": "Field notes", "url": "https://gmaa.ai/field-notes.html", "description": "Field notes: receipted pieces from running the GMAA program, each applying set-level authorization to a boundary in practice.", "isPartOf": {"@type": "WebSite", "name": "GMAA", "url": "https://gmaa.ai/"}, "hasPart": [{"@type": "Article", "name": "The Second Empty Chair: Why Your AI's Context Window Is an Ungoverned System", "url": "https://gmaa.ai/second-empty-chair.html", "datePublished": "2026-08-14"}, {"@type": "Article", "name": "Seven Models Read the Second Empty Chair", "url": "https://gmaa.ai/sevenmodels.html", "datePublished": "2026-08-15"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "CollectionPage", "name": "Field notes", "url": "https://gmaa.ai/field-notes.html", "description": "Field notes: receipted pieces from running the GMAA program, each applying set-level authorization to a boundary in practice.", "isPartOf": {"@type": "WebSite", "name": "GMAA", "url": "https://gmaa.ai/"}, "hasPart": [{"@type": "Article", "name": "Governed Context: The Short Version", "url": "https://gmaa.ai/gc-short.html", "datePublished": "2026-08-24"}, {"@type": "Article", "name": "Governed Context: An End-to-End Regime for the AI Context Window", "url": "https://gmaa.ai/governed-context.html", "datePublished": "2026-08-20", "dateModified": "2026-08-24"}, {"@type": "Article", "name": "The Second Empty Chair: Why Your AI's Context Window Is an Ungoverned System", "url": "https://gmaa.ai/second-empty-chair.html", "datePublished": "2026-08-14"}, {"@type": "Article", "name": "Seven Models Read the Second Empty Chair", "url": "https://gmaa.ai/sevenmodels.html", "datePublished": "2026-08-15"}]}</script>
 <style>
 html,body{margin:0}
 body{margin:0}
@@ -41,12 +41,6 @@ a{color:inherit}
 .callout{border:1px solid #DDE3E5;border-left:3px solid #B0701A;background:#fff;border-radius:0 8px 8px 0;padding:18px 22px;margin:24px 0}
 .callout p{margin:0;max-width:72ch}
 .aside-lede{color:#3F4B52;max-width:70ch;font-size:15.5px;line-height:1.7}
-.byline{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.06em;color:#7E8A90;margin:0 0 26px}
-.byline b{color:#131A1F;font-weight:500}
-.fnotes{border-top:1px solid #DDE3E5;margin-top:44px;padding-top:16px}
-.fnotes p{font-size:13.5px;color:#7E8A90;line-height:1.6;max-width:80ch}
-.fnotes .fnum{font-family:'IBM Plex Mono',monospace;color:#0F7A5A;margin-right:6px}
-sup a{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#0F7A5A;text-decoration:none}
 .faq p.q{font-family:'Source Serif 4',serif;font-weight:600;font-size:18px;color:#131A1F;margin:0 0 8px}
 .faq p.a{font-size:15.5px;color:#3F4B52;margin:0;max-width:70ch;line-height:1.65}
 .faq>div{padding:18px 0;border-bottom:1px solid #DDE3E5}
@@ -70,6 +64,7 @@ sup a{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#0F7A5A;text-de
 <div style="font-family: &quot;IBM Plex Mono&quot;, monospace; font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(126, 138, 144); margin: 0px 0px 12px;">Contents</div>
 <nav class="toc">
 <div class="sep">Field notes</div>
+          <a href="/gc-short.html">Governed context, the short version</a>
           <a href="/governed-context.html">Governed context, the design draft</a>
           <a href="/sevenmodels.html">Seven models read the second chair</a>
 <a href="/second-empty-chair.html">The second empty chair</a>
@@ -84,8 +79,12 @@ sup a{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#0F7A5A;text-de
 <p class="aside-lede"><em>Pieces from running the program. Each takes the thesis, set-level authorization on top of per-change review, and points it at a boundary in practice.</em></p>
 <section class="faq">
 <div>
-  <p class="q"><a href="/governed-context.html">Governed Context: An End-to-End Regime for the AI Context Window</a> <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#3F4B52;letter-spacing:.06em">August 20, 2026 &middot; design draft r7</span></p>
-  <p class="a">The full design behind the second-chair argument: ratified sets at entry, residency computed from declared roots, a provenance archive at exit. Six rounds of adversarial review from two models are absorbed, the mechanism was rebuilt once, and the open problems are named. A hypothesis under active review, not a benchmarked system.</p>
+  <p class="q"><a href="/gc-short.html">Governed Context: The Short Version</a> <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#3F4B52;letter-spacing:.06em">August 24, 2026 &middot; r4</span></p>
+  <p class="a">The entry point to the context-window design, about 1,600 words: the diagnosis, the claim and the test it has to pass, the three edges, where the accountable seat actually sits, what is not promised, and the open problems that will decide it. Start here; the full reference is below.</p>
+</div>
+<div>
+  <p class="q"><a href="/governed-context.html">Governed Context: An End-to-End Regime for the AI Context Window</a> <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#3F4B52;letter-spacing:.06em">August 24, 2026 &middot; design draft r9</span></p>
+  <p class="a">The full design behind the second-chair argument: ratified sets at entry, residency computed from declared roots, and a record layer at exit that is never the judge. Adversarial review from independent reviewers is absorbed, the mechanism was rebuilt under it, and the open problems are named. A hypothesis under active review, not a benchmarked system.</p>
 </div>
 <div>
 <p class="q"><a href="/sevenmodels.html">Seven Models Read the Second Empty Chair</a> <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#3F4B52;letter-spacing:.06em">August 15, 2026</span></p>
@@ -100,7 +99,8 @@ sup a{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#0F7A5A;text-de
 
 <footer style="border-top: 1px solid rgb(221, 227, 229); margin-top: 20px; padding: 24px 2px 48px; font-family: &quot;IBM Plex Mono&quot;, monospace; font-size: 11.5px; letter-spacing: 0.06em; color: rgb(126, 138, 144); text-transform: uppercase;">
     GMAA &middot; Governed Multi-Agent Architecture &middot; <a class="footlink" href="/">gmaa.ai</a> &middot; <a class="footlink" href="/versions.html">Versions</a> &middot; <a class="footlink" href="/operator-guide.html">Operator&rsquo;s guide</a> &middot; cite by version &middot; Spec CC BY 4.0 &middot; Engine Apache-2.0 + Commons Clause
-  </footer></div></div>
+  </footer></main></div>
 
+</div></div>
 </body>
 </html>
