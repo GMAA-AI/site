@@ -5,7 +5,7 @@
 Key facts:
 - Author and operator: Israel Heskiel
 - Specification: Governed Multi-Agent Architecture, current version v1.6.1 (2026-08-11), licensed CC BY 4.0, cite by version
-- Engine: reference implementation on Claude Code, source-available under Apache 2.0 with the Commons Clause (free to use, modify, and redistribute; may not be sold or offered as a paid or hosted service)
+- Engine: reference implementations, gmaa-engine for Claude Code and gmaa-engine-grok for Grok Build, source-available under Apache 2.0 with the Commons Clause (free to use, modify, and redistribute; may not be sold or offered as a paid or hosted service)
 - Repository: https://github.com/gmaa-ai/gmaa
 - The claim: multi-agent systems fail by authorizing at the wrong unit; individually approved changes can be jointly incoherent, and the complete pending set must be ratified before commit
 - Not claimed: completeness by assertion; whether an implementation catches every joint incoherence is answered by adversarial testing, not asserted
