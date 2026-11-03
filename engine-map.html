@@ -55,7 +55,7 @@ a{color:inherit}
       <nav class="toc">
         <a href="#s1" data-t="s1" class="active">1 The specification layer, the law everything below implements</a>
         <a href="#s2" data-t="s2">2 Identity, seat lifecycle, and the restart loop</a>
-        <a href="#s3" data-t="s3">3 The harness plane and single-writer enforcement</a>
+        <a href="#s3" data-t="s3">3 The harness plane and enforcement of a single writer</a>
         <a href="#s4" data-t="s4">4 Set-level authorization, the thesis in executable form</a>
         <a href="#s5" data-t="s5">5 The work lifecycle, dispatch to audited closure</a>
         <a href="#s6" data-t="s6">6 Merge, reap, and lane currency</a>
@@ -71,10 +71,10 @@ a{color:inherit}
       <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#7E8A90;margin:0 0 10px">Engine package v2.7 · canon pin v1.6.8</div>
       <h1 style="font-family:'Source Serif 4',serif;font-weight:700;letter-spacing:-.015em;font-size:clamp(30px,4vw,44px);line-height:1.08;margin:0 0 14px">The GMAA Engine Map</h1>
 <p><strong>How the engine implements the specification.</strong> Engine package v2.7 · canon pin v1.6.8 · cite by version. Canonical home: gmaa.ai. Verification fingerprints for the release are on <a href="/versions.html">gmaa.ai/versions.html</a>.</p>
-<p><strong>Who this is for.</strong> Anyone evaluating GMAA for a project, and anyone who has downloaded the engine and wants the map before the tree. The specification states the law; the engine is the machinery that enforces it. Reading the law alone answers "what must hold" but not "what runs, what fires it, and what it costs to operate," and an evaluation made on the law alone tends to overprice the discipline and misread designed absences as gaps. This document is the missing middle: every file in the release, grouped into ten functional areas, each anchored to its canon section, with the execution wiring that shows what invokes what and when.</p>
+<p><strong>Who this is for.</strong> Anyone evaluating GMAA for a project, and anyone who has downloaded the engine and wants the map before the tree. The specification states the law. The engine is the machinery that enforces it. Reading the law alone answers "what must hold" but not "what runs, what fires it, and what it costs to operate," and an evaluation made on the law alone tends to overprice the discipline and misread designed absences as gaps. This document is the missing middle: every file in the release, grouped into ten functional areas, each anchored to its canon section, with the execution wiring that shows what invokes what and when.</p>
 <p><strong>Three facts an evaluation can miss reading the specification alone.</strong> First, the engine creates its own repository at instantiation: <code>git init</code> runs inside the new project's foundation folder at Phase 4, so no prior version control is required. Second, your substrate is declared, not assumed: you add one row to <code>_index/substrates.tsv</code> for each substrate your sets may write, and the assembly step reports by name what the table does not declare. Third, the discipline is wired, not manual: hooks fire at every commit, a policy check runs on every shell call, and probes run on their schedules, so the recurring human act is the ratification decision, and that decision is the product rather than the overhead.</p>
 <p><strong>Method.</strong> The canon (v1.6.8, all sections) was read whole. Every one of the 180 files in the sealed zip was inventoried from its own header line and its provenance row, and every shipped executable was scanned for the shipped paths it names, over the unzipped bytes. Each file is assigned to exactly one functional area below. A parity check, every zip path exactly once in these tables and every path in these tables present in the zip, is run over the map and was shown able to fail before its pass counted. Where a file is machinery, the map states what invokes it and when it fires, because a gate is defined as much by its trigger as by its logic.</p>
-<p><strong>The shape of the whole thing in one paragraph.</strong> The canon states one correction: authorize the set, not the change, with an integrator seat assessing and an independent human ratifying. The engine is that correction made mechanical, in layers that check one another: identity derived from location and halted on mismatch (area 2); a harness plane that denies before any agent decides (area 3); a set ledger, an assembler and a ratification line (area 4); a work lifecycle with no edge from in-progress to closed except an audited receipt (area 5); merge-time backstops (area 6); transport that lives outside every participant (area 7); and an audit layer whose invariants are probed, not asserted, with a governance index that makes "cite before raise" a command (area 8). Areas 9 and 10 are how an adopter gets in and how a recipient verifies what it got.</p>
+<p><strong>The shape of the whole thing in one paragraph.</strong> The canon states one correction: authorize the set, not the change, with an integrator seat assessing and an independent human ratifying. The engine is that correction made mechanical, in layers that check one another. In area 2, identity is derived from location and halted on mismatch. Area 3 is a harness plane that denies before any agent decides. Area 4 is a set ledger, an assembler and a ratification line. Area 5 is a work lifecycle in which no edge leads from in progress to closed except an audited receipt. Area 6 supplies backstops at merge time. Area 7 is transport that lives outside every participant. Area 8 is an audit layer whose invariants are probed, not asserted, with a governance index that makes "cite before raise" a command. Areas 9 and 10 are how an adopter gets in and how a recipient verifies what it got.</p>
 <hr />
 <h2 id="s1">1 The specification layer, the law everything below implements</h2>
 <p><strong>Canon anchor: the whole document.</strong></p>
@@ -88,7 +88,7 @@ a{color:inherit}
 <tbody>
 <tr>
 <td><code>GOVERNED_MULTI_AGENT_ARCHITECTURE_v1_6_8.md</code></td>
-<td>The specification, carried at the package root so every adopter holds the exact law its engine version conforms to. CC BY 4.0, licensed separately from the engine. Nothing executes it; everything below is checked against it. v2.6 carried it under <code>canon/</code>; v2.7 moves it to the root, the one <code>moved:</code> row of the previous release.</td>
+<td>The specification, carried at the package root so every adopter holds the exact law its engine version conforms to. CC BY 4.0, licensed separately from the engine. Nothing executes it. Everything below is checked against it. v2.6 carried it under <code>canon/</code>, and v2.7 moves it to the root, the one <code>moved:</code> row of the previous release.</td>
 </tr>
 <tr>
 <td><code>.claude/rules/engine/invariants.md</code></td>
@@ -96,14 +96,14 @@ a{color:inherit}
 </tr>
 <tr>
 <td><code>CLAUDE.md</code></td>
-<td>The condensed hot operating surface every session loads: cold-boot identity, the context lifecycle, the binding invariant shapes, seat topology, slot pointers, and the canon §7.5 line under the shipped probe's match. Package-authored; the origin's own is not shipped.</td>
+<td>The condensed hot operating surface every session loads: identity at cold boot, the context lifecycle, the binding invariant shapes, seat topology, slot pointers, and the canon §7.5 line under the shipped probe's match. The package authors it, and the origin's own is not shipped.</td>
 </tr>
 </tbody>
 </table>
-<p>The canon's own instantiation checklist (§12) is the adopter's entry point into it; area 9 carries the files that walk it.</p>
+<p>The canon's own instantiation checklist (§12) is the adopter's entry point into it. Area 9 carries the files that walk it.</p>
 <h2 id="s2">2 Identity, seat lifecycle, and the restart loop</h2>
-<p><strong>Canon anchors: §1.0 definitions, §1.1 seats and surfaces, §2 one session one seat, §7 the seat manifest and governed lifecycle (§7.1 Boot-0, §7.2 provisioning, §7.3 project-qualified identity, §7.4 liveness, §7.5 the line every seat carries). Contract: <code>contracts/LAUNCH-CONTRACT.md</code>.</strong></p>
-<p>The design law of this area: identity comes from location, is derived on both sides of the spawn boundary, and the two derivations must agree or the seat halts. New at v2.7 against v2.6: the seat ends itself and is relaunched by a loop its tmux session runs, with hooks at session start, prompt, compaction and stop that record and enforce the boundary; the operator's stop verb is the only thing that breaks the loop.</p>
+<p><strong>Canon anchors: §1.0 definitions, §1.1 seats and surfaces, §2 one session one seat, §7 the seat manifest and governed lifecycle (§7.1 Boot-0, §7.2 provisioning, §7.3 identity qualified by project, §7.4 liveness, §7.5 the line every seat carries). Contract: <code>contracts/LAUNCH-CONTRACT.md</code>.</strong></p>
+<p>The design law of this area: identity comes from location, is derived on both sides of the spawn boundary, and the two derivations must agree or the seat halts. New at v2.7 against v2.6: the seat ends itself and is relaunched by a loop its tmux session runs, with hooks at session start, prompt, compaction and stop that record and enforce the boundary. The operator's stop verb is the only thing that breaks the loop.</p>
 <table>
 <thead>
 <tr>
@@ -114,7 +114,7 @@ a{color:inherit}
 <tbody>
 <tr>
 <td><code>_boot/BOOTSTRAP.md</code></td>
-<td>The stamp: lane, project, session name, branch, fixed at provisioning. Read at boot by the launcher and the resolver; never asserted at runtime. Ships as the fill skeleton.</td>
+<td>The stamp: lane, project, session name, branch, fixed at provisioning. Read at boot by the launcher and the resolver, never asserted at runtime. Ships as the fill skeleton.</td>
 </tr>
 <tr>
 <td><code>_boot/CHARTER-foundation.md</code></td>
@@ -126,7 +126,7 @@ a{color:inherit}
 </tr>
 <tr>
 <td><code>_orchestration/lane-provisioning.md</code></td>
-<td>The lane provisioning manifest: spine-owned, integrator-written; each lane's seat resolves identity from its worktree at cold boot.</td>
+<td>The lane provisioning manifest: owned by the spine and written by the integrator. Each lane's seat resolves identity from its worktree at cold boot.</td>
 </tr>
 <tr>
 <td><code>_index/lane-dormancy.tsv</code></td>
@@ -134,51 +134,51 @@ a{color:inherit}
 </tr>
 <tr>
 <td><code>docs/SEATS_skeleton.yaml</code></td>
-<td>The shape of <code>seats.yaml</code>, the adopter's seat roster (one <code>seats:</code> key), copied to the root at genesis. The roster itself is not shipped; it is read at genesis by the boot check, the assembler, the build-class probe and the surface-conformance probe. It declares no spine paths (see area 3).</td>
+<td>The shape of <code>seats.yaml</code>, the adopter's seat roster (one <code>seats:</code> key), copied to the root at genesis. The roster itself is not shipped. It is read at genesis by the boot check, the assembler, the probe for the build class and the probe for surface conformance. It declares no spine paths (see area 3).</td>
 </tr>
 <tr>
 <td><code>launch-orc.sh</code></td>
-<td>The fleet seat launcher, one copy at the root: resolves the lane from the stamp, refuses double-launch on the exact qualified session name, creates the named tmux session running the seat loop, prints an observed-facts receipt.</td>
+<td>The fleet seat launcher, one copy at the root: resolves the lane from the stamp, refuses a second launch on the exact qualified session name, creates the named tmux session running the seat loop, prints a receipt of observed facts.</td>
 </tr>
 <tr>
 <td><code>scripts/launch-orc.sh</code></td>
-<td>The same launcher bytes under <code>scripts/</code>, the copy the loop and the probes name; the root copy is the one the adopter deposits in each worktree.</td>
+<td>The same launcher bytes under <code>scripts/</code>, the copy the loop and the probes name. The root copy is the one the adopter deposits in each worktree.</td>
 </tr>
 <tr>
 <td><code>scripts/seat-loop.sh</code></td>
-<td>The relaunch loop the seat's tmux session runs: launches the session, waits for its self-exit, relaunches on restart, stops on shutdown.</td>
+<td>The relaunch loop the seat's tmux session runs: launches the session, waits for the session to end itself, relaunches on restart, stops on shutdown.</td>
 </tr>
 <tr>
 <td><code>scripts/seat-exit.sh</code></td>
-<td>A seat ends itself, restart or shutdown: run by the seat as its last act, it validates and writes the intent and sends no keystroke; the stop hook then sends the exit, and the loop relaunches or ends.</td>
+<td>A seat ends itself, restart or shutdown: run by the seat as its last act, it validates and writes the intent and sends no keystroke. The stop hook then sends the exit, and the loop relaunches or ends.</td>
 </tr>
 <tr>
 <td><code>scripts/seat-exit-cue.sh</code></td>
-<td>The prompt hook that turns the operator's word into the seat-exit verb cue.</td>
+<td>The prompt hook that turns the operator's word into the cue for the verb that exits the seat.</td>
 </tr>
 <tr>
 <td><code>scripts/seat-b6-stop.sh</code></td>
-<td>The stop hook, three duties in order keyed by the session: the token log line, the exit on a fresh intent from <code>seat-exit.sh</code>, and the context threshold latch; the every-stop guard (owed inbox, named waits) runs inside them, and the audit seal and the hub read are called from within.</td>
+<td>The stop hook, three duties in order keyed by the session: the token log line, the exit on a fresh intent from <code>seat-exit.sh</code>, and the context threshold latch. The guard checked at every stop (owed inbox, named waits) runs inside them, and the audit seal and the hub read are called from within.</td>
 </tr>
 <tr>
 <td><code>scripts/seat-precompact.sh</code></td>
-<td>The pre-compaction hook (auto matcher): the boundary record before context is compacted.</td>
+<td>The hook that fires before compaction (auto matcher): the boundary record before context is compacted.</td>
 </tr>
 <tr>
 <td><code>scripts/seat-boot-record.sh</code></td>
-<td>The session-start hook: records the boot and checks for a handoff.</td>
+<td>The hook at session start: records the boot and checks for a handoff.</td>
 </tr>
 <tr>
 <td><code>scripts/seat-boot-assess.sh</code></td>
-<td>The successor's boot-time assess step over the handoff it inherits; <code>--execute</code> acts on it.</td>
+<td>The successor's assess step at boot, over the handoff it inherits. The flag <code>--execute</code> acts on it.</td>
 </tr>
 <tr>
 <td><code>scripts/seat-host-guard.sh</code></td>
-<td>The one "is this session the seat?" predicate, classify or record; what keeps a subagent or a stray shell from acting as the seat.</td>
+<td>The one "is this session the seat?" predicate, classify or record. It keeps a subagent or a stray shell from acting as the seat.</td>
 </tr>
 <tr>
 <td><code>scripts/seat-stop.sh</code></td>
-<td>The operator's tool: shut a seat down and do not restart it; the one break in the loop.</td>
+<td>The operator's tool: shut a seat down and do not restart it. It is the one break in the loop.</td>
 </tr>
 <tr>
 <td><code>scripts/statusline-context.sh</code></td>
@@ -186,7 +186,7 @@ a{color:inherit}
 </tr>
 <tr>
 <td><code>scripts/observed-mode.sh</code></td>
-<td>The prompt hook that writes the observed-mode boot receipt.</td>
+<td>The prompt hook that writes the boot receipt in observed mode.</td>
 </tr>
 <tr>
 <td><code>scripts/backgrounded-sessions.sh</code></td>
@@ -194,23 +194,23 @@ a{color:inherit}
 </tr>
 <tr>
 <td><code>scripts/resolve-lane.sh</code></td>
-<td>The shared identity resolver: lane equals worktree folder name, cross-checked against the stamp, halt on mismatch. Consumed by boot-check, the hooks, the doorbell, the reaper, the keys.</td>
+<td>The shared identity resolver: lane equals worktree folder name, checked against the stamp, halt on mismatch. Consumed by the boot check, the hooks, the doorbell, the reaper, the keys.</td>
 </tr>
 <tr>
 <td><code>scripts/resolve-project.sh</code></td>
-<td>The §7.3 project-token resolver: reads the stamped project field, composes <code>{project}-{lane}</code> for the tmux namespace, never guesses.</td>
+<td>The §7.3 resolver for the project token: reads the stamped project field, composes <code>{project}-{lane}</code> for the tmux namespace, never guesses.</td>
 </tr>
 <tr>
 <td><code>scripts/lane-surface.sh</code></td>
-<td>The one indirection point for which branch a lane is on and which surface it reads; sourced by the inbox readers, the doorbell and the stop hook.</td>
+<td>The one indirection point for which branch a lane is on and which surface it reads. It is sourced by the inbox readers, the doorbell and the stop hook.</td>
 </tr>
 <tr>
 <td><code>scripts/spine-ref.sh</code></td>
-<td>The one spine-ref resolver: which ref is the spine for this checkout, read through the lane resolver.</td>
+<td>The one resolver for the spine ref: which ref is the spine for this checkout, read through the lane resolver.</td>
 </tr>
 <tr>
 <td><code>scripts/boot-check.sh</code></td>
-<td>The boot-discipline presence and live-currency gate, one script for all lanes, fired from the session-start hook so presence is harness-enforced.</td>
+<td>The gate for presence of the boot discipline and for live currency, one script for all lanes, fired from the hook at session start so the harness enforces presence.</td>
 </tr>
 <tr>
 <td><code>probes/governance/probe_seat_restart_poles.sh</code></td>
@@ -218,11 +218,11 @@ a{color:inherit}
 </tr>
 <tr>
 <td><code>probes/governance/probe_seat_line_75_v1.sh</code></td>
-<td>The seat-line presence probe: the canon §7.5 line in the stamp, the contract and every seat surface.</td>
+<td>The probe for presence of the seat line: the canon §7.5 line in the stamp, the contract and every seat surface.</td>
 </tr>
 <tr>
 <td><code>probes/governance/probe_seat_defs_v1.sh</code></td>
-<td>The agent-definition probe for canon §1.3: every shipped definition leads with loadable frontmatter and the subagent boundary.</td>
+<td>The probe of agent definitions for canon §1.3: every shipped definition leads with loadable frontmatter and the subagent boundary.</td>
 </tr>
 <tr>
 <td><code>probes/governance/probe_window_plan_boot.sh</code></td>
@@ -230,11 +230,11 @@ a{color:inherit}
 </tr>
 <tr>
 <td><code>probes/governance/probe_window_plan_row7.sh</code></td>
-<td>Window plan row 7: identity comes from location only; the resolver keeps no branch-to-lane map and reads no manifest, the launcher keeps no folder-to-lane map, the hub read filters on the stamped project.</td>
+<td>Window plan row 7: identity comes from location only. The resolver keeps no map from branch to lane and reads no manifest, the launcher keeps no map from folder to lane, and the hub read filters on the stamped project.</td>
 </tr>
 </tbody>
 </table>
-<p><strong>The agent-definition roster (<code>.claude/agents/</code>), canon §1.0 "agent definition" and §1.3 subagent classes.</strong> Three definitions ship at v2.7 (v2.6 shipped seven; the four dropped were origin-specific workers, out by the origin's own ship set):</p>
+<p><strong>The roster of agent definitions (<code>.claude/agents/</code>), canon §1.0 "agent definition" and §1.3 subagent classes.</strong> Three definitions ship at v2.7 (v2.6 shipped seven, and the four dropped were workers specific to the origin, out by the origin's own ship set):</p>
 <table>
 <thead>
 <tr>
@@ -245,21 +245,21 @@ a{color:inherit}
 <tbody>
 <tr>
 <td><code>.claude/agents/orc.md</code></td>
-<td>The role-neutral orchestrator seat definition; the folder it launches in resolves whether it is foundation (spine write allowed) or a module lane (denied). The one definition that is a seat, not a subagent.</td>
+<td>The orchestrator seat definition, neutral as to role. The folder it launches in resolves whether it is foundation (spine write allowed) or a module lane (denied). The one definition that is a seat, not a subagent.</td>
 </tr>
 <tr>
 <td><code>.claude/agents/architect.md</code></td>
-<td>The optional code-resident architect seat: reads everything at HEAD read-only, rules HOW-class, writes exactly one territory on its own branch, never commits to the spine, never executes mechanisms.</td>
+<td>The optional architect seat that resides in the code: reads everything at HEAD without changing it, rules on the HOW class, writes exactly one territory on its own branch, never commits to the spine, never executes mechanisms.</td>
 </tr>
 <tr>
 <td><code>.claude/agents/general-purpose.md</code></td>
-<td>Bounded fan-out worker for foundation: authoring-only by default, never commits, halts loud on ambiguity.</td>
+<td>Bounded worker that foundation fans work out to: it only authors by default, never commits, halts loud on ambiguity.</td>
 </tr>
 </tbody>
 </table>
-<h2 id="s3">3 The harness plane and single-writer enforcement</h2>
-<p><strong>Canon anchors: §1.1 single-writer invariant, §1.2 the two-plane authorization model, §1.3 subagents, §6 transport identity (seat keys), §8 permission architecture. Contract: <code>contracts/MECH-WRITE.md</code>.</strong></p>
-<p>This area answers one question mechanically: can anyone but foundation land bytes on the spine, and can any session do what its seat may not? The answer is layered: a harness hook denies before the model acts, a commit hook denies at the commit, a push hook and a server-side check deny at the push, and a key per seat signs what passes.</p>
+<h2 id="s3">3 The harness plane and enforcement of a single writer</h2>
+<p><strong>Canon anchors: §1.1 the invariant of a single writer, §1.2 the authorization model of two planes, §1.3 subagents, §6 transport identity (seat keys), §8 permission architecture. Contract: <code>contracts/MECH-WRITE.md</code>.</strong></p>
+<p>This area answers one question mechanically: can anyone but foundation land bytes on the spine, and can any session do what its seat may not? The answer is layered: a harness hook denies before the model acts, a commit hook denies at the commit, a push hook and a check on the server deny at the push, and a key per seat signs what passes.</p>
 <table>
 <thead>
 <tr>
@@ -270,7 +270,7 @@ a{color:inherit}
 <tbody>
 <tr>
 <td><code>.claude/settings.json</code></td>
-<td>The harness plane itself, §8 in file form: 48 allow, 1 ask, 10 deny rules, and the hook wirings that make the runtime enforce the engine: session start (boot-check, boot record, subagent ledger), prompt (observed mode, exit cue), pre-compaction, pre-tool-use on Bash (greenlight, background deny, subagent commit deny) and on every tool (subagent cap), stop and session end (creed scan, the stop hook), subagent start and stop (the ledger), and the status line. Every hook fails closed. Vendor-neutral at the pin: no cloud-CLI rule remains.</td>
+<td>The harness plane itself, §8 in file form: 48 allow, 1 ask, 10 deny rules, and the hook wirings that make the runtime enforce the engine: session start (boot check, boot record, subagent ledger), prompt (observed mode, exit cue), before compaction, before tool use on Bash (greenlight, background deny, subagent commit deny) and on every tool (subagent cap), stop and session end (creed scan, the stop hook), subagent start and stop (the ledger), and the status line. Every hook fails closed. Neutral as to vendor at the pin: no rule for a cloud CLI remains.</td>
 </tr>
 <tr>
 <td><code>contracts/MECH-WRITE.md</code></td>
@@ -278,27 +278,27 @@ a{color:inherit}
 </tr>
 <tr>
 <td><code>scripts/greenlight-policy.sh</code></td>
-<td>The pre-tool-use policy hook on every Bash call: auto-approves a call whose every segment is provably in policy, otherwise stays silent so the call falls through to the static allow, ask and deny lists; it emits a deny itself for one narrow class, the hook-bypass tokens. The adopter's own deny classes are the rows of the table below.</td>
+<td>The policy hook that runs before tool use on every Bash call: automatically approves a call whose every segment is provably in policy, otherwise stays silent so the call falls through to the static allow, ask and deny lists. It emits a deny itself for one narrow class, the tokens that bypass hooks. The adopter's own deny classes are the rows of the table below.</td>
 </tr>
 <tr>
 <td><code>_index/greenlight-deny-classes.tsv</code></td>
-<td>The adopter-declared deny classes the greenlight reads. Ships empty by design: an adopter's own cloud or tool denies are its rows.</td>
+<td>The deny classes the adopter declares, which the greenlight reads. Ships empty by design: an adopter's own cloud or tool denies are its rows.</td>
 </tr>
 <tr>
 <td><code>scripts/seat-bg-deny.sh</code></td>
-<td>The pre-tool-use hook that denies backgrounded shells from a seat.</td>
+<td>The hook that runs before tool use and denies backgrounded shells from a seat.</td>
 </tr>
 <tr>
 <td><code>scripts/subagent-commit-deny.sh</code></td>
-<td>The pre-tool-use hook: a subagent never commits or pushes (canon §1.3).</td>
+<td>The hook that runs before tool use: a subagent never commits or pushes (canon §1.3).</td>
 </tr>
 <tr>
 <td><code>scripts/subagent-cap.sh</code></td>
-<td>The pre-tool-use hook on every tool: the per-subagent wall-clock cap.</td>
+<td>The hook that runs before every tool use: the cap on elapsed clock time for each subagent.</td>
 </tr>
 <tr>
 <td><code>scripts/subagent-ledger.sh</code></td>
-<td>The live-subagent ledger, written at session start and at every subagent start and stop; what the cap and the host guard read.</td>
+<td>The ledger of live subagents, written at session start and at every subagent start and stop. The cap and the host guard read it.</td>
 </tr>
 <tr>
 <td><code>scripts/subagent-lib.sh</code></td>
@@ -306,27 +306,27 @@ a{color:inherit}
 </tr>
 <tr>
 <td><code>probes/governance/probe_subagent_commit_deny_v1.sh</code></td>
-<td>Two halves, one verdict: the deny hook's poles (a subagent's commit and push deny in every wrapped form, the hub's commit passes, garbled input fails closed), and no agent-team primitive enabled.</td>
+<td>Two halves, one verdict: the deny hook's poles (a subagent's commit and push deny in every wrapped form, the hub's commit passes, garbled input fails closed), and no primitive for agent teams enabled.</td>
 </tr>
 <tr>
 <td><code>probes/governance/probe_completeness_v1.sh</code></td>
-<td>The default-mode allow-list completeness probe: every class the engine's enforcers must cover is covered.</td>
+<td>The probe of completeness for the allow list in default mode: every class the engine's enforcers must cover is covered.</td>
 </tr>
 <tr>
 <td><code>_index/completeness-classes.tsv</code></td>
-<td>The classes and wrappers that probe checks against; <code>scope</code> names the engine rows and the adopter's own.</td>
+<td>The classes and wrappers that probe checks against. Its <code>scope</code> names the engine rows and the adopter's own.</td>
 </tr>
 <tr>
 <td><code>agents/pre-commit-hook.sh</code></td>
-<td>The hard gate, canonical source for <code>.git/hooks/pre-commit</code>: resolves the committing lane, reads the declared spine paths, blocks a module or executor commit touching any of them, and carries the set-coverage check on foundation's own authored-spine commits.</td>
+<td>The hard gate, canonical source for <code>.git/hooks/pre-commit</code>: resolves the committing lane, reads the declared spine paths, blocks a module or executor commit touching any of them, and carries the check for set coverage on foundation's own commits that author the spine.</td>
 </tr>
 <tr>
 <td><code>agents/commit-msg-hook.sh</code></td>
-<td>The commit-time gate on the message: the creed scan over the staged change and its message.</td>
+<td>The gate on the message at commit time: the creed scan over the staged change and its message.</td>
 </tr>
 <tr>
 <td><code>agents/pre-merge-commit-hook.sh</code></td>
-<td>The forced-merge-path guard: a merge commit reaches the spine only through the reaper.</td>
+<td>The guard that forces the merge path: a merge commit reaches the spine only through the reaper.</td>
 </tr>
 <tr>
 <td><code>agents/pre-push-hook.sh</code></td>
@@ -334,19 +334,19 @@ a{color:inherit}
 </tr>
 <tr>
 <td><code>scripts/install_pre_commit_hook.sh</code></td>
-<td>Installs the four git-side hooks above into <code>.git/hooks/</code>; its presence is what boot and audit verify.</td>
+<td>Installs the four hooks above, on the git side, into <code>.git/hooks/</code>. Its presence is what boot and audit verify.</td>
 </tr>
 <tr>
 <td><code>scripts/declared-spine-paths.sh</code></td>
-<td>The spine-path emitter: one protected path per line from its own hand-kept list plus the handoff row of <code>_index/engine-paths.tsv</code>; the pre-commit hook and the assembler keep their own base arrays and append this emitter's output. An adopter that needs a spine path of its own edits these engine rows (not a slot at v2.7).</td>
+<td>The emitter of spine paths: one protected path per line from its own list, kept by hand, plus the handoff row of <code>_index/engine-paths.tsv</code>. The hook that runs before commit and the assembler keep their own base arrays and append this emitter's output. An adopter that needs a spine path of its own edits these engine rows (not a slot at v2.7).</td>
 </tr>
 <tr>
 <td><code>probes/set-gate/probe_census_parity.sh</code></td>
-<td>Drives every registered enforcer's membership test against the one census, both forms, fail-closed on an undriveable enforcer.</td>
+<td>Drives every registered enforcer's membership test against the one census, both forms, failing closed on an undriveable enforcer.</td>
 </tr>
 <tr>
 <td><code>probes/governance/probe_single_writer_manifest.sh</code></td>
-<td>The single-writer invariant as a probe over the manifest: one writer per spine path.</td>
+<td>The invariant of a single writer as a probe over the manifest: one writer per spine path.</td>
 </tr>
 <tr>
 <td><code>scripts/governance-probes-spine.sh</code></td>
@@ -358,15 +358,15 @@ a{color:inherit}
 </tr>
 <tr>
 <td><code>scripts/spine-receive.sh</code></td>
-<td>The server-side check on the spine account's bare repository: the pre-receive twin of the push hook.</td>
+<td>The check on the server at the spine account's bare repository: the push hook's twin, run before the repository accepts a push.</td>
 </tr>
 <tr>
 <td><code>scripts/secret-scan.sh</code></td>
-<td>The commit-time credential scan over the added lines of the staged change.</td>
+<td>The credential scan at commit time over the added lines of the staged change.</td>
 </tr>
 <tr>
 <td><code>scripts/surfaces-token.sh</code></td>
-<td>The single <code>surfaces:</code> authorization-input predicate, read by the ledger and the gates.</td>
+<td>The single <code>surfaces:</code> predicate for authorization input, read by the ledger and the gates.</td>
 </tr>
 <tr>
 <td><code>contracts/THREAT-MODEL.md</code></td>
@@ -376,7 +376,7 @@ a{color:inherit}
 </table>
 <h2 id="s4">4 Set-level authorization, the thesis in executable form</h2>
 <p><strong>Canon anchors: §4 enforcement mechanisms, §10 ratification flow. Contracts: <code>contracts/C-SET-AUTHORIZATION.md</code>, <code>contracts/C-RATIFICATION-PACKET.md</code>, <code>contracts/COST-CAPS.md</code>, <code>contracts/SPEC-BUILD-CLASS-STANDING-APPROVAL.md</code>.</strong></p>
-<p>This is the machinery the whole architecture exists to carry: the set, not the change, is what gets authorized, with foundation assembling and assessing and the independent human ratifying. New at v2.7: the build-class predicate, a standing approval for a named class of acts that need no pen, proven in both polarities.</p>
+<p>This is the machinery the whole architecture exists to carry: the set, not the change, is what gets authorized, with foundation assembling and assessing and the independent human ratifying. New at v2.7: the predicate for the build class, a standing approval for a named class of acts that need no pen, proven in both polarities.</p>
 <table>
 <thead>
 <tr>
@@ -387,7 +387,7 @@ a{color:inherit}
 <tbody>
 <tr>
 <td><code>contracts/C-SET-AUTHORIZATION.md</code></td>
-<td>The governing model: the round-trip flow, the enforced mechanisms (conformance, footprint coverage, joint-edge coherence, the cost brake), the member-as-manifest rule, the check-reference, the definition of done.</td>
+<td>The governing model: the flow as a round trip, the enforced mechanisms (conformance, footprint coverage, coherence at joint edges, the cost brake), the rule that a member is its manifest, the reference to the check, the definition of done.</td>
 </tr>
 <tr>
 <td><code>contracts/C-RATIFICATION-PACKET.md</code></td>
@@ -399,7 +399,7 @@ a{color:inherit}
 </tr>
 <tr>
 <td><code>contracts/CONSTANTS.md</code></td>
-<td>The generated generic subset of the origin's constants: only the declared state condition that <code>boot-check.sh</code> reads; every project operational constant stays with the declaring project.</td>
+<td>The generated generic subset of the origin's constants: only the declared state condition that <code>boot-check.sh</code> reads. Every project operational constant stays with the declaring project.</td>
 </tr>
 <tr>
 <td><code>contracts/READINESS.md</code></td>
@@ -407,39 +407,39 @@ a{color:inherit}
 </tr>
 <tr>
 <td><code>contracts/SPEC-BUILD-CLASS-STANDING-APPROVAL.md</code></td>
-<td>The build-class standing approval: the class of acts that proceed without a pen, its predicate and its proof bar.</td>
+<td>The standing approval for the build class: the class of acts that proceed without a pen, its predicate and its proof bar.</td>
 </tr>
 <tr>
 <td><code>scripts/pending-set.sh</code></td>
-<td>The ledger instrument, three verbs: <code>list</code> (any seat, read-only), <code>member</code> (a module writes its manifest entry to its own outbox, refused without surfaces), <code>reap</code> (foundation-only: append the pending row to the ledger; the verb the upgrade runbook relies on).</td>
+<td>The ledger instrument, three verbs: <code>list</code> (any seat, read only), <code>member</code> (a module writes its manifest entry to its own outbox, refused without surfaces), <code>reap</code> (foundation only, and the verb the upgrade runbook relies on: append the pending row to the ledger).</td>
 </tr>
 <tr>
 <td><code>scripts/ratify.sh</code></td>
-<td>The engine's heart: <code>assemble</code> reads the ledger and every member entry, computes joint edges against the substrate table, writes the packet; <code>assess</code> records foundation's reasoning; <code>ratify</code> records the operator's single decision line. Foundation-only, resolver-gated.</td>
+<td>The engine's heart: <code>assemble</code> reads the ledger and every member entry, computes joint edges against the substrate table and writes the packet. The verb <code>assess</code> records foundation's reasoning, and the verb <code>ratify</code> records the operator's single decision line. Foundation only, gated by the resolver.</td>
 </tr>
 <tr>
 <td><code>scripts/cost-guard.sh</code></td>
-<td>The cost brake: reads the usage ledger, prices rows against the caps, closed exit-code set, unreadable ledger halts. Vendor-neutral at the pin.</td>
+<td>The cost brake: reads the usage ledger, prices rows against the caps, closed set of exit codes, unreadable ledger halts. Neutral as to vendor at the pin.</td>
 </tr>
 <tr>
 <td><code>scripts/criteria-redpole.sh</code></td>
-<td>The mechanical half of the auditor's criteria-adequacy check: a set's criteria must have a red pole.</td>
+<td>The mechanical half of the auditor's check that criteria are adequate: a set's criteria must have a red pole.</td>
 </tr>
 <tr>
 <td><code>scripts/structure-of-record.sh</code></td>
-<td>The check-reference gate: a packet cites the structure of record it was judged against.</td>
+<td>The gate for the reference to the check: a packet cites the structure of record it was judged against.</td>
 </tr>
 <tr>
 <td><code>scripts/build-class-check.sh</code></td>
-<td>The build-class predicate gate, four checks, fail-closed: is this act in the standing class, or does it need the pen.</td>
+<td>The predicate gate for the build class, four checks, failing closed: is this act in the standing class, or does it need the pen.</td>
 </tr>
 <tr>
 <td><code>_index/authz-enforcers.tsv</code></td>
-<td>Operative data for the build-class predicate: which enforcer covers which authorization input; <code>scope</code> is <code>engine</code> or <code>origin</code>.</td>
+<td>Operative data for the predicate of the build class: which enforcer covers which authorization input, and its <code>scope</code> is <code>engine</code> or <code>origin</code>.</td>
 </tr>
 <tr>
 <td><code>_index/substrates.tsv</code></td>
-<td>The substrate vocabulary a declared-effects key is read against by <code>assemble</code>; engine rows ship, the adopter adds its own with scope <code>origin</code>.</td>
+<td>The substrate vocabulary that a key of declared effects is read against by <code>assemble</code>. Engine rows ship, and the adopter adds its own with scope <code>origin</code>.</td>
 </tr>
 <tr>
 <td><code>_index/engine-paths.tsv</code></td>
@@ -447,11 +447,11 @@ a{color:inherit}
 </tr>
 <tr>
 <td><code>probes/set-gate/probe_footprint_coverage_flip.sh</code></td>
-<td><code>assemble</code> refuses a set that does not cover its requirement's declared footprint; flip-proven.</td>
+<td><code>assemble</code> refuses a set that does not cover its requirement's declared footprint, proven by a flip.</td>
 </tr>
 <tr>
 <td><code>probes/set-gate/probe_semantic_hunt_flip.sh</code></td>
-<td>The semantic-hunt slot is unskippable: a merge decision refuses on a missing or incomplete hunt.</td>
+<td>The slot for the semantic hunt is unskippable: a merge decision refuses on a missing or incomplete hunt.</td>
 </tr>
 <tr>
 <td><code>probes/build-class/probe_build_class_predicate_v1.sh</code></td>
@@ -459,11 +459,11 @@ a{color:inherit}
 </tr>
 <tr>
 <td><code>probes/build-class/proof_arming_both_polarity_v1.sh</code></td>
-<td>The build-class completion bar as a runnable instrument: the gate seen to pass and seen to fail.</td>
+<td>The completion bar for the build class as a runnable instrument: the gate seen to pass and seen to fail.</td>
 </tr>
 <tr>
 <td><code>docs/EXPORT-set-authorization.md</code></td>
-<td>The methodology export: the thesis, enforcement and first-execution method as a portable narrative, written for reading rather than running.</td>
+<td>The methodology export: the thesis, enforcement and method of first execution as a portable narrative, written for reading rather than running.</td>
 </tr>
 </tbody>
 </table>
@@ -479,7 +479,7 @@ a{color:inherit}
 <tbody>
 <tr>
 <td><code>schema/state-machine.md</code></td>
-<td>The work-package lifecycle with the no-fake-closures property as graph structure: no edge from in-progress to closed; only an auditor-reproduced receipt closes.</td>
+<td>The lifecycle of a work package, with the property of no fake closures as graph structure: no edge leads from in progress to closed. Only a receipt the auditor reproduced closes.</td>
 </tr>
 <tr>
 <td><code>schema/work-package.md</code></td>
@@ -491,15 +491,15 @@ a{color:inherit}
 </tr>
 <tr>
 <td><code>schema/verification.md</code></td>
-<td>Four rings, the probe-guard rule and the acceptance function.</td>
+<td>Four rings, the rule for guarding probes and the acceptance function.</td>
 </tr>
 <tr>
 <td><code>schema/concurrency.md</code></td>
-<td>The parallel-worker ceiling under which lanes and workers overlap, named by class at the pin.</td>
+<td>The ceiling on parallel workers under which lanes and workers overlap, named by class at the pin.</td>
 </tr>
 <tr>
 <td><code>dispatch/LATEST.md</code></td>
-<td>The live hub pointer, spine-protected, so status is read from a file rather than a screenshot; ships as the skeleton.</td>
+<td>The live hub pointer, protected as a spine path, so status is read from a file rather than a screenshot. It ships as the skeleton.</td>
 </tr>
 <tr>
 <td><code>docs/OPERATING-DISCIPLINE.md</code></td>
@@ -507,7 +507,7 @@ a{color:inherit}
 </tr>
 <tr>
 <td><code>disciplines.md</code></td>
-<td>The standing disciplines, each with its trigger and its cite, which the creed scan reads at every boundary. One prose line carries an upstream catalogue-identifier word (known residue, cured at 2.8).</td>
+<td>The standing disciplines, each with its trigger and its cite, which the creed scan reads at every boundary. One prose line carries a word that is an upstream catalog identifier (known residue, cured at 2.8).</td>
 </tr>
 <tr>
 <td><code>_index/boot-roster.md</code></td>
@@ -531,11 +531,11 @@ a{color:inherit}
 <tbody>
 <tr>
 <td><code>scripts/reap_at_merge.sh</code></td>
-<td>Audit-at-merge, the merge-time backstop: substrate guard, the forced-merge-path sentinel, the five-state prefix match. Run by foundation at every module merge.</td>
+<td>Audit at merge, the backstop at merge time: substrate guard, the sentinel that forces the merge path, the prefix match over five states. Run by foundation at every module merge.</td>
 </tr>
 <tr>
 <td><code>scripts/reaper.sh</code></td>
-<td>The worktree-lifecycle reaper: reap-at-merge cleanup, stale-lock reaping, the force-remove guard. Lane-agnostic.</td>
+<td>The reaper for the worktree lifecycle: cleanup by the reap at merge, reaping of stale locks, the guard on forced removal. Neutral as to lane.</td>
 </tr>
 <tr>
 <td><code>scripts/reap-safe.sh</code></td>
@@ -543,19 +543,19 @@ a{color:inherit}
 </tr>
 <tr>
 <td><code>scripts/set-membership.sh</code></td>
-<td>No cherry-pick, as one sourced function with two callers: the merge reaper and the pre-merge hook.</td>
+<td>No cherry-pick, as one sourced function with two callers: the merge reaper and the hook that runs before merge.</td>
 </tr>
 <tr>
 <td><code>scripts/lane_currency_gate.sh</code></td>
-<td>The spine-to-module mirror of reap: brings a module lane content-fresh with the trunk without letting it touch the spine.</td>
+<td>The mirror of reap from spine to module: brings a module lane's content up to date with the trunk without letting it touch the spine.</td>
 </tr>
 <tr>
 <td><code>probes/set-gate/probe_module_adopt_merge_guard.sh</code></td>
-<td>The module-adopt merge guard acceptance probe.</td>
+<td>The acceptance probe for the merge guard on module adoption.</td>
 </tr>
 <tr>
 <td><code>.gitattributes</code></td>
-<td>Union-merge for a lane's ignore file at a currency sync, so a lane never loses its own ignores to the trunk's. Package-authored from the origin's rule.</td>
+<td>A union merge for a lane's ignore file at a currency sync, so a lane never loses its own ignores to the trunk's. The package authors it from the origin's rule.</td>
 </tr>
 </tbody>
 </table>
@@ -571,11 +571,11 @@ a{color:inherit}
 <tbody>
 <tr>
 <td><code>scripts/inbox.sh</code></td>
-<td>The lane-resolved spine-inbox reader, the hub-and-spoke relay engine. Every lane's first action each turn.</td>
+<td>The reader of the spine inbox, resolved by lane: the relay engine for hub and spokes. Every lane's first action each turn.</td>
 </tr>
 <tr>
 <td><code>scripts/inboxf.sh</code></td>
-<td>The hub read: foundation's boundary instrument over every lane's outbox. Carries one sibling-folder default an adopter's path overrides (known residue).</td>
+<td>The hub read: foundation's boundary instrument over every lane's outbox. Carries one default to a sibling folder that an adopter's path overrides (known residue).</td>
 </tr>
 <tr>
 <td><code>scripts/consume-core.sh</code></td>
@@ -587,7 +587,7 @@ a{color:inherit}
 </tr>
 <tr>
 <td><code>scripts/signal.sh</code></td>
-<td>The durable operator-to-seat signal: directives become files.</td>
+<td>The durable signal from operator to seat: directives become files.</td>
 </tr>
 <tr>
 <td><code>scripts/status.sh</code></td>
@@ -595,7 +595,7 @@ a{color:inherit}
 </tr>
 <tr>
 <td><code>scripts/inbox-age-filer.sh</code></td>
-<td>Canon §7.4(b) inbox-age liveness, filed from outside the seat.</td>
+<td>Canon §7.4(b) liveness by inbox age, filed from outside the seat.</td>
 </tr>
 <tr>
 <td><code>contracts/SPEC-DOORBELL.md</code></td>
@@ -603,15 +603,15 @@ a{color:inherit}
 </tr>
 <tr>
 <td><code>_knowledge/COORDINATION.md</code></td>
-<td>The coordination protocol: hub-and-spoke, inbox and outbox, the integrator clauses, the module-to-foundation asymmetry. Ships as the generic integrator protocol.</td>
+<td>The coordination protocol: hub and spokes, inbox and outbox, the integrator clauses, the asymmetry between module and foundation. Ships as the generic integrator protocol.</td>
 </tr>
 <tr>
 <td><code>scripts/reconciliation-diff.sh</code></td>
-<td>Canon §4's bidirectional transport-integrity check, one mechanism: both sides enumerate, the difference is named, empty-both-sides is an error. Carries one sibling-folder default an adopter's path overrides (known residue).</td>
+<td>Canon §4's bidirectional check of transport integrity, one mechanism: both sides enumerate, the difference is named, both sides empty is an error. Carries one default to a sibling folder that an adopter's path overrides (known residue).</td>
 </tr>
 <tr>
 <td><code>probes/reconciliation-diff/README.md</code></td>
-<td>The seen-to-fail evidence index for the reconciliation diff's acceptance poles.</td>
+<td>The evidence index showing the reconciliation diff's acceptance poles seen to fail.</td>
 </tr>
 <tr>
 <td><code>probes/reconciliation-diff/probe_ac1_ac6_battery_v1.sh</code></td>
@@ -631,7 +631,7 @@ a{color:inherit}
 </tr>
 <tr>
 <td><code>probes/governance/probe_hub_reachability_poles.sh</code></td>
-<td>Its poles; pole 1 reads live state (declared residue at 2.7).</td>
+<td>Its poles. Pole 1 reads live state (declared residue at 2.7).</td>
 </tr>
 <tr>
 <td><code>probes/governance/probe_window_plan_transport.sh</code></td>
@@ -639,7 +639,7 @@ a{color:inherit}
 </tr>
 <tr>
 <td><code>probes/set-gate/probe_consume_premise.sh</code></td>
-<td>Premise-at-pickup poles: a consumed relay carries the premise it was consumed under.</td>
+<td>Poles for the premise at pickup: a consumed relay carries the premise it was consumed under.</td>
 </tr>
 <tr>
 <td><code>probes/set-gate/probe_inbox_consume_parity.sh</code></td>
@@ -647,11 +647,11 @@ a{color:inherit}
 </tr>
 <tr>
 <td><code>probes/set-gate/probe_govcheck_relay_ref.sh</code></td>
-<td>The governance-check gate resolves a relay reference on a lane outbox path.</td>
+<td>The gate for the governance check resolves a relay reference on a lane outbox path.</td>
 </tr>
 <tr>
 <td><code>docs/examples/escalation-003.md</code></td>
-<td>The shipped worked example of a lane reaching an authorization boundary it cannot resolve, so an adopter's first conflict has a filed precedent. Package-authored.</td>
+<td>The shipped worked example of a lane reaching an authorization boundary it cannot resolve, so an adopter's first conflict has a filed precedent. The package authors it.</td>
 </tr>
 </tbody>
 </table>
@@ -669,7 +669,7 @@ a{color:inherit}
 <tbody>
 <tr>
 <td><code>agents/post-commit-hook.sh</code></td>
-<td>The lane-aware reap-then-audit hook, canonical source for <code>.git/hooks/post-commit</code>: module marker and push, foundation reap plus push plus doorbell, then the auditor.</td>
+<td>The hook that reaps then audits according to lane, canonical source for <code>.git/hooks/post-commit</code>: module marker and push, foundation reap plus push plus doorbell, then the auditor.</td>
 </tr>
 <tr>
 <td><code>scripts/install_post_commit_hook.sh</code></td>
@@ -677,7 +677,7 @@ a{color:inherit}
 </tr>
 <tr>
 <td><code>agents/auditor-contract.md</code></td>
-<td>The post-commit auditor: re-run, never trust; observe, never author.</td>
+<td>The auditor that fires after each commit: rerun, never trust. Observe, never author.</td>
 </tr>
 <tr>
 <td><code>agents/audit-system-prompt.md</code></td>
@@ -693,7 +693,7 @@ a{color:inherit}
 </tr>
 <tr>
 <td><code>scripts/audit-seal.sh</code></td>
-<td>The one seal writer at a boundary: restart, shutdown or manual; called by the stop hook, the seat exit, the boot check, the merge reaper and the post-commit hook.</td>
+<td>The one seal writer at a boundary: restart, shutdown or manual. It is called by the stop hook, the seat exit, the boot check, the merge reaper and the hook that runs after commit.</td>
 </tr>
 <tr>
 <td><code>scripts/seal-rulings.sh</code></td>
@@ -701,11 +701,11 @@ a{color:inherit}
 </tr>
 <tr>
 <td><code>agents/standing-probes.yaml</code></td>
-<td>The declared registry of the seven standing probes with path, run_by and schedule: auditor liveness, the two set-gate flips, the build-class predicate, governance-index drift, hub reachability, auditor model pin. An invariant's health is its streak here, not its prose.</td>
+<td>The declared registry of the seven standing probes with path, run_by and schedule: auditor liveness, the two flips of the set gate, the predicate for the build class, drift of the governance index, hub reachability, auditor model pin. An invariant's health is its streak here, not its prose.</td>
 </tr>
 <tr>
 <td><code>_index/probe-tiers.tsv</code></td>
-<td>The tier of each standing probe: gate candidate, per commit on trigger, or excluded; what the code auditor schedules by.</td>
+<td>The tier of each standing probe: gate candidate, per commit on trigger, or excluded. The code auditor schedules by it.</td>
 </tr>
 <tr>
 <td><code>probes/auditor/probe_auditor_model_pin_v1.sh</code></td>
@@ -713,31 +713,31 @@ a{color:inherit}
 </tr>
 <tr>
 <td><code>probes/foundation/probe_auditor_liveness_v1.py</code></td>
-<td>Liveness of the post-commit trigger itself, checked from outside the participant. Above 8-character commit abbreviation its Arm A reports a false FAIL, never a false PASS (declared residue, cure named for 2.8).</td>
+<td>Liveness of the very trigger that fires after each commit, checked from outside the participant. Above 8-character commit abbreviation its Arm A reports a false FAIL, never a false PASS (declared residue, cure named for 2.8).</td>
 </tr>
 <tr>
 <td><code>probes/budget/probe_efficiency_budget.sh</code></td>
-<td>The budget probe: the hot files stay under their byte caps; a measuring instrument, not a judgment.</td>
+<td>The budget probe: the hot files stay under their byte caps. It is a measuring instrument, not a judgment.</td>
 </tr>
 <tr>
 <td><code>probes/governance/probe_loop_cure_e12.sh</code></td>
-<td>The loop-cure poles: the audit seal, the code auditor and the ledger instruments cannot re-enter themselves.</td>
+<td>The poles for the loop cure: the audit seal, the code auditor and the ledger instruments cannot call back into themselves.</td>
 </tr>
 <tr>
 <td><code>issues_register.md</code></td>
-<td>The single append-aware defect and named-wait record, hypotheses not facts, seeded empty.</td>
+<td>The single record of defects and named waits, aware of appends, holding hypotheses not facts, seeded empty.</td>
 </tr>
 <tr>
 <td><code>scripts/audit_issue_register.py</code></td>
-<td>The register's discipline tool: push-drift flagging and register-shape enforcement.</td>
+<td>The register's discipline tool: flagging drift in pushes and enforcing the shape of the register.</td>
 </tr>
 <tr>
 <td><code>scripts/check_orchestration_freshness.sh</code></td>
-<td>The orchestration-freshness probe body over the session-state surface and the decision log.</td>
+<td>The body of the probe for orchestration freshness, over the surface of session state and the decision log.</td>
 </tr>
 </tbody>
 </table>
-<p><strong>The governance-index half:</strong></p>
+<p><strong>The half that holds the governance index:</strong></p>
 <table>
 <thead>
 <tr>
@@ -748,15 +748,15 @@ a{color:inherit}
 <tbody>
 <tr>
 <td><code>contracts/SPEC-GOVERNANCE-INDEX.md</code></td>
-<td>The governance index, its retrievers, and the commit-time creed gate.</td>
+<td>The governance index, its retrievers, and the creed gate at commit time.</td>
 </tr>
 <tr>
 <td><code>scripts/gen-governance-index.sh</code></td>
-<td>Derives the index from the tri-corpus: contracts, canon and disciplines, joined to the curated annotations.</td>
+<td>Derives the index from the three corpora: contracts, canon and disciplines, joined to the curated annotations.</td>
 </tr>
 <tr>
 <td><code>_index/governance.tsv</code></td>
-<td>The derived index itself (a build artifact, never hand-edited): regenerated at package build by the shipped <code>scripts/gen-governance-index.sh</code> within a ruled line bound; against the pin's blob it differs in exactly one comment line, the frame line that names the public canon's blob instead of the origin's internal one. The one <code>derived</code> row of the package.</td>
+<td>The derived index itself (a build artifact, never edited by hand): regenerated at package build by the shipped <code>scripts/gen-governance-index.sh</code> within a ruled line bound. Against the pin's blob it differs in exactly one comment line, the frame line that names the public canon's blob instead of the origin's internal one. The one <code>derived</code> row of the package.</td>
 </tr>
 <tr>
 <td><code>_index/annotations.tsv</code></td>
@@ -764,7 +764,7 @@ a{color:inherit}
 </tr>
 <tr>
 <td><code>_index/layers.tsv</code></td>
-<td>Per-row layer and disposition for the index.</td>
+<td>The layer and disposition of each index row.</td>
 </tr>
 <tr>
 <td><code>_index/mechanisms.tsv</code></td>
@@ -788,23 +788,23 @@ a{color:inherit}
 </tr>
 <tr>
 <td><code>contracts/RETIRED-TERMS.tsv</code></td>
-<td>Mechanisms retired by ruling that must not reappear on a law surface; the creed scan reads it.</td>
+<td>Mechanisms retired by ruling that must not reappear on a law surface. The creed scan reads it.</td>
 </tr>
 <tr>
 <td><code>scripts/creed-scan.sh</code></td>
-<td>The boundary-time trigger-to-cite breach scanner: a discipline's trigger in a change without its cite is a breach.</td>
+<td>The scanner, run at each boundary, for breaches between trigger and cite: a discipline's trigger in a change without its cite is a breach.</td>
 </tr>
 <tr>
 <td><code>scripts/creed-scan-spine.sh</code></td>
-<td>Runs the spine's creed-scan bytes at a boundary (stop and session end), never a lane's copy.</td>
+<td>Runs the spine's bytes for the creed scan at a boundary (stop and session end), never a lane's copy.</td>
 </tr>
 <tr>
 <td><code>scripts/governance.sh</code></td>
-<td>Cite-before-raise: no settled decision is re-raised without citing the record, as a command.</td>
+<td>Cite before raise: no settled decision is raised again without citing the record, as a command.</td>
 </tr>
 <tr>
 <td><code>scripts/rulecheck.sh</code></td>
-<td>The draft-time governance retriever: which rows a draft must cite.</td>
+<td>The governance retriever used at draft time: which rows a draft must cite.</td>
 </tr>
 <tr>
 <td><code>probes/governance-index/probe_governance_index_v1.sh</code></td>
@@ -816,19 +816,19 @@ a{color:inherit}
 </tr>
 <tr>
 <td><code>scripts/canon-core.sh</code></td>
-<td>The one canon-edition resolver, sourced by the governance index generator, the creed scan, the governance retriever, the reconciliation diff, the spine receive check and two reconciliation probes; three governance probes name the canon file directly.</td>
+<td>The one resolver for the canon edition, sourced by the governance index generator, the creed scan, the governance retriever, the reconciliation diff, the spine receive check and two reconciliation probes. Three governance probes name the canon file directly.</td>
 </tr>
 <tr>
 <td><code>scripts/rules_manifest.sh</code></td>
-<td>The scoped rules-manifest hash over the guard, resolver and coordination clauses, so rule drift is a fingerprint change.</td>
+<td>The scoped hash of the rules manifest over the guard, resolver and coordination clauses, so rule drift is a fingerprint change.</td>
 </tr>
 <tr>
 <td><code>probes/governance/probe_surface_conformance_v1.sh</code></td>
-<td>The surface-conformance probe, checks A1 to A8: every seat surface carries what the canon says it carries.</td>
+<td>The probe for surface conformance, checks A1 to A8: every seat surface carries what the canon says it carries.</td>
 </tr>
 <tr>
 <td><code>scripts/surface-conformance-spine.sh</code></td>
-<td>Runs the spine's surface-conformance bytes, never a lane's copy.</td>
+<td>Runs the spine's bytes for surface conformance, never a lane's copy.</td>
 </tr>
 <tr>
 <td><code>probes/governance/probe_application_v1.sh</code></td>
@@ -840,12 +840,12 @@ a{color:inherit}
 </tr>
 <tr>
 <td><code>probes/governance/probe_governance_fleet_divergence_v1.sh</code></td>
-<td>Retired pointer stub, kept so a cite resolves; subsumed by the surface-conformance probe.</td>
+<td>Retired pointer stub, kept so a cite resolves. The probe for surface conformance subsumes it.</td>
 </tr>
 </tbody>
 </table>
 <h2 id="s9">9 Instantiation, adoption, and upgrade</h2>
-<p><strong>Canon anchors: §11 packaging and adoption, §12 instantiation checklist. All package-authored.</strong></p>
+<p><strong>Canon anchors: §11 packaging and adoption, §12 instantiation checklist. The package authors all of it.</strong></p>
 <table>
 <thead>
 <tr>
@@ -856,7 +856,7 @@ a{color:inherit}
 <tbody>
 <tr>
 <td><code>ADOPTION-COVER.md</code></td>
-<td>The read-first cover: what this is, what order to read in, both version axes.</td>
+<td>The cover to read first: what this is, what order to read in, both version axes.</td>
 </tr>
 <tr>
 <td><code>ADOPTION-COVER.rtf</code></td>
@@ -868,7 +868,7 @@ a{color:inherit}
 </tr>
 <tr>
 <td><code>GETTING-STARTED-LINUX-MAC.rtf</code></td>
-<td>Its rich-text rendering.</td>
+<td>Its rendering in rich text.</td>
 </tr>
 <tr>
 <td><code>CHECKLIST.md</code></td>
@@ -876,23 +876,23 @@ a{color:inherit}
 </tr>
 <tr>
 <td><code>OPERATOR-GUIDE.pdf</code></td>
-<td>The operator-side companion: what the human at the apex does and answers.</td>
+<td>The companion on the operator's side: what the human at the apex does and answers.</td>
 </tr>
 <tr>
 <td><code>OPERATOR-CHAT-SETUP.md</code></td>
-<td>The chat-side setup page: project, bootstrap, and why a session wakes up lost without them.</td>
+<td>The setup page for the chat side: project, bootstrap, and why a session wakes up lost without them.</td>
 </tr>
 <tr>
 <td><code>OPERATOR-CHAT-SETUP.rtf</code></td>
-<td>Its rich-text rendering.</td>
+<td>Its rendering in rich text.</td>
 </tr>
 <tr>
 <td><code>SLOTS.md</code></td>
-<td>The single inventory of every adopter slot, one row each, checked both ways against the shipped slot table; names the literal <code>origin</code> for the adopter's substrate rows.</td>
+<td>The single inventory of every adopter slot, one row each, checked both ways against the shipped slot table. It names the literal <code>origin</code> for the adopter's substrate rows.</td>
 </tr>
 <tr>
 <td><code>_index/adopter-slots.tsv</code></td>
-<td>The adopter-fill slot table the engine's probes read; the machine twin of <code>SLOTS.md</code>.</td>
+<td>The slot table the adopter fills and the engine's probes read. It is the machine twin of <code>SLOTS.md</code>.</td>
 </tr>
 <tr>
 <td><code>docs/FOUNDATION.md</code></td>
@@ -900,15 +900,15 @@ a{color:inherit}
 </tr>
 <tr>
 <td><code>docs/CHAT-SEAT-PROJECT-INSTRUCTIONS_skeleton.md</code></td>
-<td>The chat-seat charter skeleton, the §1.1 chat-seat law instantiated per project.</td>
+<td>The charter skeleton for a chat seat, the §1.1 law of chat seats instantiated per project.</td>
 </tr>
 <tr>
 <td><code>docs/FIELD-EVIDENCE_skeleton.md</code></td>
-<td>The conformed field-evidence log schema, canon §4, seeded per project.</td>
+<td>The conformed log schema for field evidence, canon §4, seeded per project.</td>
 </tr>
 <tr>
 <td><code>docs/BOOT-CHECK-PROPAGATION.md</code></td>
-<td>How the one boot-check script reaches every lane by call, never by copy, and stays there.</td>
+<td>How the one script for the boot check reaches every lane by call, never by copy, and stays there.</td>
 </tr>
 <tr>
 <td><code>docs/ENGINE-UPDATE.md</code></td>
@@ -918,7 +918,7 @@ a{color:inherit}
 </table>
 <h2 id="s10">10 Release integrity and the release envelope</h2>
 <p><strong>Canon anchor: §11 packaging and adoption (the versioned manifest and the companion sealed archive).</strong></p>
-<p><strong>In-zip integrity and provenance:</strong></p>
+<p><strong>Integrity and provenance inside the zip:</strong></p>
 <table>
 <thead>
 <tr>
@@ -929,7 +929,7 @@ a{color:inherit}
 <tbody>
 <tr>
 <td><code>MANIFEST.sha256</code></td>
-<td>The per-file fingerprint manifest, one row per shipped file; <code>shasum -c</code> inside the unzipped package is the adopter's second verify surface. Its own sha256 is the package self-sha.</td>
+<td>The fingerprint manifest for every file, one row per shipped file. Running <code>shasum -c</code> inside the unzipped package is the adopter's second verify surface. Its own sha256 is the package self-sha.</td>
 </tr>
 <tr>
 <td><code>PROVENANCE.tsv</code></td>
@@ -937,7 +937,7 @@ a{color:inherit}
 </tr>
 <tr>
 <td><code>CHANGELOG.md</code></td>
-<td>The versioned public account, both axes on every entry, slot-contract changes under their own heading, known residue by class.</td>
+<td>The versioned public account, both axes on every entry, changes to the slot contract under their own heading, known residue by class.</td>
 </tr>
 <tr>
 <td><code>CITATION.cff</code></td>
@@ -945,22 +945,22 @@ a{color:inherit}
 </tr>
 </tbody>
 </table>
-<p><strong>The loose release layer, beside the zip</strong> (not zip members; listed here so the envelope is whole): <code>README.md</code> the front door and the map of the release; <code>README.rtf</code> its rich-text rendering; <code>LICENSE.md</code> the licensing envelope, engine under Apache 2.0 with the Commons Clause, the canon file carved out under CC BY 4.0; copies of <code>MANIFEST.sha256</code> and <code>PROVENANCE.tsv</code>; and <code>SHA256SUMS</code>, six rows (the zip, the two copies, the README pair and the license), the first verify surface, checked before anything is unzipped. The zip carries no license or README member of its own: the license reaches a zip-only recipient through the cover's pointer and the release page, which is why the loose layer travels with the zip.</p>
+<p><strong>The loose release layer, beside the zip</strong> and not among its members, is listed here so the envelope is whole. <code>README.md</code> is the front door and the map of the release. <code>README.rtf</code> is its rendering in rich text. <code>LICENSE.md</code> is the licensing envelope, engine under Apache 2.0 with the Commons Clause, the canon file carved out under CC BY 4.0. The layer also holds copies of <code>MANIFEST.sha256</code> and <code>PROVENANCE.tsv</code>. Finally, <code>SHA256SUMS</code>, with six rows (the zip, the two copies, the README pair and the license), is the first verify surface, checked before anything is unzipped. The zip carries no license or README member of its own: the license reaches a recipient who has only the zip through the cover's pointer and the release page, which is why the loose layer travels with the zip.</p>
 <hr />
 <h2 id="s11">Execution wiring, the whole engine as a timeline</h2>
-<p><strong>At adoption:</strong> <code>SHA256SUMS</code> then <code>MANIFEST.sha256</code> verify the bytes; the cover and <code>GETTING-STARTED-LINUX-MAC.md</code> are read; <code>CHECKLIST.md</code> walks §12; the slots are filled per <code>SLOTS.md</code>, including the roster from <code>docs/SEATS_skeleton.yaml</code> and the stamp from <code>_boot/BOOTSTRAP.md</code>; <code>docs/FOUNDATION.md</code> is authored; the adopter's deny classes and substrate rows go into their tables; each writing seat's key is generated, recorded in the roster and bound in its worktree (<code>seat-keys.sh keygen</code>, <code>setup-signing</code>, <code>confirm-lanes</code>); only then are the hooks armed (<code>install_pre_commit_hook.sh</code> refuses until every writing lane is confirmed; <code>install_post_commit_hook.sh</code>).</p>
-<p><strong>At seat launch:</strong> the operator runs <code>launch-orc.sh</code> in the worktree; it resolves the stamp through <code>resolve-lane.sh</code> and <code>resolve-project.sh</code>, refuses double-launch, and creates <code>{project}-{lane}</code> running <code>seat-loop.sh</code>; the session loads <code>orc.md</code>; the session-start hooks fire <code>boot-check.sh</code>, <code>seat-boot-record.sh</code> and the subagent ledger; the seat derives identity, reads its charter and <code>dispatch/LATEST.md</code>, then its inbox.</p>
-<p><strong>Per prompt and per tool call:</strong> the prompt hooks record observed mode and read the exit cue; on every Bash call the greenlight policy, the background deny and the subagent commit deny run; on every tool the subagent cap runs.</p>
-<p><strong>Per change:</strong> foundation dispatches into an inbox and rings <code>doorbell.sh</code>; the lane works on its branch; the reconciliation diff is run by hand when arrival is in question (no hook runs it); the state machine admits no closure without an audited receipt.</p>
-<p><strong>Per commit:</strong> <code>.git/hooks/pre-commit</code> reads the declared spine paths at HEAD and blocks non-writer spine writes and uncovered foundation writes; the commit-msg hook runs the creed scan; the pre-push hook and the spine's receive check verify the seat's signature; <code>.git/hooks/post-commit</code> reaps, pushes and launches the auditor, whose code half runs every time.</p>
-<p><strong>Per set:</strong> members enter the ledger via <code>pending-set.sh</code>; <code>ratify.sh assemble</code> computes joint edges against the substrate table and writes the packet; <code>assess</code> records foundation's reasoning; the cost brake is run by hand before each metered call (<code>cost-guard.sh check</code>; the assembler does not call it); acts in the build class pass <code>build-class-check.sh</code> without a pen; everything else waits for the operator's one decision line, which <code>ratify.sh ratify</code> records; foundation merges, <code>reap_at_merge.sh</code> backstops.</p>
-<p><strong>At every seat boundary:</strong> the seat runs <code>seat-exit.sh</code> as its last act, which writes the intent; when the turn ends the stop hook runs the creed scan on the spine's bytes, writes the audit seal through <code>audit-seal.sh</code>, reads the hub, and on the fresh intent sends the exit; the loop relaunches the seat, unless the intent was shutdown or the operator's <code>seat-stop.sh</code> said otherwise.</p>
-<p><strong>Continuously:</strong> the seven standing probes run on their schedules by tier, ledgered; the budget probe holds the hot files under their caps; the index probe holds the governance index to its corpus.</p>
+<p><strong>At adoption:</strong> <code>SHA256SUMS</code> then <code>MANIFEST.sha256</code> verify the bytes. Then the cover and <code>GETTING-STARTED-LINUX-MAC.md</code> are read, and <code>CHECKLIST.md</code> walks §12. The slots are filled per <code>SLOTS.md</code>, including the roster from <code>docs/SEATS_skeleton.yaml</code> and the stamp from <code>_boot/BOOTSTRAP.md</code>. Next, <code>docs/FOUNDATION.md</code> is authored. The adopter's deny classes and substrate rows go into their tables. Each writing seat's key is generated, recorded in the roster and bound in its worktree (<code>seat-keys.sh keygen</code>, <code>setup-signing</code>, <code>confirm-lanes</code>). Only then are the hooks armed (<code>install_pre_commit_hook.sh</code> refuses until every writing lane is confirmed, and the other installer is <code>install_post_commit_hook.sh</code>).</p>
+<p><strong>At seat launch:</strong> the operator runs <code>launch-orc.sh</code> in the worktree. It resolves the stamp through <code>resolve-lane.sh</code> and <code>resolve-project.sh</code>, refuses a second launch, and creates <code>{project}-{lane}</code> running <code>seat-loop.sh</code>. Then the session loads <code>orc.md</code>, and the hooks at session start fire <code>boot-check.sh</code>, <code>seat-boot-record.sh</code> and the subagent ledger. The seat derives identity, reads its charter and <code>dispatch/LATEST.md</code>, then its inbox.</p>
+<p><strong>Per prompt and per tool call:</strong> the prompt hooks record observed mode and read the exit cue. On every Bash call the greenlight policy, the background deny and the subagent commit deny run. On every tool the subagent cap runs.</p>
+<p><strong>Per change:</strong> foundation dispatches into an inbox and rings <code>doorbell.sh</code>. The lane works on its branch. The reconciliation diff is run by hand when arrival is in question (no hook runs it). The state machine admits no closure without an audited receipt.</p>
+<p><strong>Per commit:</strong> <code>.git/hooks/pre-commit</code> reads the declared spine paths at HEAD and blocks uncovered foundation writes and spine writes from any seat but the writer. The hook on the commit message runs the creed scan. The hook that runs before push and the spine's receive check verify the seat's signature. After the commit, <code>.git/hooks/post-commit</code> reaps, pushes and launches the auditor, whose code half runs every time.</p>
+<p><strong>Per set:</strong> members enter the ledger via <code>pending-set.sh</code>. Then <code>ratify.sh assemble</code> computes joint edges against the substrate table and writes the packet. The verb <code>assess</code> records foundation's reasoning. The cost brake is run by hand before each metered call (<code>cost-guard.sh check</code>, which the assembler does not call). Acts in the build class pass <code>build-class-check.sh</code> without a pen. Everything else waits for the operator's one decision line, which <code>ratify.sh ratify</code> records. Foundation merges, and <code>reap_at_merge.sh</code> backstops.</p>
+<p><strong>At every seat boundary:</strong> the seat runs <code>seat-exit.sh</code> as its last act, which writes the intent. When the turn ends, the stop hook runs the creed scan on the spine's bytes, writes the audit seal through <code>audit-seal.sh</code>, reads the hub, and on the fresh intent sends the exit. The loop then relaunches the seat, unless the intent was shutdown or the operator's <code>seat-stop.sh</code> said otherwise.</p>
+<p><strong>Continuously:</strong> the seven standing probes run on their schedules by tier, ledgered. The budget probe holds the hot files under their caps. The index probe holds the governance index to its corpus.</p>
 <h2 id="s12">Coverage account</h2>
-<p><strong>The release is 187 files: 180 in the sealed zip plus 7 loose beside it</strong> (two of the loose are copies of zip members). In-zip assignment by area, counted by the parity check over this document's table rows: area 1 carries 3; area 2 carries 33 (30 lifecycle files plus the 3 agent definitions); area 3 carries 26; area 4 carries 20; area 5 carries 10; area 6 carries 7; area 7 carries 21; area 8 carries 41 (17 audit, 24 index); area 9 carries 15; area 10 carries 4; total 180. Every zip path appears exactly once across the tables and every table path exists in the zip (0 missing, 0 extra, 0 duplicate); the check was shown able to fail by removing one row, which it reported as missing.</p>
-<p>By provenance, the sealed <code>PROVENANCE.tsv</code>'s own kinds: 151 origin files byte-equal to the pinned commit (the origin's whole functional closure, 99 of them in the wired closure and the rest its contracts, indexes and documents), 1 derived index (the governance index, regenerated by the shipped generator, one frame line differing from the pin's blob; with the 151 it is the pin's 152 manifest blobs), 1 public canon, 25 package-authored documents, plus the manifest and the provenance table: 180.</p>
-<p>Two absences are load-bearing and named: <code>seats.yaml</code> does not ship (the adopter's roster, created at genesis from the skeleton; the boot check, the assembler and two probes read it from the moment it exists), and no update classifier ships (the upgrade runbook is followed by hand).</p>
-<p>This map is re-derived from the tree at every engine version; nothing in it is maintained by hand against drift. GMAA &middot; gmaa.ai &middot; cite by version.</p>
+<p><strong>The release is 187 files: 180 in the sealed zip plus 7 loose beside it</strong> (two of the loose are copies of zip members). The assignment by area inside the zip, counted by the parity check over this document's table rows, is 3 files in area 1, 33 in area 2 (30 lifecycle files plus the 3 agent definitions), 26 in area 3, 20 in area 4, 10 in area 5, 7 in area 6, 21 in area 7, 41 in area 8 (17 audit, 24 index), 15 in area 9 and 4 in area 10, for a total of 180. Every zip path appears exactly once across the tables and every table path exists in the zip (0 missing, 0 extra, 0 duplicate). The check was shown able to fail by removing one row, which it reported as missing.</p>
+<p>By provenance, the sealed <code>PROVENANCE.tsv</code>'s own kinds: 151 origin files equal byte for byte to the pinned commit (the origin's whole functional closure, 99 of them in the wired closure and the rest its contracts, indexes and documents), 1 derived index (the governance index, regenerated by the shipped generator, one frame line differing from the pin's blob, and with the 151 it is the pin's 152 manifest blobs), 1 public canon, 25 documents authored by the package, plus the manifest and the provenance table: 180.</p>
+<p>Two absences are structural and named: <code>seats.yaml</code> does not ship (the adopter's roster, created at genesis from the skeleton and read by the boot check, the assembler and two probes from the moment it exists), and no update classifier ships (the upgrade runbook is followed by hand).</p>
+<p>This map is derived again from the tree at every engine version. Nothing in it is maintained by hand against drift. GMAA &middot; gmaa.ai &middot; cite by version.</p>
     </article>
   </div>
 

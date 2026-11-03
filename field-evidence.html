@@ -61,26 +61,26 @@ a{color:inherit}
 <a href="#self-policing">Polices its own authors</a>
 </nav></aside>
 <article class="art" style="min-width: 0px; padding-bottom: 70px;">
-<div class="eyebrow">From the field-evidence log</div>
+<div class="eyebrow">From the log of field evidence</div>
 <h1>What it has caught</h1>
 <p style="color:#3F4B52;max-width:64ch">Incidents the architecture caught while running in production, the subset cleared for publication. The evidence for the set comes first. A separate section records the governance holding on its own authors, which is a different claim.</p>
 
-<div class="callout"><p><strong>A note on what is shown.</strong> GMAA keeps a running field-evidence log of incidents the architecture has caught in operation. Most of those entries stay internal, because they carry project-specific or proprietary detail that cannot be published: the client, the domain, the implementation. What appears below is the subset cleared for publication, rendered as pattern only: the shape of the failure and the shape of the catch, with the operational specifics held back. It is a sample of the record, not the whole of it, and it is offered as existence, not as proof of completeness.</p></div>
+<div class="callout"><p><strong>A note on what is shown.</strong> GMAA keeps a running log of field evidence, recording incidents the architecture has caught in operation. Most of those entries stay internal, because they carry detail that is proprietary or specific to a project and cannot be published: the client, the domain, the implementation. What appears below is the subset cleared for publication, rendered as pattern only: the shape of the failure and the shape of the catch, with the operational specifics held back. It is a sample of the record, not the whole of it, and it is offered as existence, not as proof of completeness.</p></div>
 
 <h2 id="caught">Two changes passed their own reviews and still broke each other. Reviewing them as a set caught it before either committed.</h2>
-<p>The first time the complete pending set was assembled and judged as a whole, it surfaced two changes that had each been approved on their own, and whose authors had both signed off from memory, as jointly incoherent. It was caught before either one committed, at no cost to the system. Per-change review had passed both; only judging them together as a set found the break.</p>
+<p>The first time the complete pending set was assembled and judged as a whole, it surfaced two changes that had each been approved on their own, and whose authors had both signed off from memory, as jointly incoherent. It was caught before either one committed, at no cost to the system. Review of each change had passed both. Only judging them together as a set found the break.</p>
 
 <h2 id="gap">The same failure was already running in the system, unnoticed.</h2>
-<p>The failure the set gate prevents was not hypothetical. A set of pending changes had been accumulating with every member reviewed on its own and none of them evaluated together. Per-change review ran correctly at every seat; the set was the one thing nobody was scoped to check. It was the exact gap the argument describes, running unmeasured because nothing was instrumented to see it. Naming it is what turned an invisible risk into a governed one.</p>
+<p>The failure the set gate prevents was not hypothetical. A set of pending changes had been accumulating with every member reviewed on its own and none of them evaluated together. Review of each change ran correctly at every seat. The set was the one thing nobody was scoped to check. It was the exact gap the argument describes, running unmeasured because nothing was instrumented to see it. Naming it is what turned an invisible risk into a governed one.</p>
 
 <h2 id="interaction">Three correct changes combined into a broken result, caught before any of them committed.</h2>
 <p>Three mechanisms, each correct on its own and each independently approved, combined into a state none of them intended: a stranded batch that no single change could account for. The break lived only in the set. It surfaced at the commit boundary, was assembled and judged as a whole under independent authority, and was resolved at the set level rather than patched at any one member. This is the core claim recurring in production: the unit that needed authorizing was the interacting set, not any single change.</p>
 
-<h2 id="convergence">Other builds reinvented set-level review on their own.</h2>
-<p>Separately, independent product builds arrived at the same set-level approval surface on their own, with no mandate to, because approving one change at a time kept producing the exact defect the argument predicts: a rubber-stamp surface and an unauditable batch. One of them stated the lesson plainly: a surface that can only say yes is a rubber stamp by construction. The label was deferred; the mechanism arrived anyway.</p>
+<h2 id="convergence">Other builds reinvented review at the set level on their own.</h2>
+<p>Separately, independent product builds arrived on their own at the same approval surface for the set, with no mandate to, because approving one change at a time kept producing the exact defect the argument predicts: a surface that is only a rubber stamp and an unauditable batch. One of them stated the lesson plainly: a surface that can only say yes is a rubber stamp by construction. The label was deferred. The mechanism arrived anyway.</p>
 
 <h2 id="member">Checking each change on its own worked, and still was not enough.</h2>
-<p>In the same window, the per-change checks did their job: a fabricated input was refused before it reached live data, a stale local copy of a tool was caught, and a defect was stopped by a probe before any live run. Those checks are necessary. The set-level failure above, from the same window, is why they are not sufficient. Both gates fire, and neither replaces the other.</p>
+<p>In the same window, the checks on each change did their job: a fabricated input was refused before it reached live data, a stale local copy of a tool was caught, and a defect was stopped by a probe before any live run. Those checks are necessary. The failure at the set level above came from the same window, and it is why they are not sufficient. Both gates fire, and neither replaces the other.</p>
 
 <h2 id="open">What stays open</h2>
 <p>These are classes the boundary has caught, offered as existence, not as proof of completeness. Whether any given build catches every joint incoherence is a separate, open question with a named way to earn the answer: an adversarial test that hunts for the miss. It is called complete when that test comes back clean, and not before.</p>
@@ -88,14 +88,14 @@ a{color:inherit}
 <h2 id="self-policing">The governance also polices its own authors</h2>
 <p class="aside-lede">The three below are a different axis. They are not evidence of the set. They are evidence that the governance holds even on the seats that write its rules, which is a claim about independence, not about the unit of authorization. They sit in their own section on purpose, because a claim about the set should be carried only by the set.</p>
 
-<h3>The system caught its own rule-author.</h3>
+<h3>The system caught the author of its own rules.</h3>
 <p>After a context restart, a seat refused to act on an instruction because the rule it cited existed only in chat and had never been committed to the record. Nothing at the system of record backed it, so the seat halted and surfaced the gap rather than proceeding. The mechanism held its own governance traffic to the same evidence bar as worker output.</p>
 
 <h3>The evidence record caught its own entry.</h3>
-<p>An append to the field-evidence log itself was composed from a stale local copy and arrived out of sequence. The pre-commit check against the live record caught the collision, held the write with zero corruption, and corrected the sequence without altering the author's text. The discipline the log documents caught the log's own append.</p>
+<p>An append to the log of field evidence itself was composed from a stale local copy and arrived out of sequence. The check before commit against the live record caught the collision, held the write with zero corruption, and corrected the sequence without altering the author's text. The discipline the log documents caught the log's own append.</p>
 
 <h3>The record corrected the reviewer.</h3>
-<p>A ruling cited a mechanism as the fix. A live read of the actual system showed that mechanism could not do what the ruling assumed. The layer corrected the mechanism to match the ruling's intent, under independent authority, without relitigating the decision. Substrate beat artifact, and it bound the rule-author too.</p>
+<p>A ruling cited a mechanism as the fix. A live read of the actual system showed that mechanism could not do what the ruling assumed. The layer corrected the mechanism to match the ruling's intent, under independent authority, without relitigating the decision. Substrate beat artifact, and it bound the author of the rule too.</p>
 
 <p style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.04em;color:#7E8A90;margin-top:34px;text-transform:uppercase">Field evidence, cleared subset · offered as existence, not completeness · cite by version</p>
 </article></div>
